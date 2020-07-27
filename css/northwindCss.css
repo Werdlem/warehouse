@@ -1,0 +1,8 @@
+@charset "utf-8";
+/* CSS Document */
+@import url("bootstrap.min.css");
+
+#vertical-menu{width: 10%; float: left}
+#ng-view{float: left}
+.contentView{float: left; width: 80%}
+label{font-weight: bold; line-height: 0.0}
