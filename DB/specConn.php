@@ -31,7 +31,9 @@ public function getStockQuantity($id){
     $stmt = $pdo->prepare('select * 
       FROM adjustments
       where
-      SkuID  = :pId');
+      SkuID  = :pId
+      order BY
+      date desc');
     $stmt->bindValue(':pId', $id);
     $stmt->execute();
     if($stmt->rowCount()>0){

@@ -1,4 +1,4 @@
-  <div class="tab-pane fade show active" id="adjustments" role="tabpanel" aria-labelledby="adjustments-tab">
+  
   	<table class="table">
 	<tr>
 		<th>Ajust in</th>

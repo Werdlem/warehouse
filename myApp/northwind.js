@@ -90,7 +90,7 @@ var myApp = angular.module('myApp', ["ngRoute"])
 		})
 	})
 
-myApp.controller('products', function($scope, $http){
+myApp.controller('products', function($scope, $http, $location){
 
 this.Adj={};
 	$scope.AdjIn = ()=>{		
@@ -99,8 +99,11 @@ this.Adj={};
 		url: './jsonData/skuAdjust.json.php',
 		data: {details:this.Adj, 
 		SkuID: $scope.selectedProduct.SkuID}
-	})
-}
+	}).then((response)=>{
+			$scope.getProductHistory();
+			 $('#soModal').modal('exit');
+		});
+};
 
 	this.newP={};
 	this.addProduct = ()=>{
