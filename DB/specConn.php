@@ -126,10 +126,10 @@ public function getStockQuantity($id){
       FROM goods_in gi
       JOIN
       products p ON
-      gi.Sku=p.sku
-      
+      gi.Sku=p.sku      
       where
-      gi.Sku  = :pId');
+      gi.Sku  = :pId
+      order by DeliveryDate desc');
     $stmt->bindValue(':pId', $pId);
     $stmt->execute();
     if($stmt->rowCount()>0){
@@ -193,7 +193,7 @@ p.Sku=go.sku
 OR
 a.Alias=go.sku
 where 
-p.SkuID = :pId
+p.SkuID = :pId and QtyDespatched > "0"
 ORDER BY 
 go.DueDate desc
 ');

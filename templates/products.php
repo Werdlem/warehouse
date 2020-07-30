@@ -95,7 +95,7 @@
 		<div class="overflow-auto">
 		<td>{{x.OrderID}}</td>
 		<td>{{x.DueDate | date: 'dd/MM/yyyy'}}</td>
-		<td>{{x.DispatchDate | date: 'dd-MM-YYYY'}}</td>
+		<td>{{x.despatch | date: 'dd-MM-YYYY'}}</td>
 		<td>{{x.QtyDelivered}}</td>
 		</div>
 	</tr>
