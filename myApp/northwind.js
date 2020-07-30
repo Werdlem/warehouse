@@ -10,7 +10,8 @@ var myApp = angular.module('myApp', ["ngRoute"])
 		.when("/suppliers",{controller: 'suppliers as s',templateUrl :"/templates/suppliers.php"})
 		.when("/supplierDetails",{controller: 'suppliers as s',	templateUrl: '/templates/supplierDetails'})
 		.when("/products",{templateUrl : "/templates/products.php"})
-		.when("/addProduct",{templateUrl : "/templates/addProduct.php"})
+		.when("/addProduct",{templateUrl : "/templates/addProduct.php", controller: 'products as pr'})
+		.when("/addAlias",{templateUrl : "/templates/addProduct.php", controller: 'products as pr'})
 		.when("/salesOrder",{controller: "salesOrder as so",templateUrl : "/templates/salesOrder.php"})
 		.when("/purchaseOrder",{controller: "purchaseOrder as po",templateUrl : "/templates/purchaseOrder.php"});
 		 $locationProvider
@@ -92,13 +93,36 @@ var myApp = angular.module('myApp', ["ngRoute"])
 
 myApp.controller('products', function($scope, $http, $location){
 
+	this.a={};
+	$scope.addAlias=()=>{
+		$http({
+			method: 'POST',
+			url: './jsonData/addAlias.json.php',
+			data: {Alias:this.a,
+			SkuID: $scope.selectedProduct.SkuID,}			
+		});
+	}
+
 this.Adj={};
 	$scope.AdjIn = ()=>{		
 		$http({		
 		method: 'POST',
 		url: './jsonData/skuAdjust.json.php',
 		data: {details:this.Adj, 
-		SkuID: $scope.selectedProduct.SkuID}
+		SkuID: $scope.selectedProduct.SkuID,
+		adj: 'in'}
+	}).then((response)=>{
+			$scope.getProductHistory();
+			 $('#soModal').modal('exit');
+		});
+};
+$scope.AdjOut = ()=>{		
+		$http({		
+		method: 'POST',
+		url: './jsonData/skuAdjust.json.php',
+		data: {details:this.Adj, 
+		SkuID: $scope.selectedProduct.SkuID,
+		adj: 'out'}
 	}).then((response)=>{
 			$scope.getProductHistory();
 			 $('#soModal').modal('exit');
@@ -136,15 +160,10 @@ this.Adj={};
 			data: {cId: $scope.selectedCategory.CategoryId}
 		}).then(function(response){
 			$scope.getProducts = response.data;
-		})
+			
+	})
 
-		$http({
-			method: 'POST',
-			url: './jsonData/getSkuQty.json.php',
-			data: {pID: $scope.selectedProduct.SkuID}
-		}).then(function(response){
-			$scope.getSkuQty = response.data;
-		})
+		
 	}
 
 	$scope.getProductHistory2 =()=>{
@@ -157,6 +176,13 @@ this.Adj={};
 		})
 	}
 	$scope.getProductHistory =()=>{
+		$http({
+			method: 'POST',
+			url: './jsonData/getSkuQty.json.php',
+			data: {pID: $scope.selectedProduct.SkuID}
+		}).then(function(response){
+			$scope.getSkuQty = response.data;
+		})
 		$http({
 			method: 'POST',
 			url: './jsonData/getProductHistory.json.php',

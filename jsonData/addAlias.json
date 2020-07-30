@@ -2,8 +2,10 @@
 
 require_once ('../DB/specConn.php');
 $data = json_decode(file_get_contents("php://input"));
-$id = $data->pId;
+$SkuID = $data->SkuID;
+$alias = $data->Alias->alias;
+$initials = $data->Alais->initials;
 $dal = new products();
-$fetch = $dal->getAdjustments($id);
+$fetch = $dal->addAlais($SkuID,$alias, $initials);
 
 echo json_encode($fetch);

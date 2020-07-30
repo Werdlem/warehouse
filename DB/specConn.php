@@ -3,11 +3,38 @@ require_once('settings.php');
 
 class products{
 
+  #add product alias
+   public function addAlias($skuID,$alias, $initials){
+  $pdo = Database::DB();
+    $stmt = $pdo->prepare('insert into 
+      alias
+      (SkuID,Alias,Initials)
+      values
+      (?,?,?)
+      ');
+   
+    $stmt->bindValue(1, $skuID);   
+    $stmt->bindValue(2, $alias);
+    $stmt->bindValue(3, $initials);
+   
+    $stmt->execute();
+    }
+
+  #Products stock quantity update
+
+  public function SkuStockUpdate(){
+      $pdo = Database::DB();
+      $stmt = $pdo->prepare('call UpdateStock()
+      ');
+      $stmt->execute();     
+    
+    }
+
   #GET STOCK QTY
 public function getStockQuantity($id){
   $pdo = Database::DB();
     $stmt = $pdo->prepare('
-      sELECT SUM(qty_delivered) AS total
+      sELECT SUM(QtyDelivered) AS total
       FROM
       products p
       JOIN alias a oN p.SkuID=a.SkuID
@@ -36,24 +63,35 @@ public function getStockQuantity($id){
       date desc');
     $stmt->bindValue(':pId', $id);
     $stmt->execute();
-    if($stmt->rowCount()>0){
     return$stmt->fetchAll(PDO::FETCH_ASSOC);
-  }
-  else{
-    echo 'No Data!';
-  }
-   
+      
   }
 
   public function adjIn($skuID, $qty, $initials,$reason){
   $pdo = Database::DB();
     $stmt = $pdo->prepare('insert into 
       adjustments
-      (skuID,AdjustIn,Initials,Reason)
+      (SkuID,AdjustIn,Initials,Reason)
       values
       (?,?,?,?)
       ');
-    $stmt->bindValue(1, $skuID);
+   
+    $stmt->bindValue(1, $skuID);   
+    $stmt->bindValue(2, $qty);
+    $stmt->bindValue(3, $initials);
+    $stmt->bindValue(4, $reason);
+    $stmt->execute();
+    }
+    public function adjOut($skuID, $qty, $initials,$reason){
+  $pdo = Database::DB();
+    $stmt = $pdo->prepare('insert into 
+      adjustments
+      (SkuID,AdjustOut,Initials,Reason)
+      values
+      (?,?,?,?)
+      ');
+   
+    $stmt->bindValue(1, $skuID);   
     $stmt->bindValue(2, $qty);
     $stmt->bindValue(3, $initials);
     $stmt->bindValue(4, $reason);
@@ -124,7 +162,7 @@ public function getStockQuantity($id){
   public function getProductsByCategory($cId){
   $pdo = Database::DB();
     $stmt = $pdo->prepare('select *,
-      (sELECT SUM(qty_delivered) AS total
+      (sELECT SUM(QtyDelivered) AS total
       FROM
       products pr
       JOIN alias a oN pr.SkuID=a.SkuID
@@ -141,7 +179,7 @@ public function getStockQuantity($id){
 
   public function getProductHistory($pId){
   $pdo = Database::DB();
-    $stmt = $pdo->prepare('SELECT go.orderID, p.skuID,p.sku, alias, go.DueDate, go.qty_delivered, go.DispatchDate
+    $stmt = $pdo->prepare('SELECT go.orderID, p.skuID,p.sku, alias, go.DueDate, go.QtyDelivered, go.DispatchDate
 FROM
 products p
  JOIN

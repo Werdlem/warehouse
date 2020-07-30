@@ -11,12 +11,34 @@
 	<p>Location: {{selectedProduct.Location_ID}}</p>
 	<p>Quantity Per Unit: {{selectedProduct.QuantityPerUnit}}</p>
 	<p>Unit Price: {{selectedProduct.UnitPrice}}</p>
-	<p>Units In Stock: {{selectedProduct.total | number: '0'}}</p>
+	<p>Units In Stock: {{selectedProduct.StockQty | number: '0'}}</p>
 	<p>Units On Order: {{selectedProduct.UnitsOnOrder}}</p>
-	<p><button type="button" class="btn btn-primary" data-toggle="modal" disabled data-target="#soModal">New SO</button>
+	<p><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#aliasModal">Add Alias</button>
 		<button type="button" class="btn btn-success" disabled go-click="/purchaseOrder">New PO</button>
 		<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#soModal">Adjustment</button>
 	</p>
+
+	<div class="modal fade" id="aliasModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Alias</h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p><label>Alias:</label> <input type="text" ng-model="pr.a.alias"></p>
+        <p><label>Initials:</label> <input type="text" ng-model="pr.a.initials" maxlength="2" size="1"></p>
+      </div>
+      <div class="modal-footer">        
+        <button type="button" class="btn btn-success" ng-show="pr.a.initials" ng-model="pr.a" ng-click="addAlias()">Add</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 	<!--Adjustment Modal-->
 	<!-- Modal -->
@@ -74,7 +96,7 @@
 		<td>{{x.OrderID}}</td>
 		<td>{{x.DueDate | date: 'dd/MM/yyyy'}}</td>
 		<td>{{x.DispatchDate | date: 'dd-MM-YYYY'}}</td>
-		<td>{{x.qty_delivered}}</td>
+		<td>{{x.QtyDelivered}}</td>
 		</div>
 	</tr>
 
