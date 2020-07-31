@@ -2,6 +2,16 @@
 require_once('settings.php');
 
 class products{
+  #UPDATESTOCK
+
+  public function StockUpdate(){
+      $pdo = Database::DB();
+      $stmt = $pdo->prepare('call UpdateStock()
+      ');
+      $stmt->execute();     
+    
+    }
+
 
   #add product alias
    public function addAlias($skuID,$alias, $initials){
@@ -34,15 +44,12 @@ class products{
 public function getStockQuantity($id){
   $pdo = Database::DB();
     $stmt = $pdo->prepare('
-      sELECT SUM(QtyDelivered) AS total
-      FROM
-      products p
-      JOIN alias a oN p.SkuID=a.SkuID
-      JOIN goods_out go ON p.Sku=go.sku OR a.Alias=go.sku OR a.Alias=go.desc1sku
-      WHERE 
-      p.SkuID = :pId
+      SELECT StockQty
+      from products p
+      where 
+      p.SkuID = :pID
       ');
-    $stmt->bindValue(':pId', $id);
+    $stmt->bindValue(':pID', $id);
     $stmt->execute();
     if($stmt->rowCount()>0){
     return$stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -193,7 +200,7 @@ p.Sku=go.sku
 OR
 a.Alias=go.sku
 where 
-p.SkuID = :pId and QtyDespatched > "0"
+p.SkuID = :pId and QtyDelivered > "0"
 ORDER BY 
 go.DueDate desc
 ');

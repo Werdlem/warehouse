@@ -1,6 +1,6 @@
 <?php include ('./menuItems/productsMenu.html');?>
 
-<div ng-controller="products as pr" style="padding: 10px">
+<div  style="padding: 10px">
 	<p>Select Category: <select ng-model="selectedCategory" ng-options="x.CategoryName for x in getCategories" ng-change="selectProduct()"></select></p>
 	<p ng-show="selectedCategory">Select Product: <select ng-model="selectedProduct" ng-options="y.Sku for y in getProducts" ng-change="getProductHistory()"></select></p>
 	<div ng-show="selectedProduct">
@@ -11,12 +11,13 @@
 	<p>Location: {{selectedProduct.Location_ID}}</p>
 	<p>Quantity Per Unit: {{selectedProduct.QuantityPerUnit}}</p>
 	<p>Unit Price: {{selectedProduct.UnitPrice}}</p>
-	<p>Units In Stock: {{selectedProduct.StockQty | number: '0'}}</p>
+	<p>Units In Stock: <input type="text" ng-model="pr.getSkuQty.StockQty"></p>
 	<p>Units On Order: {{selectedProduct.UnitsOnOrder}}</p>
 	<p><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#aliasModal">Add Alias</button>
 		<button type="button" class="btn btn-success" disabled go-click="/purchaseOrder">New PO</button>
 		<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#soModal">Adjustment</button>
 	</p>
+	<p>Units In Stock: <span></span>
 
 	<div class="modal fade" id="aliasModal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
@@ -39,7 +40,6 @@
     </div>
   </div>
 </div>
-
 	<!--Adjustment Modal-->
 	<!-- Modal -->
 <div class="modal fade" id="soModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -61,7 +61,7 @@
       <div class="modal-footer">        
         <button type="button" class="btn btn-success" ng-show="pr.Adj.initials" ng-model="pr.Adj.AdjIn" ng-click="AdjIn()">Adjust In</button>
         <button type="button" class="btn btn-danger" ng-show="pr.Adj.initials" ng-model="pr.Adj.AdjOut" ng-click="AdjOut()">Adjust Out</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="reloadRoute()">Close</button>
       </div>
     </div>
   </div>
@@ -76,10 +76,9 @@
     <a class="nav-link" id="orders-tab" data-toggle="tab" href="#orders" role="tab" aria-controls="orders" target="_self" aria-selected="false" ng-click="getProductHistory()">Goods In</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="adjustments-tab" data-toggle="tab" href="#adjustments" role="tab" aria-controls="adjustments" target="_self" aria-selected="false" ng-click="getProductHistory()">Adjustments</a>
+    <a class="nav-link" id="adjustments-tab" data-toggle="tab" href="#adjustments" role="tab" aria-controls="adjustments" target="_self" aria-selected="false" ng-click="StockUpdate()">Adjustments</a>
   </li>
 </ul>
-
 <div class="tab-content" id="myTabContent">
   <div class="tab-pane fade show active" id="sales" role="tabpanel" aria-labelledby="sales-tab">
   	<table class="table">

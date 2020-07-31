@@ -9,7 +9,7 @@ var myApp = angular.module('myApp', ["ngRoute"])
 		.when("/customerDetails",{controller: 'customers as cu',templateUrl : "/templates/customerDetails.php"})
 		.when("/suppliers",{controller: 'suppliers as s',templateUrl :"/templates/suppliers.php"})
 		.when("/supplierDetails",{controller: 'suppliers as s',	templateUrl: '/templates/supplierDetails'})
-		.when("/products",{templateUrl : "/templates/products.php"})
+		.when("/products",{controller: 'products as pr',templateUrl : "/templates/products.php"})
 		.when("/addProduct",{templateUrl : "/templates/addProduct.php", controller: 'products as pr'})
 		.when("/addAlias",{templateUrl : "/templates/addProduct.php", controller: 'products as pr'})
 		.when("/salesOrder",{controller: "salesOrder as so",templateUrl : "/templates/salesOrder.php"})
@@ -91,7 +91,7 @@ var myApp = angular.module('myApp', ["ngRoute"])
 		})
 	})
 
-myApp.controller('products', function($scope, $http, $location){
+myApp.controller('products', function($scope, $http, $location, $route){
 
 	this.a={};
 	$scope.addAlias=()=>{
@@ -161,10 +161,23 @@ $scope.AdjOut = ()=>{
 		}).then(function(response){
 			$scope.getProducts = response.data;
 			
-	})
-
-		
+	})		
 	}
+	$scope.StockUpdate =()=>{
+		$http({
+			method: 'POST',
+			url:'./jsonData/UpdateStock.json.php'
+		})
+}
+
+	$http({
+			method: 'POST',
+			url: './jsonData/getSkuQty.json.php',
+			data: {pID: $scope.selectedProduct.SkuID}
+		}).then(function(response){
+			$scope.getSkuQty = response.data;
+		});
+	
 
 	$scope.getProductHistory2 =()=>{
 		$http({
@@ -182,21 +195,22 @@ $scope.AdjOut = ()=>{
 			data: {pID: $scope.selectedProduct.SkuID}
 		}).then(function(response){
 			$scope.getSkuQty = response.data;
-		})
+		});
+		
 		$http({
 			method: 'POST',
 			url: './jsonData/getProductHistory.json.php',
 			data: {pId: $scope.selectedProduct.SkuID}
 		}).then(function(response){
 			$scope.getHistory = response.data;
-		})
+		});
 		$http({
 			method: 'POST',
 			url: './jsonData/getProductOrderHistory.json.php',
 			data: {pId: $scope.selectedProduct.Sku}
 		}).then(function(response){
 			$scope.getOrderHistory = response.data;
-		})
+		});
 		$http({
 			method: 'POST',
 			url: './jsonData/getAdjustments.json.php',
