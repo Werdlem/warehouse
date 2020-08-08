@@ -6,6 +6,7 @@
 		<th>Reason</th>
 		<th>Initials</th>
 		<th>Date</th>
+		<th></th>
 		
 	</tr>
 	
@@ -16,6 +17,7 @@
 		<td>{{x.Reason}}</td>
 		<td>{{x.Initials}}</td>
 		<td>{{x.Date}}</td>
+		<td><button class="btn btn-outline-danger btn-sm" ng-click="delete(x.id)">Delete</button></td>
 		</div>
 	</tr>
 

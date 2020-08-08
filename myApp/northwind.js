@@ -93,6 +93,33 @@ var myApp = angular.module('myApp', ["ngRoute"])
 
 myApp.controller('products', function($scope, $http, $location, $route){
 
+	$scope.delete =(id)=>{
+		$http({
+			method:'POST',
+			url:'/jsonData/productsAction.php',
+			data: {action: 'deleteAdj',
+			id: id}
+		}).then((response)=>{
+				$http({
+			method: 'POST',
+			url: './jsonData/getAdjustments.json.php',
+			data: {pId: $scope.selectedProduct.SkuID}
+		}).then(function(response){
+			$scope.getSkuAdjustments = response.data;
+		})
+		})
+	}
+
+	$scope.getSkuAlias=()=>{
+		$http({
+			method: 'POST',
+			url: './jsonData/getSkuAlias.json.php',
+			data: $scope.selectedProduct.SkuId			
+		}).then((response)=>{
+			$scope.getSkuAlias = response.data;
+		})
+	}
+
 	this.a={};
 	$scope.addAlias=()=>{
 		$http({
@@ -107,34 +134,54 @@ this.Adj={};
 	$scope.AdjIn = ()=>{		
 		$http({		
 		method: 'POST',
-		url: './jsonData/skuAdjust.json.php',
+		url: './jsonData/productsAction.php',
 		data: {details:this.Adj, 
 		SkuID: $scope.selectedProduct.SkuID,
-		adj: 'in'}
-	}).then((response)=>{
-			$scope.getProductHistory();
-			 $('#soModal').modal('exit');
+		action: 'in'}
+	})
+		$http({
+			method: 'POST',
+			url:'./jsonData/UpdateStock.json.php'
+		}).then((response)=>{
+		$http({
+			method: 'POST',
+			url: './jsonData/getSkuQty.json.php',
+			data: {pID: $scope.selectedProduct.SkuID}
+		}).then((response)=>{
+			$scope.getSkuQty = response.data;
 		});
+	})
+		
 };
 $scope.AdjOut = ()=>{		
 		$http({		
 		method: 'POST',
-		url: './jsonData/skuAdjust.json.php',
+		url: './jsonData/productsAction.php',
 		data: {details:this.Adj, 
 		SkuID: $scope.selectedProduct.SkuID,
-		adj: 'out'}
-	}).then((response)=>{
-			$scope.getProductHistory();
-			 $('#soModal').modal('exit');
+		action: 'out'}
+	})
+		$http({
+			method: 'POST',
+			url:'./jsonData/UpdateStock.json.php'
+		}).then(function(response){
+		$http({
+			method: 'POST',
+			url: './jsonData/getSkuQty.json.php',
+			data: {pID: $scope.selectedProduct.SkuID}
+		}).then(function(response){
+			$scope.getSkuQty = response.data;
 		});
+	})
 };
 
 	this.newP={};
 	this.addProduct = ()=>{
 		$http({
 			method: 'POST',
-			url: './jsonData/addProduct.json.php',
-			data: this.newP				
+			url: './jsonData/productsAction.php',
+			data: {newP:this.newP,
+				action: 'addProduct'}				
 		});
 	}
 
@@ -159,10 +206,10 @@ $scope.AdjOut = ()=>{
 			url: './jsonData/getProductsByCategory.json.php',
 			data: {cId: $scope.selectedCategory.CategoryId}
 		}).then(function(response){
-			$scope.getProducts = response.data;
-			
-	})		
-	}
+			$scope.getProducts = response.data;			
+	})
+
+}
 	$scope.StockUpdate =()=>{
 		$http({
 			method: 'POST',
@@ -170,15 +217,7 @@ $scope.AdjOut = ()=>{
 		})
 }
 
-	$http({
-			method: 'POST',
-			url: './jsonData/getSkuQty.json.php',
-			data: {pID: $scope.selectedProduct.SkuID}
-		}).then(function(response){
-			$scope.getSkuQty = response.data;
-		});
 	
-
 	$scope.getProductHistory2 =()=>{
 		$http({
 			method: 'POST',
@@ -189,6 +228,13 @@ $scope.AdjOut = ()=>{
 		})
 	}
 	$scope.getProductHistory =()=>{
+		$http({
+			method: 'POST',
+			url: './jsonData/getSkuAlias.json.php',
+			data: {pID: $scope.selectedProduct.SkuID}			
+		}).then((response)=>{
+			$scope.getSkuAlias = response.data;
+		})		
 		$http({
 			method: 'POST',
 			url: './jsonData/getSkuQty.json.php',

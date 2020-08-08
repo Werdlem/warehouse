@@ -2,6 +2,17 @@
 require_once('settings.php');
 
 class products{
+  #delete allocation
+  public function deleteAllocation($id){
+    $pdo = Database::DB();
+    $stmt = $pdo->prepare('delete 
+      from adjustments
+      where
+      id = :id
+      ');
+    $stmt->bindValue(':id', $id);
+    $stmt->execute();
+  }
   #UPDATESTOCK
 
   public function StockUpdate(){
@@ -12,6 +23,20 @@ class products{
     
     }
 
+  #fetch SkU alias's
+     public function getSkuAlias($id){
+  $pdo = Database::DB();
+    $stmt = $pdo->prepare('Select * 
+      from
+      alias
+      where
+      SkuID = :stmt
+      ');
+    $stmt->bindValue(':stmt', $id);
+     $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+      
+  }
 
   #add product alias
    public function addAlias($skuID,$alias, $initials){
@@ -44,7 +69,7 @@ class products{
 public function getStockQuantity($id){
   $pdo = Database::DB();
     $stmt = $pdo->prepare('
-      SELECT StockQty
+      SELECT StockQty as qty
       from products p
       where 
       p.SkuID = :pID
@@ -105,24 +130,23 @@ public function getStockQuantity($id){
     $stmt->execute();
     }
 
-  public function addProduct($ProductName,$SupplierID, $categoryID, $QuantityPerUnit,$CostPrice,$UnitPrice,$UnitsInStock,$UnitsOnOrder,$ReorderLevel,$Discontinued){
+  public function addProduct($ProductName, $categoryId, $QuantityPerUnit,$CostPrice,$UnitPrice,$UnitsInStock,$ReorderLevel){
   $pdo = Database::DB();
     $stmt = $pdo->prepare('insert into 
       products
-      (ProductName,SupplierID,categoryID,QuantityPerUnit,CostPrice,UnitPrice,UnitsInStock, UnitsOnOrder, ReorderLevel,Discontinued)
+      (Sku,categoryId,QuantityPerUnit,CostPrice,UnitPrice,StockQty, ReorderLevel)
       values
-      (?,?,?,?,?,?,?,?,?,?)
+      (?,?,?,?,?,?,?)
       ');
     $stmt->bindValue(1, $ProductName);
-    $stmt->bindValue(2, $SupplierID);
-    $stmt->bindValue(3, $categoryID);
-    $stmt->bindValue(4, $QuantityPerUnit);
-    $stmt->bindValue(5, $CostPrice);
-    $stmt->bindValue(6, $UnitPrice);
-    $stmt->bindValue(7,$UnitsOnOrder);
-    $stmt->bindValue(8, $UnitsOnOrder);
-    $stmt->bindValue(9, $ReorderLevel);
-    $stmt->bindValue(10, $Discontinued);
+    //$stmt->bindValue(2, $SupplierID);
+    $stmt->bindValue(2, $categoryId);
+    $stmt->bindValue(3, $QuantityPerUnit);
+    $stmt->bindValue(4, $CostPrice);
+    $stmt->bindValue(5, $UnitPrice);
+    $stmt->bindValue(6,$UnitsInStock);
+    //$stmt->bindValue(7, $UnitsOnOrder);
+    $stmt->bindValue(7, $ReorderLevel);
     $stmt->execute();
     }
 
@@ -168,16 +192,9 @@ public function getStockQuantity($id){
 
   public function getProductsByCategory($cId){
   $pdo = Database::DB();
-    $stmt = $pdo->prepare('select *,
-      (sELECT SUM(QtyDelivered) AS total
-      FROM
-      products pr
-      JOIN alias a oN pr.SkuID=a.SkuID
-      JOIN goods_out go ON pr.Sku=go.sku OR a.Alias=go.sku OR a.Alias=go.desc1sku
-      WHERE 
-      pr.SkuID = p.SkuID) as total
+    $stmt = $pdo->prepare('select *
       from 
-      products p     
+      products p
       where p.CategoryId = :cId');
     $stmt->bindValue(':cId', $cId);
     $stmt->execute();
@@ -186,7 +203,7 @@ public function getStockQuantity($id){
 
   public function getProductHistory($pId){
   $pdo = Database::DB();
-    $stmt = $pdo->prepare('SELECT go.orderID, p.skuID,p.sku, alias, go.DueDate, go.QtyDelivered, go.DispatchDate
+    $stmt = $pdo->prepare('SELECT go.orderID, p.skuID,p.sku, alias, go.DueDate, go.QtyDelivered, go.DispatchDate, go.despatch
 FROM
 products p
  JOIN

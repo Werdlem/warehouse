@@ -6,18 +6,18 @@
 	<div ng-show="selectedProduct">
 <h1>Product Details</h1>
 
-	<p>Product Name: {{selectedProduct.Sku}}</p>
-	<p>Product Description {{selectedProduct.description}}</p>
+	<p>Product Name: <input type="text" ng-model="selectedProduct.Sku" ng-click="editProduct()" style="border:0"></p>
+	<p>Product Description: {{selectedProduct.description}}</p>
+	<p>Sku Alias's: <select ng-model="selectedSkuAliasList" ng-options="x.Alias for x in getSkuAlias"></select></p>
 	<p>Location: {{selectedProduct.Location_ID}}</p>
 	<p>Quantity Per Unit: {{selectedProduct.QuantityPerUnit}}</p>
 	<p>Unit Price: {{selectedProduct.UnitPrice}}</p>
-	<p>Units In Stock: <input type="text" ng-model="pr.getSkuQty.StockQty"></p>
-	<p>Units On Order: {{selectedProduct.UnitsOnOrder}}</p>
-	<p><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#aliasModal">Add Alias</button>
-		<button type="button" class="btn btn-success" disabled go-click="/purchaseOrder">New PO</button>
-		<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#soModal">Adjustment</button>
+	<p>Units In Stock: {{getSkuQty[0].qty}}</p>
+	<p>Buffer: {{selectedProduct.buffer_qty}}</p>
+	<p><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#aliasModal">Add Alias</button>
+		<button type="button" class="btn btn-success btn-sm" disabled go-click="/purchaseOrder">New PO</button>
+		<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#soModal">Adjustment</button>
 	</p>
-	<p>Units In Stock: <span></span>
 
 	<div class="modal fade" id="aliasModal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
@@ -48,7 +48,7 @@
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Product Adjustment</h5>
 
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="getProductHistory()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -61,7 +61,7 @@
       <div class="modal-footer">        
         <button type="button" class="btn btn-success" ng-show="pr.Adj.initials" ng-model="pr.Adj.AdjIn" ng-click="AdjIn()">Adjust In</button>
         <button type="button" class="btn btn-danger" ng-show="pr.Adj.initials" ng-model="pr.Adj.AdjOut" ng-click="AdjOut()">Adjust Out</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="reloadRoute()">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="getProductHistory()">Close</button>
       </div>
     </div>
   </div>
