@@ -6,9 +6,12 @@
 	<div ng-show="selectedProduct">
 <h1>Product Details</h1>
 
-	<p>Product Name: <input type="text" ng-model="selectedProduct.Sku" ng-click="editProduct()" style="border:0"></p>
-	<p>Product Description: {{selectedProduct.description}}</p>
+	<p>Product Name: <input type="text" ng-model="selectedProduct.Sku" ng-change="editProduct(selectedProduct)"style="border:0"></p>
+	<p>Product Description: <input type="text" ng-model="selectedProduct.description"ng-change="editProduct(selectedProduct.description)"style="border:0"></p>
 	<p>Sku Alias's: <select ng-model="selectedSkuAliasList" ng-options="x.Alias for x in getSkuAlias"></select></p>
+	<p ng-repeat="x in getSkuAlias">
+		<label>{{x.Alias}}</label>
+	</p>
 	<p>Location: {{selectedProduct.Location_ID}}</p>
 	<p>Quantity Per Unit: {{selectedProduct.QuantityPerUnit}}</p>
 	<p>Unit Price: {{selectedProduct.UnitPrice}}</p>

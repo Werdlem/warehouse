@@ -92,6 +92,15 @@ var myApp = angular.module('myApp', ["ngRoute"])
 	})
 
 myApp.controller('products', function($scope, $http, $location, $route){
+	$scope.editProduct =()=>{
+		$http({
+			method:'POST',
+			url:'/jsonData/productsAction.php',
+			data: {action: 'editProduct',
+			details: $scope.selectedProduct
+		}
+	})
+}
 
 	$scope.delete =(id)=>{
 		$http({
