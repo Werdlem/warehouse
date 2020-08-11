@@ -47,4 +47,18 @@ switch ($action) {
 $fetch = $dal->addProduct($ProductName, $CategoryId, $QuantityPerUnit,$CostPrice,$UnitPrice,$UnitsInStock,$UnitsOnOrder,$ReorderLevel);
 echo json_encode($fetch);
 		break;
+
+	#edit selected product
+	case 'editProduct':
+		$Sku = $data->details->Sku;
+		$Desc = $data->details->description;
+		$QuantityPerUnit = $data->details->QuantityPerUnit;
+		$UnitPrice = $data->details->UnitPrice;
+		$ReorderLevel = $data->details->ReorderLevel;
+		$CategoryId = $data->details->CategoryId;
+		$OrderQty = $data->details->OrderQty;
+		$SkuID = $data->details->SkuID;
+		
+		$fetch = $dal->editProduct($Sku, $Desc,$QuantityPerUnit,$UnitPrice,$ReorderLevel,$CategoryId,$OrderQty, $SkuID);
+
 }

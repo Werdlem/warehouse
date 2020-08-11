@@ -8,8 +8,8 @@
 
 	<p>Product Name: <input type="text" ng-model="selectedProduct.Sku" ng-change="editProduct(selectedProduct)"style="border:0"></p>
 	<p>Product Description: <input type="text" ng-model="selectedProduct.description"ng-change="editProduct(selectedProduct.description)"style="border:0"></p>
-	<!--<p>Sku Alias's: <select ng-model="selectedSkuAliasList" ng-options="x.Alias for x in getSkuAlias"></select></p>-->
-	<p>Sku Alias: <span ng-repeat="x in getSkuAlias" style="padding-left: 0.5em" >{{x.Alias}} <a href="#">x</a></span> <br/>
+	<p>Sku Alias's: <select ng-model="selectedSkuAliasList" ng-options="x.Alias for x in getSkuAlias"></select></p>
+	<p>Sku Alias: <span ng-repeat="x in getSkuAlias" style="padding-left: 1em" >{{x.Alias}} <button type="button" class="btn btn-danger btn-sm">Del</button> </span> <br/>
 	</p>
 	<p>Location: {{selectedProduct.Location_ID}}</p>
 	<p>Quantity Per Unit: {{selectedProduct.QuantityPerUnit}}</p>
