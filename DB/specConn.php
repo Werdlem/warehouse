@@ -3,6 +3,21 @@ require_once('settings.php');
 
 class products{
   #edit product
+  public function updateProduct($sku, $Desc,$Qpu,$UnitPrice,$ReorderLevel,$Notes){
+    $pdo = Database::DB();
+    $stmt = $pdo->prepare('update products
+      set Sku = :sku, Description = :desc, QuantityPerUnit = :Qpu, UnitPrice = :UnitPrice, ReorderLevel = :ReorderLevel, Notes = :notes
+      where
+      SkuID = :SkuID
+      ');
+    $stmt->bindValue(':sku', $Sku);
+    $stmt->bindValue(':desc', $Desc);
+    $stmt->bindValue(':Qpu',$Qpu);
+    $stmt->bindValue(':UnitPrice', $UnitPrice);
+    $stmt->bindValue(':ReorderLevel', $ReorderLevel);
+    $stmt->bindValue(':notes',$Notes);
+    $stmt->execute();
+  }
 
   #UPDATE `stock`.`products` SET `alias_1`='A' WHERE  `SkuID`=7
 

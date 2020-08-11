@@ -22,6 +22,8 @@
 	<p>Unit Price: {{selectedProduct.UnitPrice}}</p>
 	<p>Units In Stock: {{getSkuQty[0].qty}}</p>
 	<p>Buffer: {{selectedProduct.buffer_qty}}</p>
+	<p>{{selectedProduct.Discontinued}}</p>
+	<p>Discontinued:  <input  type="checkBox" ng-model="selectedProduct.Discontinued" ng-change="editProduct(selectedProduct)"></p>
 </div>
 	
 <!-- Modals -->
@@ -43,10 +45,11 @@
 <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-hidden="true">
   <?php include('../partials/addProductModal.php'); ?>
 </div>
+</div>
 
 <!-- end modals-->
 
-
+<div ng-show="selectedProduct">
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item">
     <a class="nav-link active" id="sales-tab" data-toggle="tab" href="#sales" role="tab" aria-controls="sales" target="_self" aria-selected="true" ng-click="getProductHistory()">Goods Out</a>
@@ -101,9 +104,9 @@
 	</table>
   </div>  
   <div class="tab-pane fade show" id="adjustments" role="tabpanel" aria-labelledby="adjustments-tab">
-  <?php include ('./partials/adjustments.php'); ?>
+  <?php include ('../partials/adjustments.php'); ?>
   
 </div>
-
+</div>
 </div>
 </div>
