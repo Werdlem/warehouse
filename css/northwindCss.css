@@ -6,3 +6,6 @@
 #ng-view{float: left}
 .contentView{float: left; width: 80%}
 label{font-weight: bold; line-height: 0.0}
+.btn.disabled, .btn:disabled {
+    opacity: .40;
+}

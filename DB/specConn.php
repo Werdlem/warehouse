@@ -2,6 +2,10 @@
 require_once('settings.php');
 
 class products{
+  #edit product
+
+  #UPDATE `stock`.`products` SET `alias_1`='A' WHERE  `SkuID`=7
+
   #delete allocation
   public function deleteAllocation($id){
     $pdo = Database::DB();

@@ -7,13 +7,17 @@ var myApp = angular.module('myApp', ["ngRoute"])
 		.when("/page2",{templateUrl : "/templates/page2.php"})
 		.when("/customers",{controller : 'customers as cu',templateUrl :"/templates/customers.php"})
 		.when("/customerDetails",{controller: 'customers as cu',templateUrl : "/templates/customerDetails.php"})
+		//suppliers
 		.when("/suppliers",{controller: 'suppliers as s',templateUrl :"/templates/suppliers.php"})
 		.when("/supplierDetails",{controller: 'suppliers as s',	templateUrl: '/templates/supplierDetails'})
-		.when("/products",{controller: 'products as pr',templateUrl : "/templates/products.php"})
-		.when("/addProduct",{templateUrl : "/templates/addProduct.php", controller: 'products as pr'})
-		.when("/addAlias",{templateUrl : "/templates/addProduct.php", controller: 'products as pr'})
-		.when("/salesOrder",{controller: "salesOrder as so",templateUrl : "/templates/salesOrder.php"})
-		.when("/purchaseOrder",{controller: "purchaseOrder as po",templateUrl : "/templates/purchaseOrder.php"});
+		//categories
+		.when("/categories",{controller:'categories as cat', templateUrl:'/templates/categories/categoryHome.php'})
+		//products
+		.when("/products",{controller: 'products as pr',templateUrl : "/templates/products/products.php"})
+		.when("/addProduct",{templateUrl : "/templates/products/addProduct.php", controller: 'products as pr'})
+		.when("/addAlias",{templateUrl : "/templates/products/addProduct.php", controller: 'products as pr'})
+		.when("/salesOrder",{controller: "salesOrder as so",templateUrl : "/templates/products/salesOrder.php"})
+		.when("/purchaseOrder",{controller: "purchaseOrder as po",templateUrl : "/templates/products/purchaseOrder.php"});
 		 $locationProvider
   .html5Mode(true)
   .hashPrefix('!');
@@ -34,6 +38,41 @@ var myApp = angular.module('myApp', ["ngRoute"])
     });
   };
 });
+
+	myApp.controller('modal', function($scope,$modal, items){
+		var modalInstance = $modal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'myModalContent.html',
+      controller: 'ModalInstanceCtrl',
+      size: size,
+      resolve: {
+        items: function () {
+          return $scope.items;
+        }
+      }
+    });
+	})
+
+	myApp.controller('categories', function($scope,$http, $location){
+
+	
+	$http({
+		method: 'GET',
+		url: './jsonData/getCategories.json.php'
+	}).then(function(response){
+		$scope.getCategories = response.data;
+	});
+		$scope.selectProduct =()=>{
+		$http({
+			method: 'POST',
+			url: './jsonData/getProductsByCategory.json.php',
+			data: {cId: $scope.selectedCategory.CategoryId}
+		}).then(function(response){
+			$scope.getProducts = response.data;			
+	})
+
+}
+	})
 
 	myApp.controller('suppliers', function($scope,$http, $location){
 		this.search = $location.search();

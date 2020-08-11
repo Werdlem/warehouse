@@ -59,6 +59,6 @@ echo json_encode($fetch);
 		$OrderQty = $data->details->OrderQty;
 		$SkuID = $data->details->SkuID;
 		
-		$fetch = $dal->editProduct($Sku, $Desc,$QuantityPerUnit,$UnitPrice,$ReorderLevel,$CategoryId,$OrderQty, $SkuID);
+		//$fetch = $dal->editProduct($Sku, $Desc,$QuantityPerUnit,$UnitPrice,$ReorderLevel,$CategoryId,$OrderQty, $SkuID);
 
 }

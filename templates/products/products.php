@@ -1,6 +1,12 @@
-<?php include ('./menuItems/productsMenu.html');?>
+<?php include ('../menuItems/productsMenu.html');?>
 
 <div  style="padding: 10px">
+  <p>
+    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addProductModal">Add Product</button>
+    <button type="button" class="btn btn-primary btn-sm" ng-disabled="!selectedProduct" data-toggle="modal" data-target="#aliasModal">Add Alias</button>
+    <button type="button" class="btn btn-success btn-sm" disabled go-click="/purchaseOrder">New PO</button>
+    <button type="button" class="btn btn-warning btn-sm" ng-disabled="!selectedProduct" data-toggle="modal" data-target="#soModal">Adjustment</button>
+  </p>
 	<p>Select Category: <select ng-model="selectedCategory" ng-options="x.CategoryName for x in getCategories" ng-change="selectProduct()"></select></p>
 	<p ng-show="selectedCategory">Select Product: <select ng-model="selectedProduct" ng-options="y.Sku for y in getProducts" ng-change="getProductHistory()"></select></p>
 	<div ng-show="selectedProduct">
@@ -16,59 +22,30 @@
 	<p>Unit Price: {{selectedProduct.UnitPrice}}</p>
 	<p>Units In Stock: {{getSkuQty[0].qty}}</p>
 	<p>Buffer: {{selectedProduct.buffer_qty}}</p>
-	<p><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#aliasModal">Add Alias</button>
-		<button type="button" class="btn btn-success btn-sm" disabled go-click="/purchaseOrder">New PO</button>
-		<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#soModal">Adjustment</button>
-	</p>
+</div>
+	
+<!-- Modals -->
 
+  
+  <!--Alias Modal-->
 	<div class="modal fade" id="aliasModal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Alias</h5>
-
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p><label>Alias:</label> <input type="text" ng-model="pr.a.alias"></p>
-        <p><label>Initials:</label> <input type="text" ng-model="pr.a.initials" maxlength="2" size="1"></p>
-      </div>
-      <div class="modal-footer">        
-        <button type="button" class="btn btn-success" ng-show="pr.a.initials" ng-model="pr.a" ng-click="addAlias()">Add</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
+  <?php include('../partials/aliasModal.php'); ?>
 </div>
 	<!--Adjustment Modal-->
-	<!-- Modal -->
 <div class="modal fade" id="soModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Product Adjustment</h5>
-
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="getProductHistory()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p><label>Sku: {{selectedProduct.Sku}}</label></p>
-        <p><label>Qty:</label> <input type="number" ng-model="pr.Adj.Qty"></p>
-        <p><label>Reason:</label> <input type="text" ng-model="pr.Adj.reason" size="30"></p>
-        <p><label>Initials:</label> <input type="text" ng-model="pr.Adj.initials" maxlength="2" size="1"></p>
-      </div>
-      <div class="modal-footer">        
-        <button type="button" class="btn btn-success" ng-show="pr.Adj.initials" ng-model="pr.Adj.AdjIn" ng-click="AdjIn()">Adjust In</button>
-        <button type="button" class="btn btn-danger" ng-show="pr.Adj.initials" ng-model="pr.Adj.AdjOut" ng-click="AdjOut()">Adjust Out</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="getProductHistory()">Close</button>
-      </div>
-    </div>
-  </div>
+  <?php include('../partials/productAdjustModal.php') ?>
 </div>
-	<!-- End Modal-->
+<!--Adjustment Modal-->
+<div class="modal fade" id="addProductModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <?php include('../partials/productAdjustModal.php') ?>
+</div>
+<!--Add Product-->
+<div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <?php include('../partials/addProductModal.php'); ?>
+</div>
+
+<!-- end modals-->
+
 
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item">
