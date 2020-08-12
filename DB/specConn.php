@@ -2,11 +2,51 @@
 require_once('settings.php');
 
 class products{
+  #seelct sku order request history
+
+  public function getSkuOrderReq($id){
+  $pdo = Database::DB();
+    $stmt = $pdo->prepare('Select * 
+      from
+      sku_order_request
+      where
+      SkuID = :stmt
+      ');
+    $stmt->bindValue(':stmt', $id);
+     $stmt->execute();
+   if($stmt->rowCount()>0){
+    return$stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
+  else{
+    echo 'No Data!';
+  }
+      
+  }
+  #sku order history
+  public function orderReq($SkuID, $Sku, $qty, $deliver, $po, $notes, $initials){
+  $pdo = Database::DB();
+    $stmt = $pdo->prepare('insert into 
+     sku_order_request
+      (SkuID, Sku, Qty, Deliver, Po, Notes, Initials)
+      values
+      (?,?,?,?,?,?,?)
+      ');
+   
+    $stmt->bindValue(1, $SkuID);   
+    $stmt->bindValue(2, $Sku);
+    $stmt->bindValue(3, $qty);
+    $stmt->bindValue(4, $deliver);
+    $stmt->bindValue(5, $po);
+    $stmt->bindValue(6, $notes); 
+    $stmt->bindValue(7,$initials); 
+    $stmt->execute();
+    }
+
   #edit product
-  public function updateProduct($sku, $Desc,$Qpu,$UnitPrice,$ReorderLevel,$Notes){
+  public function updateProduct($Sku, $Desc,$Qpu,$UnitPrice, $ReorderLevel,$Notes, $Discontinued, $CategoryId, $SkuID){
     $pdo = Database::DB();
     $stmt = $pdo->prepare('update products
-      set Sku = :sku, Description = :desc, QuantityPerUnit = :Qpu, UnitPrice = :UnitPrice, ReorderLevel = :ReorderLevel, Notes = :notes
+      set Sku = :sku, Description = :desc, QuantityPerUnit = :Qpu, UnitPrice = :UnitPrice, ReorderLevel = :ReorderLevel, Notes = :notes, Discontinued = :disc, CategoryId = :CategoryId
       where
       SkuID = :SkuID
       ');
@@ -16,6 +56,9 @@ class products{
     $stmt->bindValue(':UnitPrice', $UnitPrice);
     $stmt->bindValue(':ReorderLevel', $ReorderLevel);
     $stmt->bindValue(':notes',$Notes);
+    $stmt->bindValue(':disc', $Discontinued);
+    $stmt->bindValue(':CategoryId', $CategoryId);
+    $stmt->bindValue('SkuID', $SkuID);
     $stmt->execute();
   }
 
@@ -222,21 +265,23 @@ public function getStockQuantity($id){
 
   public function getProductHistory($pId){
   $pdo = Database::DB();
-    $stmt = $pdo->prepare('SELECT go.orderID, p.skuID,p.sku, alias, go.DueDate, go.QtyDelivered, go.DispatchDate, go.despatch
+    $stmt = $pdo->prepare('sELECT go.orderID, p.skuID,p.sku, a.alias, go.sku, go.desc1sku, go.DueDate, go.QtyDelivered, go.DispatchDate, go.despatch
 FROM
-products p
- JOIN
-alias a ON
-p.SkuID = a.SkuID
+products p 
+left join
+alias a on
+p.SkuID=a.SkuID
 JOIN
-goods_out go ON
-a.alias=go.Desc1Sku
-OR
-p.Sku=go.sku
-OR
-a.Alias=go.sku
-where 
-p.SkuID = :pId and QtyDelivered > "0"
+goods_out go on
+p.Sku = go.sku
+or 
+p.Sku = go.desc1sku
+or
+a.Alias = go.sku
+or
+a.Alias = go.desc1sku
+where
+p.SkuID = :pId and QtyDelivered > 0
 ORDER BY 
 go.DueDate desc
 ');

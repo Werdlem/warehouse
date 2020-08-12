@@ -23,36 +23,6 @@ var myApp = angular.module('myApp', ["ngRoute"])
   .hashPrefix('!');
 	});
 
-	myApp.directive( 'goClick', function ( $location ) {
-  return function ( scope, element, attrs ) {
-    var path;
-
-    attrs.$observe( 'goClick', function (val) {
-      path = val;
-    });
-
-    element.bind( 'click', function () {
-      scope.$apply( function () {
-        $location.path( path );
-      });
-    });
-  };
-});
-
-	myApp.controller('modal', function($scope,$modal, items){
-		var modalInstance = $modal.open({
-      animation: $scope.animationsEnabled,
-      templateUrl: 'myModalContent.html',
-      controller: 'ModalInstanceCtrl',
-      size: size,
-      resolve: {
-        items: function () {
-          return $scope.items;
-        }
-      }
-    });
-	})
-
 	myApp.controller('categories', function($scope,$http, $location){
 
 	
@@ -131,12 +101,25 @@ var myApp = angular.module('myApp', ["ngRoute"])
 	})
 
 myApp.controller('products', function($scope, $http, $location, $route){
+	this.order = {};
+	$scope.skuOrderRequest=(order)=>{
+		$http({
+			method:'POST',
+			url:'/jsonData/productsAction.php',
+			data: {action: 'orderReq',
+			details: order,
+			Sku: $scope.selectedProduct.Sku,
+			SkuID: $scope.selectedProduct.SkuID,
+		}
+	})
+}
 	$scope.editProduct =()=>{
 		$http({
 			method:'POST',
 			url:'/jsonData/productsAction.php',
 			data: {action: 'editProduct',
-			details: $scope.selectedProduct
+			details: $scope.selectedProduct,
+			category: $scope.editCategory
 		}
 	})
 }
@@ -267,6 +250,7 @@ $scope.AdjOut = ()=>{
 
 	
 	$scope.getProductHistory2 =()=>{
+		
 		$http({
 			method: 'POST',
 			url: './jsonData/getProductOrderHistory.json.php',
@@ -276,6 +260,14 @@ $scope.AdjOut = ()=>{
 		})
 	}
 	$scope.getProductHistory =()=>{
+		$http({
+			method: 'POST',
+			url: './jsonData/productsAction.php',
+			data: {action: 'skuOrderReq',
+			pId: $scope.selectedProduct.SkuID}
+		}).then(function(response){
+			$scope.getSkuOrderRequests = response.data;
+		})
 		$http({
 			method: 'POST',
 			url: './jsonData/getSkuAlias.json.php',
