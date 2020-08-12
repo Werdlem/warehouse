@@ -105,22 +105,17 @@ case 'orderReq':
 			$mailer = Swift_Mailer::newInstance($transport);			
 			$message = Swift_Message::newInstance('Please Order')
 			->setSubject('Product Order: ' .$Sku)
-			->setFrom($EMAIL_ORDERS_PU)
+			->setFrom($EMAIL_ORDERS_FROM)
 			->setCc($EMAIL_ORDERS_PU)
 			->setTo($EMAIL_ORDERS_TO)
 			
 			//Order Body//
 			
 			->setBody('<html>'.
-                '<head>Hello<br /><br /></head>'.
-                '<body>'.
-                'Please will you kindly order '. $qty . '(qty) of '.$Sku.'</a><br /><br />
+                'Please order '. $qty . '(qty) of '.$Sku.'</a><br /><br />
                 Direct Delivery: '.$delivery.'<br/>
                 PO: '.$po.'<br/>
-                Additional Notes: '.$notes.'<br/>
-
-                Kind Regards<br /><br />'.
-                'PostPack'.
+                Additional Notes: '.$notes.'<br/>'.
                 '</body>' .
                 '</html>',
                 'text/html'

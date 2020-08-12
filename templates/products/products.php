@@ -28,6 +28,8 @@
 
 	<p>Discontinued:  <input type="checkBox" ng-checked="selectedProduct.Discontinued==1" ng-model="selectedProduct.Discontinued" ng-change="editProduct(selectedProduct)"></p>
 
+  {{selectedProduct.Discontinued}}
+
 	
 <!-- Modals -->
 
