@@ -1,16 +1,17 @@
-<div  style="padding: 10px; border: 1px solid rgba(0,0,255,0.2); background-color: rgba(0,0,255,0.1); border-radius: 5px" >
- 
-    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addProductModal">Add Product</button>
-    <button type="button" class="btn btn-primary btn-sm" ng-disabled="!selectedProduct" data-toggle="modal" data-target="#aliasModal">Add Alias</button>
-    <button type="button" class="btn btn-success btn-sm" ng-disabled="!selectedProduct || selectedProduct.Discontinued==1" data-toggle="modal" data-target="#skuOrderRequestModal">New PO</button>
-    <button type="button" class="btn btn-warning btn-sm" ng-disabled="!selectedProduct" data-toggle="modal" data-target="#soModal">Adjustment</button>
- 
+
+
+ <?php include '../menuItems/productsMenu.html'; ?>
+    
 </div>
 <div id="container" style="box-shadow: 4px 11px 13px 10px #d4d4d4; border-radius: 5px; padding: 15px; margin-top: 5px">
 <br>
-	<p>Select Category: <select ng-model="selectedCategory" ng-options="x.CategoryName for x in getCategories" ng-change="selectProduct()"></select></p>
-	<p ng-show="selectedCategory">Select Product: <select ng-model="selectedProduct" ng-options="y.Sku for y in getProducts" ng-change="getProductHistory()"></select></p>
-	<div ng-show="selectedProduct">
+	<p>Search Product: <input type="text" ng-model="searchProducts"><button ng-click="searchProduct()">search</button></p>
+	<div ng-repeat="x in getProducts">
+	<label ng-model="selectedProduct.SkuID" ng-click="getProductHistory(x.SkuID, x.Sku)">{{x.Sku}}</div>
+	<select ng-show="searchProducts" ng-model="selectedProduct" ng-options="x.Sku for x in getProducts" ng-click="getProductHistory()"></p><br>
+</select>
+
+	<div>
 <h1>Product Details</h1>
 
 	<p>Product Name: <input type="text" ng-model="selectedProduct.Sku" ng-change="editProduct(selectedProduct)"style="border:0"></p>
@@ -32,28 +33,6 @@
 
 	
 <!-- Modals -->
-
-  <!--Sku Order Request Modal-->
-  <div class="modal fade" id="skuOrderRequestModal" tabindex="-1" role="dialog" aria-hidden="true">
-  <?php include('../partials/skuOrderRequestModal.php'); ?>
-</div>
-  <!--Alias Modal-->
-	<div class="modal fade" id="aliasModal" tabindex="-1" role="dialog" aria-hidden="true">
-  <?php include('../partials/aliasModal.php'); ?>
-</div>
-	<!--Adjustment Modal-->
-<div class="modal fade" id="soModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <?php include('../partials/productAdjustModal.php') ?>
-</div>
-<!--Adjustment Modal-->
-<div class="modal fade" id="addProductModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <?php include('../partials/productAdjustModal.php') ?>
-</div>
-<!--Add Product-->
-<div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-hidden="true">
-  <?php include('../partials/addProductModal.php'); ?>
-</div>
-</div>
 
 <!-- end modals-->
 

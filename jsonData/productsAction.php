@@ -146,10 +146,11 @@ case 'orderReq':
             else{
 				
 				echo "<div class='panel panel-danger'>
-<div class='panel-heading' style='text-align:center;'><h3>Order Failure</h3></div>
-<div class='panel-body'>
-				<p>Your order of <strong style='red'><a href='?action=activity&sku=". $Sku ."&sku_id=".$SkuID."'> ".$Sku." </a></strong> was not sent, please call the office with your order.</p>
-				</div></div>";
+						<div class='panel-heading' style='text-align:center;'><h3>Order Failure</h3></div>
+						<div class='panel-body'>
+						<p>Your order of <strong style='red'><a href='?action=activity&sku=". $Sku ."&sku_id=".$SkuID."'> ".$Sku." </a></strong> was not sent, please call the office with your order.</p>
+				</div>
+				</div>";
 				
 				}
 
@@ -161,4 +162,19 @@ case 'orderReq':
 		$fetch = $dal->getSkuOrderReq($id);
 
 		echo json_encode($fetch);
+
+		break;
+
+		case 'getLocation':
+		$SkuID = $data->pId;
+
+		$fetch = $dal->getLocations($SkuID);
+		echo json_encode($fetch);
+		break;
+
+	case 'searchProduct';
+	$Sku  =$data->Sku;
+	$fetch = $dal->searchProduct($Sku);
+	echo json_encode($fetch);
+
 }

@@ -2,7 +2,50 @@
 require_once('settings.php');
 
 class products{
-  #seelct sku order request history
+  #product search
+  public function searchProduct($Sku){
+  $pdo = Database::DB();
+    $stmt = $pdo->prepare('Select * 
+      from
+      products
+      where
+      Sku like :sku
+      ');
+    $stmt->bindValue(':sku', $Sku.'%');
+     $stmt->execute();
+   if($stmt->rowCount()>0){
+    return$stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
+  else{
+    echo 'No Data';
+  }
+      
+  }
+
+  #get Product Locations
+  public function getLocations($SkuID){
+  $pdo = Database::DB();
+    $stmt = $pdo->prepare('Select * 
+      from
+      location l
+      join products p
+      on
+      l.SkuID = p.SkuID
+      where
+      l.SkuID = :stmt
+      ');
+    $stmt->bindValue(':stmt', $SkuID);
+     $stmt->execute();
+   if($stmt->rowCount()>0){
+    return$stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
+  else{
+    echo 'No Data';
+  }
+      
+  }
+
+  #select sku order request history
 
   public function getSkuOrderReq($id){
   $pdo = Database::DB();

@@ -13,7 +13,7 @@ var myApp = angular.module('myApp', ["ngRoute"])
 		//categories
 		.when("/categories",{controller:'categories as cat', templateUrl:'/templates/categories/categoryHome.php'})
 		//products
-		.when("/products",{controller: 'products as pr',templateUrl : "/templates/products/products.php"})
+		.when("/products",{controller: 'products as pr',templateUrl : "/templates/products/searchProducts.php"})
 		.when("/addProduct",{templateUrl : "/templates/products/addProduct.php", controller: 'products as pr'})
 		.when("/addAlias",{templateUrl : "/templates/products/addProduct.php", controller: 'products as pr'})
 		.when("/salesOrder",{controller: "salesOrder as so",templateUrl : "/templates/products/salesOrder.php"})
@@ -101,6 +101,18 @@ var myApp = angular.module('myApp', ["ngRoute"])
 	})
 
 myApp.controller('products', function($scope, $http, $location, $route){
+
+		$scope.searchProduct=()=>{
+			$http({
+				method:'POST',
+				url: '/jsonData/productsAction.php',
+				data: {action: 'searchProduct',
+				Sku: $scope.searchProducts}
+			}).then((response)=>{
+				$scope.getProducts = response.data;
+			})
+		}
+
 	this.order = {};
 	$scope.skuOrderRequest=(order)=>{
 		$http({
@@ -259,7 +271,15 @@ $scope.AdjOut = ()=>{
 			$scope.getOrderHistory = response.data;
 		})
 	}
-	$scope.getProductHistory =()=>{
+	$scope.getProductHistory =(SkuID, Sku)=>{
+		$http({
+			method: 'POST',
+			url: './jsonData/productsAction.php',
+			data: {action: 'getLocation',
+			pId: $scope.selectedProduct.SkuID}
+		}).then(function(response){
+			$scope.getLocations = response.data;
+		})
 		$http({
 			method: 'POST',
 			url: './jsonData/productsAction.php',
