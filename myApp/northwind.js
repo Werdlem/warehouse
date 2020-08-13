@@ -111,6 +111,15 @@ myApp.controller('products', function($scope, $http, $location, $route){
 			}).then((response)=>{
 				$scope.getProducts = response.data;
 			})
+			$http({
+			method: 'POST',
+			url: './jsonData/productsAction.php',
+			data: {action: 'getLocation',
+			pId: $scope.getProducts.SkuID}
+		}).then(function(response){
+			$scope.getLocations = response.data;
+		})
+
 		}
 
 	this.order = {};

@@ -6,13 +6,25 @@
 <div id="container" style="box-shadow: 4px 11px 13px 10px #d4d4d4; border-radius: 5px; padding: 15px; margin-top: 5px">
 <br>
 	<p>Search Product: <input type="text" ng-model="searchProducts"><button ng-click="searchProduct()">search</button></p>
-	<div ng-repeat="x in getProducts">
-	<label ng-model="selectedProduct.SkuID" ng-click="getProductHistory(x.SkuID, x.Sku)">{{x.Sku}}</div>
-	<select ng-show="searchProducts" ng-model="selectedProduct" ng-options="x.Sku for x in getProducts" ng-click="getProductHistory()"></p><br>
-</select>
-
 	<div>
-<h1>Product Details</h1>
+<h1>Search Results</h1>
+
+<table class="table table-striped">
+<thead>
+	<tr>
+		<th>A</th>
+		<th>B</th>
+		<th>C</th>
+	</tr>
+</thead>
+<tbody>
+	<tr ng-repeat="x in getProducts">
+		<td>Sku</td>
+		<td>{{x.Sku}}</td>
+		<td ng-repeat="y in getLocations">{{y.Location}}</td>
+	</tr>
+</tbody>
+</table>
 
 	<p>Product Name: <input type="text" ng-model="selectedProduct.Sku" ng-change="editProduct(selectedProduct)"style="border:0"></p>
 	<p>Product Description: <input type="text" ng-model="selectedProduct.description"ng-change="editProduct(selectedProduct)"style="border:0"></p>

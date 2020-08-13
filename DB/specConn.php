@@ -7,9 +7,10 @@ class products{
   $pdo = Database::DB();
     $stmt = $pdo->prepare('Select * 
       from
-      products
+      products p
+      
       where
-      Sku like :sku
+      p.Sku like :sku
       ');
     $stmt->bindValue(':sku', $Sku.'%');
      $stmt->execute();
@@ -27,7 +28,7 @@ class products{
   $pdo = Database::DB();
     $stmt = $pdo->prepare('Select * 
       from
-      location l
+      locations l
       join products p
       on
       l.SkuID = p.SkuID
