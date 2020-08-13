@@ -166,7 +166,7 @@ case 'orderReq':
 		break;
 
 		case 'getLocation':
-		$SkuID = $data->pId;
+		$SkuID = $data->Sku;
 
 		$fetch = $dal->getLocations($SkuID);
 		echo json_encode($fetch);

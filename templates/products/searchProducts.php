@@ -14,14 +14,14 @@
 	<tr>
 		<th>A</th>
 		<th>B</th>
-		<th>C</th>
+		<th style="width: 5%">C</th>
 	</tr>
 </thead>
 <tbody>
 	<tr ng-repeat="x in getProducts">
 		<td>Sku</td>
 		<td>{{x.Sku}}</td>
-		<td ng-repeat="y in getLocations">{{y.Location}}</td>
+		<td ng-repeat="y in getProductLocation">{{y.Location}}</td>
 	</tr>
 </tbody>
 </table>

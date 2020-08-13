@@ -7,12 +7,15 @@ class products{
   $pdo = Database::DB();
     $stmt = $pdo->prepare('Select * 
       from
-      products p
-      
+    products p
+  
+      left JOIN locations l on
+      p.SkuID = l.SkuID
       where
-      p.Sku like :sku
+      p.Sku like :stmt
+      group by p.Sku
       ');
-    $stmt->bindValue(':sku', $Sku.'%');
+    $stmt->bindValue(':stmt', $Sku.'%');
      $stmt->execute();
    if($stmt->rowCount()>0){
     return$stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -28,12 +31,12 @@ class products{
   $pdo = Database::DB();
     $stmt = $pdo->prepare('Select * 
       from
-      locations l
-      join products p
-      on
-      l.SkuID = p.SkuID
+    products p
+  
+      right JOIN locations l on
+      p.SkuID = l.SkuID
       where
-      l.SkuID = :stmt
+      p.Sku = :stmt
       ');
     $stmt->bindValue(':stmt', $SkuID);
      $stmt->execute();

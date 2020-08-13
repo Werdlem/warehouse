@@ -101,8 +101,8 @@ var myApp = angular.module('myApp', ["ngRoute"])
 	})
 
 myApp.controller('products', function($scope, $http, $location, $route){
-
-		$scope.searchProduct=()=>{
+		this.x={};
+		$scope.searchProduct=(SkuID)=>{
 			$http({
 				method:'POST',
 				url: '/jsonData/productsAction.php',
@@ -110,14 +110,14 @@ myApp.controller('products', function($scope, $http, $location, $route){
 				Sku: $scope.searchProducts}
 			}).then((response)=>{
 				$scope.getProducts = response.data;
-			})
 			$http({
-			method: 'POST',
-			url: './jsonData/productsAction.php',
-			data: {action: 'getLocation',
-			pId: $scope.getProducts.SkuID}
-		}).then(function(response){
-			$scope.getLocations = response.data;
+				method:'POST',
+				url: '/jsonData/productsAction.php',
+				data: {action: 'getLocation',
+				Sku: $scope.searchProducts}
+			}).then((response)=>{
+				$scope.getProductLocation = response.data;
+	})
 		})
 
 		}
