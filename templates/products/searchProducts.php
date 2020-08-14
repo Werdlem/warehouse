@@ -9,6 +9,8 @@
 	<div>
 <h1>Search Results</h1>
 
+<span>{{pr.getProducts.Sku}}</span>
+
 <table class="table table-striped">
 <thead>
 	<tr>
@@ -21,7 +23,7 @@
 	<tr ng-repeat="x in getProducts">
 		<td>Sku</td>
 		<td>{{x.Sku}}</td>
-		<td ng-repeat="y in getProductLocation">{{y.Location}}</td>
+		<td>{{x.Location}}</td>
 	</tr>
 </tbody>
 </table>
