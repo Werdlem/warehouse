@@ -63,11 +63,12 @@ echo json_encode($fetch);
 		else{
 			$CategoryId = $data->details->CategoryId;
 		}
+
 		$SkuID = $data->details->SkuID;
 		$Discontinued = $data->details->Discontinued;
 
 		echo $CategoryId;
-	
+		echo $Sku;
 		
 		$fetch = $dal->updateProduct($Sku, $Desc,$Qpu,$UnitPrice, $ReorderLevel,$Notes, $Discontinued, $CategoryId, $SkuID);
 		break;
@@ -165,8 +166,12 @@ case 'orderReq':
 
 		break;
 
-		case 'getLocation':
+	case 'autoSelect':$Sku  =$data->Sku;
+	$fetch = $dal->autoSelect($Sku);
+	echo json_encode($fetch);
 		$SkuID = $data->Sku;
+
+		break;
 
 		$fetch = $dal->getLocations($SkuID);
 		echo json_encode($fetch);
@@ -175,6 +180,6 @@ case 'orderReq':
 	case 'searchProduct';
 	$Sku  =$data->Sku;
 	$fetch = $dal->searchProduct($Sku);
-	echo json_encode($fetch);
+	print (json_encode($fetch));
 
 }

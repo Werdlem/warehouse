@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ["ngRoute"])
+var myApp = angular.module('myApp',["ngRoute"])
 	.config(function($routeProvider,$locationProvider, $provide){
 		$routeProvider.when("/",{
 			templateUrl : "/templates/home.php"
@@ -22,6 +22,52 @@ var myApp = angular.module('myApp', ["ngRoute"])
   .html5Mode(true)
   .hashPrefix('!');
 	});
+
+	/**
+ * Filters out all duplicate items from an array by checking the specified key
+ * @param [key] {string} the name of the attribute of each object to compare for uniqueness
+ if the key is empty, the entire object will be compared
+ if the key === false then no filtering will be performed
+ * @return {array}
+ */
+myApp.filter('unique', function () {
+
+  return function (items, filterOn) {
+
+    if (filterOn === false) {
+      return items;
+    }
+
+    if ((filterOn || angular.isUndefined(filterOn)) && angular.isArray(items)) {
+      var hashCheck = {}, newItems = [];
+
+      var extractValueToCompare = function (item) {
+        if (angular.isObject(item) && angular.isString(filterOn)) {
+          return item[filterOn];
+        } else {
+          return item;
+        }
+      };
+
+      angular.forEach(items, function (item) {
+        var valueToCheck, isDuplicate = false;
+
+        for (var i = 0; i < newItems.length; i++) {
+          if (angular.equals(extractValueToCompare(newItems[i]), extractValueToCompare(item))) {
+            isDuplicate = true;
+            break;
+          }
+        }
+        if (!isDuplicate) {
+          newItems.push(item);
+        }
+
+      });
+      items = newItems;
+    }
+    return items;
+  };
+});
 
 	myApp.controller('categories', function($scope,$http, $location){
 
@@ -101,24 +147,26 @@ var myApp = angular.module('myApp', ["ngRoute"])
 	})
 
 myApp.controller('products', function($scope, $http, $location, $route){
-		this.x={};
-		$scope.searchProduct=(SkuID)=>{
+
+		$scope.searchProduct=(pr)=>{
 			$http({
 				method:'POST',
 				url: '/jsonData/productsAction.php',
 				data: {action: 'searchProduct',
-				Sku: $scope.searchProducts}
+				Sku: $scope.selectedProduct}
 			}).then((response)=>{
-				$scope.getProducts = response.data;
-			$http({
-				method:'POST',
-				url: '/jsonData/productsAction.php',
-				data: {action: 'getLocation',
-				Sku: $scope.searchProducts}
-			}).then((response)=>{
-				$scope.getProductLocation = response.data;
-	})
-		})
+				this.getProducts = response.data;
+				//use the retured product data to populate the history tabs
+			//$http({
+			//method: 'POST',
+			//url: './jsonData/getProductHistory.json.php',
+			//data: {pId: this.getProducts[0].SkuID}
+		//}).then(function(response){
+		//	$scope.getHistory = response.data;
+		//});
+		
+			});
+				
 
 		}
 
@@ -134,12 +182,12 @@ myApp.controller('products', function($scope, $http, $location, $route){
 		}
 	})
 }
-	$scope.editProduct =()=>{
+	$scope.editProduct =(getProducts)=>{
 		$http({
 			method:'POST',
 			url:'/jsonData/productsAction.php',
 			data: {action: 'editProduct',
-			details: $scope.selectedProduct,
+			details: $scope.pr.getProducts[0],
 			category: $scope.editCategory
 		}
 	})

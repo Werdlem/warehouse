@@ -2,8 +2,9 @@
 require_once('settings.php');
 
 class products{
-  #product search
-  public function searchProduct($Sku){
+
+  #auto select product search
+  public function autoSelect($Sku){
   $pdo = Database::DB();
     $stmt = $pdo->prepare('Select * 
       from
@@ -13,15 +14,41 @@ class products{
       p.SkuID = l.SkuID
       where
       p.Sku like :stmt
-      group by p.Sku
+      order by p.Sku
+      limit 5
+      
       ');
     $stmt->bindValue(':stmt', $Sku.'%');
      $stmt->execute();
    if($stmt->rowCount()>0){
-    return$stmt->fetchAll(PDO::FETCH_ASSOC);
+   return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
+      
+  }
+  #product search
+  public function searchProduct($Sku){
+  $pdo = Database::DB();
+    $stmt = $pdo->prepare('Select *,p.SkuID 
+      from
+    products p
+    left join alias a on
+    p.SkuID = a.SkuID  
+      left JOIN locations l on
+      p.SkuID = l.SkuID
+      where
+      p.Sku = :stmt
+      or
+      a.Alias = :stmt      
+      ');
+    $stmt->bindValue(':stmt', $Sku);
+     $stmt->execute();
+   if($stmt->rowCount()<0){
+
+    return 'Nothing to show';
+    
   }
   else{
-    echo 'No Data';
+   return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
       
   }
@@ -31,10 +58,10 @@ class products{
   $pdo = Database::DB();
     $stmt = $pdo->prepare('Select * 
       from
-    products p
+    locations l
   
-      right JOIN locations l on
-      p.SkuID = l.SkuID
+     JOIN products p on
+      l.SkuID = p.SkuID
       where
       p.Sku = :stmt
       ');
@@ -44,7 +71,7 @@ class products{
     return$stmt->fetchAll(PDO::FETCH_ASSOC);
   }
   else{
-    echo 'No Data';
+   return 'No Data';
   }
       
   }
