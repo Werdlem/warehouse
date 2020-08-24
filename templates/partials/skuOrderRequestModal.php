@@ -7,7 +7,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <p><label>Sku: {{selectedProduct.Sku}}</label></p>
+        <p><label>Sku: {{pr.getProduct[0].Sku}}</label></p>
         <input type="test" hidden ng-model="selectedProduct.Sku">
         <input type="test" hidden ng-model="selectedProduct.SkuID">
 

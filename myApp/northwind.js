@@ -170,8 +170,8 @@ myApp.controller('products', function($scope, $http, $location, $route){
 			url:'/jsonData/productsAction.php',
 			data: {action: 'orderReq',
 			details: order,
-			Sku: $scope.selectedProduct.Sku,
-			SkuID: $scope.selectedProduct.SkuID,
+			Sku: Sku,
+			SkuID: SkuID,
 		}
 	})
 }

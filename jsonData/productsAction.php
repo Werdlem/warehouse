@@ -82,8 +82,8 @@ echo json_encode($fetch);
 
 
 case 'orderReq':
-	$SkuID = $data->SkuID;
-	$Sku = strtoupper($data->Sku);
+	$SkuID = $data->Sku->SkuID;
+	$Sku = strtoupper($data->Sku->Sku);
 	$qty = $data->details->qty;
 	if(isset($data->details->delivery)){
 		$delivery = 'DIRECT';
