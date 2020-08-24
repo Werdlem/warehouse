@@ -100,9 +100,7 @@ case 'orderReq':
 	else {
 		$notes = 'NA';
 	}
-	$initials = strtoupper($data->details->Initials);
-	$execute = $dal->orderReq($SkuID, $Sku, $qty, $delivery, $po, $notes, $initials);
-	#send email to office
+		#send email to office
 
 	 	require_once "../DB/settings.php";
  		require_once '../lib/swift_required.php';
@@ -135,6 +133,8 @@ case 'orderReq':
 			$result = $mailer->send($message);
 			if ($result > 0)
 			{
+				$initials = strtoupper($data->details->Initials);
+	$execute = $dal->orderReq($SkuID, $Sku, $qty, $delivery, $po, $notes, $initials);
 				echo "<div class='panel panel-success'>
 <div class='panel-heading' style='text-align:center;'><h3>Order Success!</h3></div>
 <div class='panel-body'>
@@ -152,13 +152,17 @@ case 'orderReq':
 			<?php
             }
             else{
+
+            	$result = 'Failure';
+
+            	echo $result;
 				
-				echo "<div class='panel panel-danger'>
-						<div class='panel-heading' style='text-align:center;'><h3>Order Failure</h3></div>
-						<div class='panel-body'>
-						<p>Your order of <strong style='red'><a href='?action=activity&sku=". $Sku ."&sku_id=".$SkuID."'> ".$Sku." </a></strong> was not sent, please call the office with your order.</p>
-				</div>
-				</div>";
+			//	echo "<div class='panel panel-danger'>
+				//		<div class='panel-heading' style='text-align:center;'><h3>Order Failure</h3></div>
+			//			<div class='panel-body'>
+			//			<p>Your order of <strong style='red'><a href='?action=activity&sku=". $Sku ."&sku_id=".$SkuID."'> ".$Sku." </a></strong> was not sent, please call the office with your order.</p>
+			//	</div>
+			//	</div>";
 				
 				}
 

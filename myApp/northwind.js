@@ -173,6 +173,15 @@ myApp.controller('products', function($scope, $http, $location, $route){
 			Sku: Sku,
 			SkuID: SkuID,
 		}
+	}).then((response)=>{
+		if (response.data == 'Failure'){
+		alert('The order was not sent, please try again or contact the office with your order');
+	}
+	else
+	{
+		exit();
+	}
+
 	})
 }
 	$scope.editProduct =()=>{
