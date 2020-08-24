@@ -4,7 +4,7 @@ require_once('settings.php');
 class products{
 
   #auto select product search
-  public function autoSelect($Sku){
+  public function getProduct($SkuID){
   $pdo = Database::DB();
     $stmt = $pdo->prepare('Select * 
       from
@@ -12,19 +12,19 @@ class products{
   
       left JOIN locations l on
       p.SkuID = l.SkuID
+      left join alias a on
+      p.SkuID = a.SkuID
       where
-      p.Sku like :stmt
-      order by p.Sku
-      limit 5
+      p.SkuID = :stmt
       
       ');
-    $stmt->bindValue(':stmt', $Sku.'%');
+    $stmt->bindValue(':stmt', $SkuID);
      $stmt->execute();
-   if($stmt->rowCount()>0){
+   if($stmt->rowCount()>0)
+   {
    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-  }
-      
-  }
+ }
+}
   #product search
   public function searchProduct($Sku){
   $pdo = Database::DB();
@@ -42,9 +42,9 @@ class products{
       ');
     $stmt->bindValue(':stmt', $Sku);
      $stmt->execute();
-   if($stmt->rowCount()<0){
+   if($stmt->rowCount()==null){
 
-    return 'Nothing to show';
+   die;
     
   }
   else{

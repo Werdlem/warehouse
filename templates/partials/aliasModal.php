@@ -8,6 +8,7 @@
         </button>
       </div>
       <div class="modal-body">
+        {{pr.getProducts[0].Sku}}
         <p><label>Alias:</label> <input type="text" ng-model="pr.a.alias"></p>
         <p><label>Initials:</label> <input type="text" ng-model="pr.a.initials" maxlength="2" size="1"></p>
       </div>

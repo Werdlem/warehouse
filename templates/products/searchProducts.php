@@ -8,13 +8,16 @@
 <div ng-show="pr.getProducts">
 <h1>Product Details</h1>
 
-	<p>Product Name: <input type="text" ng-model="pr.getProducts[0].Sku" ng-change="editProduct(pr.getProducts[0])"style="border:0"></p>
-	<p>Product Description: <input type="text" ng-model="pr.getProducts[0].description"ng-change="editProduct(pr.getProducts[0])"style="border:0"></p>
+	<p>Product Name: <a href="/productDetails?SkuID={{pr.getProducts[0].SkuID}}&Sku={{pr.getProducts[0].Sku}}">{{pr.getProducts[0].Sku}}</a></p>
+	<p>Product Description: {{pr.getProducts[0].description}}</p>
   
-	<p>Sku Alias: {{pr.getProducts.Alias}} <button type="button" class="btn btn-danger btn-sm" ng-show="pr.getProducts.Alias">Del</button> </span> <br/>
+	<p>Sku Alias: <span ng-repeat="x in pr.getProducts"><strong>{{x.Alias}}</strong></span> <br/>
 	</p>
-	<p>Location: <span ng-repeat="x in pr.getProducts">{{x.Location + ' '}}</span></p>
-	<p>Notes: <input type="text" ng-model="pr.getProducts[0].Notes" ng-change="editProduct(pr.getProducts)"style="border:0"></p>
+	<p>Location: <span ng-repeat="x in pr.getProducts"><strong> {{x.Location}} </strong><button type="button" ng-show="x.Location" class="btn btn-danger btn-sm" disabled>Delete </button></span></p>
+	<p>Notes: {{pr.getProducts[0].Notes}}</p>
 
 	<p>Discontinued:  <input type="checkBox" ng-checked="pr.getProducts[0].Discontinued==1" ng-model="pr.getProducts.Discontinued" ng-change="editProduct(pr.getProducts[0])"></p>
 </div>
+</div>
+
+

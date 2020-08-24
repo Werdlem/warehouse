@@ -1,32 +1,31 @@
-<div  style="padding: 10px; border: 1px solid rgba(0,0,255,0.2); background-color: rgba(0,0,255,0.1); border-radius: 5px" >
+  <div  style="padding: 10px; border: 1px solid rgba(0,0,255,0.2); background-color: rgba(0,0,255,0.1); border-radius: 5px" >
  
     <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addProductModal">Add Product</button>
-    <button type="button" class="btn btn-primary btn-sm" ng-disabled="!selectedProduct" data-toggle="modal" data-target="#aliasModal">Add Alias</button>
-    <button type="button" class="btn btn-success btn-sm" ng-disabled="!selectedProduct || selectedProduct.Discontinued==1" data-toggle="modal" data-target="#skuOrderRequestModal">New PO</button>
-    <button type="button" class="btn btn-warning btn-sm" ng-disabled="!selectedProduct" data-toggle="modal" data-target="#soModal">Adjustment</button>
+    <button type="button" class="btn btn-primary btn-sm" ng-disabled="!pr.getProduct" data-toggle="modal" data-target="#aliasModal">Add Alias</button>
+    <button type="button" class="btn btn-success btn-sm" ng-disabled="!pr.getProduct || pr.getProduct[0].Discontinued==1" data-toggle="modal" data-target="#skuOrderRequestModal">New PO</button>
+    <button type="button" class="btn btn-warning btn-sm" ng-disabled="!pr.getProduct" data-toggle="modal" data-target="#soModal">Adjustment</button>
  
 </div>
+
+
 <div id="container" style="box-shadow: 4px 11px 13px 10px #d4d4d4; border-radius: 5px; padding: 15px; margin-top: 5px">
 <br>
-	<p>Select Category: <select ng-model="selectedCategory" ng-options="x.CategoryName for x in getCategories" ng-change="selectProduct()"></select></p>
-	<p ng-show="selectedCategory">Select Product: <select ng-model="selectedProduct" ng-options="y.Sku for y in getProducts" ng-change="getProductHistory()"></select></p>
-	<div ng-show="selectedProduct">
 <h1>Product Details</h1>
 
-	<p>Product Name: <input type="text" ng-model="selectedProduct.Sku" ng-change="editProduct(selectedProduct)"style="border:0"></p>
-	<p>Product Description: <input type="text" ng-model="selectedProduct.description"ng-change="editProduct(selectedProduct)"style="border:0"></p>
-  <p>Select Category: <select ng-model="editCategory" ng-options="x.CategoryName for x in getCategories" ng-change="editProduct(selectedProduct)"></select></p>
+	<p>Product Name: <input type="text" ng-model="pr.getProduct[0].Sku" ng-change="editProduct(pr.getProduct[0])"style="border:0"></p>
+	<p>Product Description: <input type="text" ng-model="pr.getProduct[0].description"ng-change="editProduct(pr.getProduct[0])"style="border:0"></p>
+  <p>Select Category: <select ng-model="editCategory" ng-options="x.CategoryName for x in getCategories" ng-change="editProduct(pr.getProduct[0])"></select></p>
 	<!--<p>Sku Alias's: <select ng-model="selectedSkuAliasList" ng-options="x.Alias for x in getSkuAlias"> </select></p>-->
-	<p>Sku Alias: <span ng-repeat="x in getSkuAlias" style="padding-left: 1em" >{{x.Alias}} <button type="button" class="btn btn-danger btn-sm">Del</button> </span> <br/>
+	<p>Sku Alias: <span ng-repeat="x in pr.getProduct" style="padding-left: 1em" >{{x.Alias}} <button type="button" class="btn btn-danger btn-sm" ng-show="x.Alias">Del</button> </span><br/>
 	</p>
-	<p>Location: <span ng-repeat="x in getLocations" style="padding-left: 1em">{{x.Location}}</span></p>
-	<p>Quantity Per Unit: <input type="text" ng-model="selectedProduct.QuantityPerUnit" ng-change="editProduct(selectedProduct)"style="border:0"> </p>
-	<p>Unit Price: <input type="text" ng-model="selectedProduct.UnitPrice" ng-change="editProduct(selectedProduct)"style="border:0"></p>
-	<p>Units In Stock: {{getSkuQty[0].qty}}</p>
-	<p>Reorder Level: <input type="text" ng-model="selectedProduct.ReorderLevel" ng-change="editProduct(selectedProduct)"style="border:0"></p>
-  <p>Notes: <input type="text" ng-model="selectedProduct.Notes" ng-change="editProduct(selectedProduct)"style="border:0; width: 100%"></p>
+	<p>Location: <span ng-repeat="x in pr.getProduct" style="padding-left: 1em">{{x.Location}}</span></p>
+	<p>Quantity Per Unit: <input type="text" ng-model="pr.getProduct[0].QuantityPerUnit" ng-change="editProduct(pr.getProduct[0])"style="border:0"> </p>
+	<p>Unit Price: <input type="text" ng-model="pr.getProduct[0].UnitPrice" ng-change="editProduct(pr.getProduct[0])"style="border:0"></p>
+	<p>Units In Stock: {{pr.getProduct[0].StockQty}}</p>
+	<p>Reorder Level: <input type="text" ng-model="pr.getProduct[0].ReorderLevel" ng-change="editProduct(pr.getProduct[0])"style="border:0"></p>
+  <p>Notes: <input type="text" ng-model="pr.getProduct[0].Notes" ng-change="editProduct(pr.getProduct[0])"style="border:0; width: 100%"></p>
 
-	<p>Discontinued:  <input type="checkBox" ng-checked="selectedProduct.Discontinued==1" ng-model="selectedProduct.Discontinued" ng-change="editProduct(selectedProduct)"></p>
+	<p>Discontinued:  <input type="checkBox" ng-checked="pr.getProduct[0].Discontinued==1" ng-model="pr.getProduct[0].Discontinued" ng-change="editProduct()"></p>
 
 	
 <!-- Modals -->
@@ -51,11 +50,11 @@
 <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-hidden="true">
   <?php include('../partials/addProductModal.php'); ?>
 </div>
-</div>
+
 
 <!-- end modals-->
 
-<div ng-show="selectedProduct">
+<div ng-show="pr.getProduct[0]">
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item">
     <a class="nav-link active" id="sales-tab" data-toggle="tab" href="#sales" role="tab" aria-controls="sales" target="_self" aria-selected="true" ng-click="getProductHistory()">Goods Out</a>

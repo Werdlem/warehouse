@@ -15,7 +15,7 @@
 
 
 
-<title>Postpack</title> v20.04
+<title>Postpack</title> v20.06
 <base href="/">
 </head>
 <div ng-app="myApp">
@@ -32,10 +32,10 @@
     <a class="nav-link" href="/suppliers">Suppliers</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="/products">Products</a>
+    <a class="nav-link" href="/searchProduct">Products</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+    <a class="nav-link" href="/products" tabindex="-1" aria-disabled="true">Products By Category</a>
   </li>
 </ul>
 </div>

@@ -65,10 +65,17 @@ echo json_encode($fetch);
 		}
 
 		$SkuID = $data->details->SkuID;
-		$Discontinued = $data->details->Discontinued;
 
-		echo $CategoryId;
-		echo $Sku;
+		if ($data->details->Discontinued ==''){
+			$Discontinued = 0;
+		}
+
+		else{
+			$Discontinued = $data->details->Discontinued;
+		}		
+		
+
+		echo $Discontinued;
 		
 		$fetch = $dal->updateProduct($Sku, $Desc,$Qpu,$UnitPrice, $ReorderLevel,$Notes, $Discontinued, $CategoryId, $SkuID);
 		break;

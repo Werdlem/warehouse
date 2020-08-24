@@ -13,7 +13,9 @@ var myApp = angular.module('myApp',["ngRoute"])
 		//categories
 		.when("/categories",{controller:'categories as cat', templateUrl:'/templates/categories/categoryHome.php'})
 		//products
-		.when("/products",{controller: 'products as pr',templateUrl : "/templates/products/searchProducts.php"})
+		.when("/searchProduct",{controller: 'products as pr',templateUrl : "/templates/products/searchProducts.php"})
+		.when("/products",{controller: 'products as pr',templateUrl : "/templates/products/products.php"})
+		.when("/productDetails",{controller: 'products as pr',templateUrl : "/templates/products/productDetails.php"})
 		.when("/addProduct",{templateUrl : "/templates/products/addProduct.php", controller: 'products as pr'})
 		.when("/addAlias",{templateUrl : "/templates/products/addProduct.php", controller: 'products as pr'})
 		.when("/salesOrder",{controller: "salesOrder as so",templateUrl : "/templates/products/salesOrder.php"})
@@ -148,23 +150,14 @@ myApp.filter('unique', function () {
 
 myApp.controller('products', function($scope, $http, $location, $route){
 
-		$scope.searchProduct=(pr)=>{
+	$scope.searchProduct=(pr)=>{
 			$http({
 				method:'POST',
 				url: '/jsonData/productsAction.php',
 				data: {action: 'searchProduct',
 				Sku: $scope.selectedProduct}
 			}).then((response)=>{
-				this.getProducts = response.data;
-				//use the retured product data to populate the history tabs
-			//$http({
-			//method: 'POST',
-			//url: './jsonData/getProductHistory.json.php',
-			//data: {pId: this.getProducts[0].SkuID}
-		//}).then(function(response){
-		//	$scope.getHistory = response.data;
-		//});
-		
+				this.getProducts = response.data;		
 			});
 				
 
@@ -182,12 +175,12 @@ myApp.controller('products', function($scope, $http, $location, $route){
 		}
 	})
 }
-	$scope.editProduct =(getProducts)=>{
+	$scope.editProduct =()=>{
 		$http({
 			method:'POST',
 			url:'/jsonData/productsAction.php',
 			data: {action: 'editProduct',
-			details: $scope.pr.getProducts[0],
+			details: $scope.pr.getProduct[0],
 			category: $scope.editCategory
 		}
 	})
@@ -226,7 +219,7 @@ myApp.controller('products', function($scope, $http, $location, $route){
 			method: 'POST',
 			url: './jsonData/addAlias.json.php',
 			data: {Alias:this.a,
-			SkuID: $scope.selectedProduct.SkuID,}			
+			SkuID: SkuID,}			
 		});
 	}
 
@@ -328,6 +321,54 @@ $scope.AdjOut = ()=>{
 			$scope.getOrderHistory = response.data;
 		})
 	}
+//get the searched product history 
+	this.SkuID = $location.search();
+	this.Sku = $location.search();
+	SkuID = this.SkuID;
+	Sku = this.Sku;
+
+	$http({
+		method:'POST',
+		url: './jsonData/productsGet.php',
+		data: {action: 'getProductViaUrl',
+		SkuID: SkuID}
+	}).then((response)=>{
+				this.getProduct = response.data;
+	});
+	$http({
+			method: 'POST',
+			url: './jsonData/productsGet.php',
+			data: {action: 'skuOrderReq',
+			pId: SkuID}
+		}).then(function(response){
+			$scope.getSkuOrderRequests = response.data;
+		})
+		$http({
+			method: 'POST',
+			url: './jsonData/productsGet.php',
+			data: {action: 'getHistory',
+			pId: SkuID}
+		}).then(function(response){
+			$scope.getHistory = response.data;
+		});
+		$http({
+			method: 'POST',
+			url: './jsonData/productsGet.php',
+			data: {action: 'getSkuPoHistory',
+			pId: Sku}
+		}).then(function(response){
+			$scope.getOrderHistory = response.data;
+		});
+		$http({
+			method: 'POST',
+			url: './jsonData/productsGet.php',
+			data: {action: 'getProductAdjustment',
+			pId: SkuID}
+		}).then(function(response){
+			$scope.getSkuAdjustments = response.data;
+		})
+		
+
 	$scope.getProductHistory =(SkuID, Sku)=>{
 		$http({
 			method: 'POST',
