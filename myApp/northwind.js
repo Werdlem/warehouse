@@ -150,12 +150,7 @@ myApp.filter('unique', function () {
 
 myApp.controller('products', function($scope, $http, $location, $route){
 
-		this.SkuID = $location.search();
-	this.Sku = $location.search();
-	SkuID = this.SkuID;
-	Sku = this.Sku;
-
-	$scope.searchProduct=(pr)=>{
+		$scope.searchProduct=(pr)=>{
 			$http({
 				method:'POST',
 				url: '/jsonData/productsAction.php',
@@ -324,15 +319,18 @@ $scope.AdjOut = ()=>{
 		})
 	}
 //get the searched product history 
-
-
+this.SkuID = $location.search();
+	this.Sku = $location.search();
+	SkuID = this.SkuID;
+	Sku = this.Sku;
+$scope.searchProductCon = ()=>{	
 	$http({
 		method:'POST',
 		url: './jsonData/productsGet.php',
 		data: {action: 'getProductViaUrl',
 		SkuID: SkuID}
 	}).then((response)=>{
-				this.getProduct = response.data;
+		this.getProduct = response.data;
 	});
 	$http({
 			method: 'POST',
@@ -366,6 +364,7 @@ $scope.AdjOut = ()=>{
 		}).then(function(response){
 			$scope.getSkuAdjustments = response.data;
 		})
+	}
 		
 
 	$scope.getProductHistory =(SkuID, Sku)=>{
