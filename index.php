@@ -1,5 +1,4 @@
 <!DOCTYPE HTML>
-<html lang="en">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -15,7 +14,7 @@
 
 
 
-<title>Postpack</title> v20.07
+<title>Postpack</title> v20.08
  <base href="/">
 </head>
 <div ng-app="myApp">

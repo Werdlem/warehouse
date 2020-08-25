@@ -18,8 +18,8 @@ switch ($action) {
 		$field = 'AdjustIn';
 		$skuID = $data->SkuID;
 		$qty = $data->details->Qty;
-		$initials = $data->details->initials;
-		$reason = $data->details->reason;
+		$initials = strtoupper($data->details->initials);
+		$reason = strtoupper($data->details->reason);
 	//echo $field;
 	$fetch = $dal->adjIn($skuID, $qty, $initials,$reason);
 		break;
@@ -27,8 +27,8 @@ switch ($action) {
 	case 'out': // adjust stock out
 		$skuID = $data->SkuID;
 		$qty = $data->details->Qty;
-		$initials = $data->details->initials;
-		$reason = $data->details->reason;
+		$initials = strtoupper($data->details->initials);
+		$reason = strtoupper($data->details->reason);
 	$field = 'AdjustOut';
 	//echo $field;
 	$fetch = $dal->adjOut($skuID, $qty, $initials,$reason);

@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp',["ngRoute"])
+var myApp = angular.module('myApp',['ngRoute'])
 	.config(function($routeProvider,$locationProvider, $provide){
 		$routeProvider.when("/",{
 			templateUrl : "/templates/home.php"
@@ -150,6 +150,11 @@ myApp.filter('unique', function () {
 
 myApp.controller('products', function($scope, $http, $location, $route){
 
+		this.SkuID = $location.search();
+	this.Sku = $location.search();
+	SkuID = this.SkuID;
+	Sku = this.Sku;
+
 	$scope.searchProduct=(pr)=>{
 			$http({
 				method:'POST',
@@ -238,20 +243,14 @@ this.Adj={};
 		method: 'POST',
 		url: './jsonData/productsAction.php',
 		data: {details:this.Adj, 
-		SkuID: $scope.selectedProduct.SkuID,
+		SkuID: $scope.pr.getProduct[0].SkuID,
 		action: 'in'}
 	})
 		$http({
 			method: 'POST',
 			url:'./jsonData/UpdateStock.json.php'
 		}).then((response)=>{
-		$http({
-			method: 'POST',
-			url: './jsonData/getSkuQty.json.php',
-			data: {pID: $scope.selectedProduct.SkuID}
-		}).then((response)=>{
-			$scope.getSkuQty = response.data;
-		});
+		window.location.replace("/productDetails?SkuID="+$scope.pr.getProduct[0].SkuID+"&Sku="+$scope.pr.getProduct[0].Sku);
 	})
 		
 };
@@ -260,20 +259,14 @@ $scope.AdjOut = ()=>{
 		method: 'POST',
 		url: './jsonData/productsAction.php',
 		data: {details:this.Adj, 
-		SkuID: $scope.selectedProduct.SkuID,
+		SkuID: $scope.pr.getProduct[0].SkuID,
 		action: 'out'}
 	})
 		$http({
 			method: 'POST',
 			url:'./jsonData/UpdateStock.json.php'
 		}).then(function(response){
-		$http({
-			method: 'POST',
-			url: './jsonData/getSkuQty.json.php',
-			data: {pID: $scope.selectedProduct.SkuID}
-		}).then(function(response){
-			$scope.getSkuQty = response.data;
-		});
+		 window.location.replace("/productDetails?SkuID="+$scope.pr.getProduct[0].SkuID+"&Sku="+$scope.pr.getProduct[0].Sku);
 	})
 };
 
@@ -331,10 +324,7 @@ $scope.AdjOut = ()=>{
 		})
 	}
 //get the searched product history 
-	this.SkuID = $location.search();
-	this.Sku = $location.search();
-	SkuID = this.SkuID;
-	Sku = this.Sku;
+
 
 	$http({
 		method:'POST',
@@ -379,14 +369,6 @@ $scope.AdjOut = ()=>{
 		
 
 	$scope.getProductHistory =(SkuID, Sku)=>{
-		$http({
-			method: 'POST',
-			url: './jsonData/productsAction.php',
-			data: {action: 'getLocation',
-			pId: $scope.selectedProduct.SkuID}
-		}).then(function(response){
-			$scope.getLocations = response.data;
-		})
 		$http({
 			method: 'POST',
 			url: './jsonData/productsAction.php',
