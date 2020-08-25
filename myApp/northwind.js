@@ -21,7 +21,7 @@ var myApp = angular.module('myApp',["ngRoute"])
 		.when("/salesOrder",{controller: "salesOrder as so",templateUrl : "/templates/products/salesOrder.php"})
 		.when("/purchaseOrder",{controller: "purchaseOrder as po",templateUrl : "/templates/products/purchaseOrder.php"});
 		 $locationProvider
-  .html5Mode(true)
+  .html5Mode(false)
   .hashPrefix('!');
 	});
 
