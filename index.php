@@ -16,7 +16,7 @@
 
 
 <title>Postpack</title> v20.07
- <base href="/base/">
+ <base href="/">
 </head>
 <div ng-app="myApp">
 
@@ -53,5 +53,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
 </body>
 
-<script type="text/javascript" src = "./myApp/northwind.js"></script>	</div>
+<script type="text/javascript" src = "./myApp/northwind.js"></script>	
+</div>
 </html>
