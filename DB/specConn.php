@@ -359,10 +359,7 @@ alias a on
 p.SkuID=a.SkuID
 JOIN
 goods_out go on
-p.Sku = go.sku
-or 
-p.Sku = go.desc1sku
-or
+
 a.Alias = go.sku
 or
 a.Alias = go.desc1sku

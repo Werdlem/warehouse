@@ -260,7 +260,7 @@ myApp.filter('unique', function () {
 			method: 'POST',
 			url:'./jsonData/UpdateStock.json.php'
 		}).then((response)=>{
-			window.location.replace("/productDetails?SkuID="+$scope.pr.getProduct[0].SkuID+"&Sku="+$scope.pr.getProduct[0].Sku);
+			//window.location.replace("/productDetails?SkuID="+$scope.pr.getProduct[0].SkuID+"&Sku="+$scope.pr.getProduct[0].Sku);
 	})
 	}
 	$scope.delAlias=(AliasID)=>{

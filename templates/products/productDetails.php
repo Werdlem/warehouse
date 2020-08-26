@@ -19,7 +19,7 @@
 	<p>Current Category: {{pr.getProduct[0].CategoryName}}</p>
   <p>Change Category: <select ng-model="editCategory" ng-options="x.CategoryName for x in getCategories" ng-change="editProduct(pr.getProduct[0])"></select></p>
 	<!--<p>Sku Alias's: <select ng-model="selectedSkuAliasList" ng-options="x.Alias for x in getSkuAlias"> </select></p>-->
-	<p>Sku Alias: <span ng-repeat="x in pr.getProduct" style="padding-left: 1em" >{{x.Alias}} <button type="button" class="btn btn-danger btn-sm" ng-show="x.Alias" ng-click="delAlias(x.AliasID)">Del</button> </span><br/>
+	<p>Sku Alias: <select ng-model="selectedAlias" ng-options="x.Alias for x in pr.getProduct">{{x.Alias }} <button type="button" class="btn btn-danger btn-sm" ng-show="x.Alias" ng-click="delAlias(x.AliasID)">Del</button></select><br/>
 	</p>
 	<p>Location: <span ng-repeat="x in pr.getProduct" style="padding-left: 1em">{{x.Location}}</span></p>
 	<p>Quantity Per Unit: <input type="text" ng-model="pr.getProduct[0].QuantityPerUnit" ng-change="editProduct(pr.getProduct[0])"style="border:0"> </p>
@@ -77,15 +77,17 @@
   	<table class="table">
 	<tr>
 		<th>Order ID</th>
+		<th>Sku</th>
 		<th>Order Date</th>
 		<th>Shipped Date</th>
 		<th>Qty</th>
 		
 	</tr>
 	
-	<tr ng-repeat="x in getHistory">
+	<tr ng-repeat="x in getHistory | filter:selectedAlias.Alias:true">
 		<div class="overflow-auto">
 		<td>{{x.OrderID}}</td>
+		<td>{{x.sku}} - {{x.desc1sku}}</td>
 		<td>{{x.DueDate | date: 'dd/MM/yyyy'}}</td>
 		<td>{{x.despatch | date: 'dd-MM-YYYY'}}</td>
 		<td>{{x.QtyDelivered}}</td>
