@@ -1,3 +1,5 @@
+
+<div product-details>
   <div  style="padding: 10px; border: 1px solid rgba(0,0,255,0.2); background-color: rgba(0,0,255,0.1); border-radius: 5px" >
  
     <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addProductModal">Add Product</button>
@@ -14,9 +16,10 @@
 
 	<p>Product Name: <input type="text" ng-model="pr.getProduct[0].Sku" ng-change="editProduct(pr.getProduct[0])"style="border:0"></p>
 	<p>Product Description: <input type="text" ng-model="pr.getProduct[0].description"ng-change="editProduct(pr.getProduct[0])"style="border:0"></p>
-  <p>Select Category: <select ng-model="editCategory" ng-options="x.CategoryName for x in getCategories" ng-change="editProduct(pr.getProduct[0])"></select></p>
+	<p>Current Category: {{pr.getProduct[0].CategoryName}}</p>
+  <p>Change Category: <select ng-model="editCategory" ng-options="x.CategoryName for x in getCategories" ng-change="editProduct(pr.getProduct[0])"></select></p>
 	<!--<p>Sku Alias's: <select ng-model="selectedSkuAliasList" ng-options="x.Alias for x in getSkuAlias"> </select></p>-->
-	<p>Sku Alias: <span ng-repeat="x in pr.getProduct" style="padding-left: 1em" >{{x.Alias}} <button type="button" class="btn btn-danger btn-sm" ng-show="x.Alias">Del</button> </span><br/>
+	<p>Sku Alias: <span ng-repeat="x in pr.getProduct" style="padding-left: 1em" >{{x.Alias}} <button type="button" class="btn btn-danger btn-sm" ng-show="x.Alias" ng-click="delAlias(x.AliasID)">Del</button> </span><br/>
 	</p>
 	<p>Location: <span ng-repeat="x in pr.getProduct" style="padding-left: 1em">{{x.Location}}</span></p>
 	<p>Quantity Per Unit: <input type="text" ng-model="pr.getProduct[0].QuantityPerUnit" ng-change="editProduct(pr.getProduct[0])"style="border:0"> </p>
@@ -116,6 +119,7 @@
 </div>
  <div class="tab-pane fade show" id="orderReq" role="tabpanel" aria-labelledby="orderReq-tab">
   <?php include ('../partials/skuOrderRequests.php'); ?>
+</div>
 </div>
 </div>
 </div>

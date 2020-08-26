@@ -8,6 +8,13 @@ $action = $data->action;
 
 switch ($action) {
 
+	case 'delAlias': //delete Alias
+$AliasID = $data->AliasID;
+echo $AliasID;
+$dal = new products();
+$fetch = $dal->delAlias($AliasID);
+break;
+
 	case 'deleteAdj': // delete adjustment
 		$id = $data->id;
 		//echo $id;
@@ -64,7 +71,7 @@ echo json_encode($fetch);
 			$CategoryId = $data->details->CategoryId;
 		}
 
-		$SkuID = $data->details->SkuID;
+		$SkuID = $data->SkuID->SkuID;
 
 		if ($data->details->Discontinued ==''){
 			$Discontinued = 0;
@@ -72,10 +79,7 @@ echo json_encode($fetch);
 
 		else{
 			$Discontinued = $data->details->Discontinued;
-		}		
-		
-
-		echo $Discontinued;
+		}
 		
 		$fetch = $dal->updateProduct($Sku, $Desc,$Qpu,$UnitPrice, $ReorderLevel,$Notes, $Discontinued, $CategoryId, $SkuID);
 		break;

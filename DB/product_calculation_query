@@ -1,0 +1,72 @@
+DROP TABLE IF EXISTS _41;
+	
+	# create temp table
+	CREATE TABLE _41 (
+		SkuID INT UNSIGNED,
+		TotalReceived INT NOT NULL DEFAULT 0,
+		TotalDelivered INT NOT NULL DEFAULT 0,
+		TotalAdjusted INT NOT NULL DEFAULT 0,
+		StockQty MEDIUMINT NOT NULL DEFAULT 0,
+		PRIMARY KEY (`SkuID`)
+	) ENGINE=InnoDB;
+
+	# copy sku IDs into update table
+	INSERT INTO _41 (SkuID)
+	SELECT SkuID FROM products p
+	where
+	p.SkuID = '41';
+	
+	# calc received 40+ secs to run
+	UPDATE _41 su
+	JOIN (
+		SELECT
+			p.SkuID,
+			gi.TotalReceived as TotalReceived
+		FROM _goods_in gi
+		JOIN products p ON p.Sku = gi.sku
+		group by p.SkuID
+	) pgi ON pgi.SkuID = su.SkuID
+	SET su.TotalReceived = pgi.TotalReceived;
+
+	# calc del ~1sec to run
+	UPDATE _41 su
+	JOIN (
+		SELECT
+			p.SkuID,
+			
+			SUM(go.QtyDelivered) as QtyDelivered
+		FROM products p
+		left join alias a on p.SkuID=a.SkuID
+		JOIN goods_out go 
+		ON p.Sku = go.sku or
+		p.Sku = go.desc1sku or
+		a.Alias = go.sku or
+		a.Alias = go.desc1sku		    
+		GROUP BY p.SkuID
+	) pgo ON pgo.SkuId = su.SkuId
+	SET su.TotalDelivered = pgo.QtyDelivered;
+	# calc allocation ~1sec to run
+UPDATE _41 su
+JOIN (
+SELECT
+p.SkuID,
+coalesce(sum(adj.AdjustIN),0) - coalesce(sum(adj.AdjustOut),0) as TotalAdjusted
+FROM Adjustments adj
+JOIN products p ON p.SkuId = adj.SkuID
+GROUP BY p.SkuID
+) psat ON psat.SkuId = su.SkuID
+SET su.TotalAdjusted = psat.TotalAdjusted;
+
+	
+	# calc stock qty
+	UPDATE _41
+	SET StockQty = TotalReceived - TotalDelivered + TotalAdjusted;
+	
+	# for debugging, let's see the result of the calculations
+	SELECT * FROM _41;
+
+	UPDATE products p
+	JOIN _41 t ON p.SkuId = t.SkuID
+	SET p.StockQty = t.StockQty
+	where
+	p.SkuID = t.SkuID;

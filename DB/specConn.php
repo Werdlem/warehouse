@@ -2,7 +2,17 @@
 require_once('settings.php');
 
 class products{
-
+#delete alias
+  public function delAlias($AliasID){
+  $pdo = Database::DB();
+    $stmt = $pdo->prepare('delete
+      from alias
+      where
+      AliasID = :aliasID      
+      ');
+    $stmt->bindValue(':aliasID', $AliasID);
+     $stmt->execute();
+}
   #auto select product search
   public function getProduct($SkuID){
   $pdo = Database::DB();
@@ -14,6 +24,8 @@ class products{
       p.SkuID = l.SkuID
       left join alias a on
       p.SkuID = a.SkuID
+      left join product_categories pg on
+      pg.CategoryId = p.CategoryId
       where
       p.SkuID = :stmt
       
