@@ -12,8 +12,8 @@
 
 
 
-<title>Postpack</title> v20.08
- 
+<title>Postpack</title> v20.09
+ <base href="">
 </head>
 <div ng-app="myApp">
 
