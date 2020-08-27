@@ -13,7 +13,7 @@
 
 
 <title>Postpack</title> v20.08
- <base href="/">
+ <base href="warehouse.web/">
 </head>
 <div ng-app="myApp">
 
