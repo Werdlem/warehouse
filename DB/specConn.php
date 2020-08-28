@@ -16,7 +16,7 @@ class products{
   #auto select product search
   public function getProduct($SkuID){
   $pdo = Database::DB();
-    $stmt = $pdo->prepare('Select * 
+    $stmt = $pdo->prepare('Select *, P.SkuID
       from
     products p
   
@@ -30,7 +30,7 @@ class products{
       p.SkuID = :stmt
       
       ');
-    $stmt->bindValue(':stmt', $SkuID);
+    $stmt->bindValue(':stmt', $SkuID.'%');
      $stmt->execute();
    if($stmt->rowCount()>0)
    {
@@ -363,6 +363,8 @@ goods_out go on
 a.Alias = go.sku
 or
 a.Alias = go.desc1sku
+or
+p.sku=go.sku
 where
 p.SkuID = :pId and QtyDelivered > 0
 ORDER BY 

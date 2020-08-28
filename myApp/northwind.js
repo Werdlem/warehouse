@@ -220,9 +220,9 @@ myApp.filter('unique', function () {
 		if (response.data == 'Failure'){
 		alert('The order was not sent, please try again or contact the office with your order');
 	}
-	else
+	else if (response.data == 'Success')
 	{
-		exit();
+		alert('Your order has been sent!');
 	}
 
 	})
@@ -286,7 +286,7 @@ this.Adj={};
 		url: './jsonData/productsAction.php',
 		data: {details:this.Adj, 
 		SkuID: $scope.pr.getProduct[0].SkuID,
-		action: 'in'}
+		action: 'AdjustIn'}
 	})
 		$http({
 			method: 'POST',

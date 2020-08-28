@@ -21,7 +21,7 @@ break;
 	$delete = $dal->deleteAllocation($id);
 		break;
 
-	case 'in': // adjust stock in
+	case 'AdjustIn': // adjust stock in
 		$field = 'AdjustIn';
 		$skuID = $data->SkuID;
 		$qty = $data->details->Qty;
@@ -90,11 +90,11 @@ case 'orderReq':
 	$Sku = strtoupper($data->Sku->Sku);
 	$qty = $data->details->qty;
 	if(isset($data->details->delivery)){
-		$delivery = 'DIRECT';
+		$delivery = 'YES';
 		$po = $data->details->po;
 	}
 	else {
-		$delivery = 'NA';
+		$delivery = 'NO';
 		$po = 'NA';
 	}
 	if(isset($data->details->notes)){
@@ -139,21 +139,8 @@ case 'orderReq':
 			{
 				$initials = strtoupper($data->details->Initials);
 	$execute = $dal->orderReq($SkuID, $Sku, $qty, $delivery, $po, $notes, $initials);
-				echo "<div class='panel panel-success'>
-<div class='panel-heading' style='text-align:center;'><h3>Order Success!</h3></div>
-<div class='panel-body'>
-				Your order of ".$product .'-'.$priority." has been successfully sent, have a nice day :-D"
-				?>
-				
-				<button onclick='goBack()'>Go Back</button>
-
-				<script>
-						function goBack() {
-   						 window.history.back();
-				}
-						</script>
-				</div></div>
-			<?php
+			$result = 'Success';
+			
             }
             else{
 
