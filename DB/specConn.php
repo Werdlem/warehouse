@@ -48,11 +48,11 @@ class products{
       left JOIN locations l on
       p.SkuID = l.SkuID
       where
-      p.Sku = :stmt
+      p.Sku like :stmt
       or
-      a.Alias = :stmt      
+      a.Alias like :stmt      
       ');
-    $stmt->bindValue(':stmt', $Sku);
+    $stmt->bindValue(':stmt', '%'.$Sku .'%');
      $stmt->execute();
    if($stmt->rowCount()==null){
 
@@ -72,10 +72,8 @@ class products{
       from
     locations l
   
-     JOIN products p on
-      l.SkuID = p.SkuID
-      where
-      p.Sku = :stmt
+    where
+      SkuID = :stmt
       ');
     $stmt->bindValue(':stmt', $SkuID);
      $stmt->execute();

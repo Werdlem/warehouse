@@ -14,7 +14,7 @@ var myApp = angular.module('myApp',['ngRoute'])
 		.when("/categories",{controller:'categories as cat', templateUrl:'/templates/categories/categoryHome.php'})
 		//products
 		.when("/searchProduct",{controller: 'products as pr',templateUrl : "/templates/products/searchProducts.php"})
-		.when("/products",{controller: 'products as pr',templateUrl : "/templates/products/products.php"})
+		.when("/searchByCategory",{controller: 'categories as ca',templateUrl : "/templates/products/searchByCategories.php"})
 		.when("/productDetails",{controller: 'productDetails as pr',templateUrl : "/templates/products/productDetails.php"})
 		.when("/addProduct",{templateUrl : "/templates/products/addProduct.php", controller: 'products as pr'})
 		.when("/addAlias",{templateUrl : "/templates/products/addProduct.php", controller: 'products as pr'})

@@ -23,17 +23,19 @@
 	<!-- VERTICAL MAIN MENU----->
 	<div id="vertical-menu" >
 	<ul class="nav flex-column">
-  <li class="nav-item">
-    <a class="nav-link active" href="/customers">Customers</a>
+  <li class="nav-item"><strong>Customers</strong>
+    <a class="nav-link active" href="/customers">Search</a>
+  </li>
+  <li class="nav-item"><strong>Suppliers</strong>
+    <a class="nav-link" href="/suppliers">Search</a>
+  </li>
+  <li class="nav-item"> <strong>Products</strong>
+    <a class="nav-link" href="/searchProduct">Search By Sku</a>
+    <a class="nav-link" href="/searchByCategory">Search By Category</a>
+    <a class="nav-link" href="/lowStockReport">Low Stock Report</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="/suppliers">Suppliers</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="/searchProduct">Products</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="/products" tabindex="-1" aria-disabled="true">Products By Category</a>
+    <a class="nav-link" href="#" tabindex="-1" aria-disabled="true"></a>
   </li>
 </ul>
 </div>

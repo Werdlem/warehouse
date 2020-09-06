@@ -14,6 +14,15 @@
 	<p>Product Description: {{pr.getProducts[0].description}}</p>
 	<p>Notes: {{pr.getProducts[0].Notes}}</p>
 </div>
+<table class="table">
+	<tr>
+		<th>Sku</th>
+	</tr>
+	<tr ng-repeat="x in pr.getProducts">
+		<td>{{x.Sku}}</td>
+		<td>{{x.Location}} </strong><button type="button" ng-show="x.Location" class="btn btn-danger btn-sm" disabled>Delete </button></span></td>
+	</tr>
+</table>
 </div>
 
 
