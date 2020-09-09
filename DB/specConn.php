@@ -2,6 +2,136 @@
 require_once('settings.php');
 
 class products{
+  #get Low Sstock report
+ public function getLowStock(){
+  $pdo = Database::DB();
+    $stmt = $pdo->prepare('Select *
+      from products p
+      where StockQty < ReorderLevel
+      order by StockQty desc      
+      ');
+   $stmt->execute();
+   if($stmt->rowCount()>0)
+   {
+   return $stmt->fetchAll(PDO::FETCH_ASSOC);
+ }
+}
+
+  #update the Sku on Demand
+
+   public function updateSku($SkuID, $Sku){
+$pdo = Database::DB();
+ $stmt=$pdo->prepare('DROP TABLE IF EXISTS `:Sku`');
+ $stmt->bindValue(':Sku', $Sku);
+ $stmt->execute();
+  
+  # create temp table
+  $stmt = $pdo->prepare('CREATE TABLE `:Sku` (
+    SkuID INT UNSIGNED,
+    TotalReceived INT NOT NULL DEFAULT 0,
+    TotalDelivered INT NOT NULL DEFAULT 0,
+    TotalDeliveredSku INT NOT NULL DEFAULT 0,
+    TotalAdjusted INT NOT NULL DEFAULT 0,
+    StockQty MEDIUMINT NOT NULL DEFAULT 0,
+    PRIMARY KEY (`SkuID`)
+  ) ENGINE=InnoDB');
+  $stmt->bindValue(':Sku', $Sku);
+  $stmt->execute();
+
+    $stmt = $pdo->prepare('INSERT INTO `:Sku` (SkuID)
+  values(:SkuID)    
+      ');
+    $stmt->bindValue(':Sku', $Sku);
+    $stmt->bindValue(':SkuID', $SkuID);
+     $stmt->execute();
+
+      $stmt = $pdo->prepare('UPDATE `:Sku` su
+  JOIN (
+    SELECT
+      p.SkuID,
+      gi.TotalReceived as TotalReceived
+    FROM _goods_in gi
+    JOIN products p ON p.Sku = gi.Sku   
+    WHERE gi.Sku = :Sku
+  ) pgi ON pgi.SkuID = su.SkuID
+  SET su.TotalReceived = pgi.TotalReceived');
+   $stmt->bindValue('Sku', $Sku);
+  $stmt->bindValue(':Sku', $Sku);
+  $stmt->execute();
+
+    # calc del ~1sec to run using only product alias table
+ $stmt = $pdo->prepare('UPDATE `:Sku` su
+  JOIN (
+    SELECT
+      p.SkuID,      
+      coalesce(SUM(go.QtyDelivered),0) as QtyDelivered
+    FROM products p
+    left join alias a on p.SkuID=a.SkuID
+    JOIN goods_out go 
+    ON 
+    a.Alias = go.sku or
+    a.Alias = go.desc1sku       
+     where
+     p.SkuID = :SkuID
+  ) pgo ON pgo.SkuId = su.SkuId
+  SET su.TotalDelivered = pgo.QtyDelivered');
+ $stmt->bindValue(':Sku', $Sku);
+ $stmt->bindValue(':SkuID', $SkuID);
+ $stmt->execute();
+
+  #calc delivered using only the products table. avoids possible duplicates when joing tables
+  $stmt = $pdo->prepare('UPDATE `:Sku` su
+  JOIN (
+      SELECT
+        p.SkuID,      
+        SUM(go.QtyDelivered) as QtyDelivered
+    FROM products p
+    
+    JOIN goods_out go 
+    ON p.Sku = go.sku or
+    p.Sku = go.desc1sku 
+            
+  where p.SkuID = :SkuID
+  ) pgo ON pgo.SkuId = su.SkuId
+  SET su.TotalDeliveredSku = pgo.QtyDelivered');
+     $stmt->bindValue(':Sku', $Sku);
+  $stmt->bindValue(':SkuID', $SkuID);
+  $stmt->execute();
+
+
+  # calc allocation ~1sec to run
+$stmt = $pdo->prepare('UPDATE `:Sku` su
+JOIN (
+SELECT
+p.SkuID,
+coalesce(sum(adj.AdjustIN),0) - coalesce(sum(adj.AdjustOut),0) as TotalAdjusted
+FROM Adjustments adj
+JOIN products p ON p.SkuId = adj.SkuID
+where p.SkuID = :SkuID
+) psat ON psat.SkuId = su.SkuID
+SET su.TotalAdjusted = psat.TotalAdjusted');
+ $stmt->bindValue(':Sku', $Sku);
+$stmt->bindValue(':SkuID', $SkuID);
+$stmt->execute();
+
+  # calc stock qty
+ $stmt=$pdo->prepare('UPDATE `:Sku`
+  SET StockQty = TotalReceived - TotalDelivered - TotalDeliveredSku + TotalAdjusted');
+  $stmt->bindValue(':Sku', $Sku);
+ $stmt->execute();
+
+#update the products DB
+ $stmt=$pdo->prepare('UPDATE products p
+  JOIN `:Sku` t ON p.SkuId = t.SkuID
+  SET p.StockQty = t.StockQty');
+  $stmt->bindValue(':Sku', $Sku);
+ $stmt->execute();
+
+$stmt=$pdo->prepare('drop table `:Sku`');
+$stmt->bindValue(':Sku', $Sku);
+$stmt->execute();
+}
+
 #delete alias
   public function delAlias($AliasID){
   $pdo = Database::DB();
@@ -48,11 +178,11 @@ class products{
       left JOIN locations l on
       p.SkuID = l.SkuID
       where
-      p.Sku like :stmt
+      p.Sku = :stmt
       or
-      a.Alias like :stmt      
+      a.Alias = :stmt      
       ');
-    $stmt->bindValue(':stmt', '%'.$Sku .'%');
+    $stmt->bindValue(':stmt', $Sku);
      $stmt->execute();
    if($stmt->rowCount()==null){
 

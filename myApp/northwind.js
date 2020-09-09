@@ -13,7 +13,8 @@ var myApp = angular.module('myApp',['ngRoute'])
 		//categories
 		.when("/categories",{controller:'categories as cat', templateUrl:'/templates/categories/categoryHome.php'})
 		//products
-		.when("/searchProduct",{controller: 'products as pr',templateUrl : "/templates/products/searchProducts.php"})
+		.when("/lowStockReport",{controller:'lowStock as ls',templateUrl:"/templates/products/lowStockReport.php"})
+		.when("/searchProduct",{controller:'products as pr',templateUrl: "/templates/products/searchProducts.php"})
 		.when("/searchByCategory",{controller: 'categories as ca',templateUrl : "/templates/products/searchByCategories.php"})
 		.when("/productDetails",{controller: 'productDetails as pr',templateUrl : "/templates/products/productDetails.php"})
 		.when("/addProduct",{templateUrl : "/templates/products/addProduct.php", controller: 'products as pr'})
@@ -70,6 +71,16 @@ myApp.filter('unique', function () {
     return items;
   };
 });
+
+myApp.controller('lowStock', function($scope,$http, $location){
+	$http({
+		method: 'POST',
+		url: './jsonData/productsGet.php',
+		data: {action: 'getLowStock'}
+	}).then(function(response){
+		$scope.getLowStock = response.data;
+	})
+})
 
 	myApp.controller('categories', function($scope,$http, $location){
 
@@ -149,7 +160,8 @@ myApp.filter('unique', function () {
 	})
 
 	myApp.controller('productDetails', function($scope, $http, $location, $route) {
-		this.SkuID = $location.search();
+		
+	this.SkuID = $location.search();
 	this.Sku = $location.search();
 	SkuID = this.SkuID;
 	Sku = this.Sku;
@@ -161,6 +173,8 @@ myApp.filter('unique', function () {
 	}).then((response)=>{
 		this.getProduct = response.data;
 	});
+
+
 	$http({
 			method: 'POST',
 			url: './jsonData/productsGet.php',

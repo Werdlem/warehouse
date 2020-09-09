@@ -7,8 +7,19 @@ $data = json_decode(file_get_contents("php://input"));
 $action = $data->action;
 
 switch ($action) {
+	case 'getLowStock':
+	$fetch = $dal->getLowStock();
+	echo json_encode($fetch);
+	break;
+	
 	case 'getProductViaUrl':
+	$SkuID = $data->SkuID->SkuID;
+	$Sku =  $data->SkuID->Sku;
+	$update = $dal->updateSku($SkuID, $Sku);
+	//echo json_encode($update);
+
 	$skuID = $data->SkuID->SkuID;
+
 	
 		$fetch = $dal->getProduct($skuID);
 		echo json_encode($fetch);
