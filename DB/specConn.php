@@ -5,9 +5,15 @@ class products{
   #get Low Sstock report
  public function getLowStock(){
   $pdo = Database::DB();
-    $stmt = $pdo->prepare('Select *
+    $stmt = $pdo->prepare('Select p.SkuID,p.Sku, p.StockQty, p.ReorderLevel,p.last_ordered, gi.DeliveryDate as delDate
       from products p
+      left join _gi_delivery_date gi on
+      p.Sku = gi.Sku
       where StockQty < ReorderLevel
+            and
+          gi.DeliveryDate > p.last_ordered    
+        
+    group by SkuID
       order by StockQty desc      
       ');
    $stmt->execute();
@@ -253,6 +259,17 @@ $stmt->execute();
     $stmt->bindValue(5, $po);
     $stmt->bindValue(6, $notes); 
     $stmt->bindValue(7,$initials); 
+    $stmt->execute();
+    }
+     public function updateSkuOrderDate($SkuID){
+  $pdo = Database::DB();
+    $stmt = $pdo->prepare('update
+     products 
+      set last_ordered = now()
+      where SkuID = :SkuID
+      ');
+   
+    $stmt->bindValue(':SkuID', $SkuID);   
     $stmt->execute();
     }
 

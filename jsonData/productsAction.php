@@ -131,29 +131,22 @@ case 'orderReq':
                 'text/html'
             );
 			
-			//$numSent = $mailer->send($message);
-			//printf("Send %d messages\n", $numSent);
-			
+		
 			$result = $mailer->send($message);
 			if ($result > 0)
 			{
 				$initials = strtoupper($data->details->Initials);
 	$execute = $dal->orderReq($SkuID, $Sku, $qty, $delivery, $po, $notes, $initials);
+	$execute = $dal->updateProductDate($SkuID);
 			$result = 'Success';
 			
             }
             else{
+            	$execute = $dal->updateSkuOrderDate($SkuID);
 
             	$result = 'Failure';
 
             	echo $result;
-				
-			//	echo "<div class='panel panel-danger'>
-				//		<div class='panel-heading' style='text-align:center;'><h3>Order Failure</h3></div>
-			//			<div class='panel-body'>
-			//			<p>Your order of <strong style='red'><a href='?action=activity&sku=". $Sku ."&sku_id=".$SkuID."'> ".$Sku." </a></strong> was not sent, please call the office with your order.</p>
-			//	</div>
-			//	</div>";
 				
 				}
 
