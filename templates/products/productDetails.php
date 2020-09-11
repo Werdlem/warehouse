@@ -6,6 +6,7 @@
     <button type="button" class="btn btn-primary btn-sm" ng-disabled="!pr.getProduct" data-toggle="modal" data-target="#aliasModal">Add Alias</button>
     <button type="button" class="btn btn-success btn-sm" ng-disabled="!pr.getProduct || pr.getProduct[0].Discontinued==1" data-toggle="modal" data-target="#skuOrderRequestModal">New PO</button>
     <button type="button" class="btn btn-warning btn-sm" ng-disabled="!pr.getProduct" data-toggle="modal" data-target="#soModal">Adjustment</button>
+    <button type="button" class="btn btn-warning btn-sm" ng-disabled="!pr.getProduct" data-toggle="modal" data-target="#addLocation">Add Location</button>
  
 </div>
 
@@ -32,6 +33,11 @@
 
 	
 <!-- Modals -->
+
+<!--Add sku to location-->
+<div class="modal fade" id="addLocation" tabindex="-1" role="dialog" aria-hidden="true">
+  <?php include('../partials/addLocation.php'); ?>
+</div>
 
   <!--Sku Order Request Modal-->
   <div class="modal fade" id="skuOrderRequestModal" tabindex="-1" role="dialog" aria-hidden="true">

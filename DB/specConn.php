@@ -202,16 +202,16 @@ $stmt->execute();
   }
 
   #get Product Locations
-  public function getLocations($SkuID){
+  public function getLocations($location){
   $pdo = Database::DB();
     $stmt = $pdo->prepare('Select * 
       from
     locations l
-  
-    where
-      SkuID = :stmt
+    where Location like :stmt
+    limit 5
+
       ');
-    $stmt->bindValue(':stmt', $SkuID);
+     $stmt->bindValue(':stmt', $location.'%');
      $stmt->execute();
    if($stmt->rowCount()>0){
     return$stmt->fetchAll(PDO::FETCH_ASSOC);

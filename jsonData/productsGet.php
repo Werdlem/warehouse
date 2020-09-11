@@ -7,11 +7,23 @@ $data = json_decode(file_get_contents("php://input"));
 $action = $data->action;
 
 switch ($action) {
+	case 'addLocation':
+	$locationID = $data->locationID;
+	$SkuID = $data->SkuID->SkuID;
+	$addLocation = $dal->addLocation($SkuID, $locationID);
+	break;
+
+	case 'getLocations':
+	$location = $data->location;
+	$fetch = $dal->getLocations($location);
+	echo json_encode($fetch);
+	break; 
+
 	case 'getLowStock':
 	$fetch = $dal->getLowStock();
 	echo json_encode($fetch);
 	break;
-	
+
 	case 'getProductViaUrl':
 	$SkuID = $data->SkuID->SkuID;
 	$Sku =  $data->SkuID->Sku;

@@ -286,7 +286,33 @@ myApp.controller('lowStock', function($scope,$http, $location){
 		})
 	}
 
+	$scope.getLocation =()=>{
+		$http({
+		method: 'POST',
+		url: '/jsonData/productsGet.php',
+		data: {action: 'getLocations',
+				location: $scope.location}
+	}).then((response)=>{
+		$scope.getLocations = response.data;
+	})
+}
 	this.a={};
+	this.x={};
+	$scope.addLocation=(location_id)=>{
+		$http({
+			method: 'POST',
+			url: './jsonData/productsGet.php',
+			data: {action: 'addLocation',
+			SkuID: SkuID,
+			locationID: location_id}			
+		})
+			$http({
+			method: 'POST',
+			url:'./jsonData/UpdateStock.json.php'
+		}).then((response)=>{
+			//window.location.replace("/productDetails?SkuID="+$scope.pr.getProduct[0].SkuID+"&Sku="+$scope.pr.getProduct[0].Sku);
+	})
+	}
 	$scope.addAlias=()=>{
 		$http({
 			method: 'POST',

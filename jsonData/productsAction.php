@@ -169,10 +169,6 @@ case 'orderReq':
 
 		break;
 
-		$fetch = $dal->getLocations($SkuID);
-		echo json_encode($fetch);
-		break;
-
 	case 'searchProduct';
 	$Sku  =$data->Sku;
 	$fetch = $dal->searchProduct($Sku);
