@@ -122,7 +122,7 @@ case 'orderReq':
 			//Order Body//
 			
 			->setBody('<html>'.
-                'Please order '. $qty . '(qty) of '.$Sku.'</a><br /><br />
+                'Please order '. $qty . '(qty) of <a href="http://warehouse/productDetails?SkuID='.$SkuID.'&Sku='.$Sku.'>'.$Sku.'</a><br /><br />
                 Direct Delivery: '.$delivery.'<br/>
                 PO: '.$po.'<br/>
                 Additional Notes: '.$notes.'<br/>'.
@@ -137,12 +137,13 @@ case 'orderReq':
 			{
 				$initials = strtoupper($data->details->Initials);
 	$execute = $dal->orderReq($SkuID, $Sku, $qty, $delivery, $po, $notes, $initials);
-	$execute = $dal->updateProductDate($SkuID);
+	//$execute = $dal->updateProductDate($SkuID);
+	$execute = $dal->updateSkuOrderDate($SkuID);
 			$result = 'Success';
 			
             }
             else{
-            	$execute = $dal->updateSkuOrderDate($SkuID);
+            	
 
             	$result = 'Failure';
 
