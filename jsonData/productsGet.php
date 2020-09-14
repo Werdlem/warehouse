@@ -19,6 +19,12 @@ switch ($action) {
 	echo json_encode($fetch);
 	break;
 
+	case 'getProductLocationsViaUrl';
+	$SkuID = $data->SkuID->SkuID;
+	$fetch = $dal->getProductLocations($SkuID);
+		echo json_encode($fetch);
+		break;
+
 	case 'getProductViaUrl':
 	$SkuID = $data->SkuID->SkuID;
 	$Sku =  $data->SkuID->Sku;

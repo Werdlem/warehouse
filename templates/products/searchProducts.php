@@ -12,9 +12,9 @@
 <h1>Product Details</h1>
 
 	<p>Product Name: <a href="/productDetails?SkuID={{pro.getProducts[0].SkuID}}&Sku={{pro.getProducts[0].Sku}}">{{pro.getProducts[0].Sku}}</a></p>
-	<p>Sku Alias: <span ng-repeat="x in pr.getProducts"><strong>{{x.Alias}}</strong></span> <br/></p>
+	<p>Sku Alias: <span ng-repeat="x in pro.getProducts"><strong>{{x.Alias}}</strong></span> <br/></p>
 	<p>Qty in Stock: {{pro.getProducts[0].StockQty}}</p>
-	<p>Location: <span ng-repeat="x in pr.getProducts"><strong> {{x.Location}} </strong><button type="button" ng-show="x.Location" class="btn btn-danger btn-sm" disabled>Delete </button></span></p>
+	<p>Location: <span ng-repeat="x in pro.getProducts"><strong> {{x.Location}} </strong><button type="button" ng-show="x.Location" class="btn btn-danger btn-sm" disabled>Delete </button></span></p>
 	<p>Product Description: {{pr.getProducts[0].description}}</p>
 	<p>Notes: {{pr.getProducts[0].Notes}}</p>
 </div>

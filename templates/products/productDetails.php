@@ -25,7 +25,7 @@
 	<!--<p>Sku Alias's: <select ng-model="selectedSkuAliasList" ng-options="x.Alias for x in getSkuAlias"> </select></p>-->
 	<p>Sku Alias: <select ng-model="selectedAlias" ng-options="x.Alias for x in pr.getProduct">{{x.Alias }} <button type="button" class="btn btn-danger btn-sm" ng-show="x.Alias" ng-click="delAlias(x.AliasID)">Del</button></select><br/>
 	</p>
-	<p>Location: <span ng-repeat="x in pr.getProduct" style="padding-left: 1em">{{x.Location}} <button type="button" ng-show="x.Location" class="btn btn-danger btn-sm" ng-click="delLocation(x)"> Delete </button></span></p>
+	<p>Location: <span ng-repeat="x in pr.getLocations" style="padding-left: 1em">{{x.Location}} <button type="button" ng-show="x.Location" class="btn btn-danger btn-sm" ng-click="delLocation(x)"> Delete </button></span></p>
 	<p>Quantity Per Unit: <input type="text" ng-model="pr.getProduct[0].QuantityPerUnit" ng-change="editProduct(pr.getProduct[0])"style="border:0"> </p>
 	<p>Unit Price: <input type="text" ng-model="pr.getProduct[0].UnitPrice" ng-change="editProduct(pr.getProduct[0])"style="border:0"></p>
 	<p>Units In Stock: {{pr.getProduct[0].StockQty}}</p>

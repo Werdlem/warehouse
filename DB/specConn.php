@@ -2,6 +2,24 @@
 require_once('settings.php');
 
 class products{
+
+  public function getProductLocations($SkuID){
+  $pdo = Database::DB();
+    $stmt = $pdo->prepare('Select *
+    from locations l 
+    join
+    products p on
+    l.SkuID = p.SkuID   
+    where
+    l.SkuID = :SkuID 
+      ');
+    $stmt->bindValue(':SkuID', $SkuID);
+   $stmt->execute();
+   if($stmt->rowCount()>0)
+   {
+   return $stmt->fetchAll(PDO::FETCH_ASSOC);
+ }
+}
   #del skuID from location
   public function delLocation($id){
   $pdo = Database::DB();

@@ -208,6 +208,14 @@ myApp.controller('lowStock', function($scope,$http, $location){
 	}).then((response)=>{
 		this.getProduct = response.data;
 	});
+	$http({ //GET PRODUCT LOCATIONS
+		method:'POST',
+		url: './jsonData/productsGet.php',
+		data: {action: 'getProductLocationsViaUrl',
+		SkuID: SkuID}
+	}).then((response)=>{
+		this.getLocations = response.data;
+	});
 
 
 	$http({
