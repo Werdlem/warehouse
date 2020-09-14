@@ -6,7 +6,20 @@ $data = json_decode(file_get_contents("php://input"));
 
 $action = $data->action;
 
+
 switch ($action) {
+
+	case 'updateLocation':
+	$locationID = $data->locationID;
+	$SkuID = $data->SkuID->SkuID;
+	$dal = new products();
+	$addLocation = $dal->updateLocation($SkuID,$locationID);
+	break;
+
+	case 'delLocation': //delete product sku from locatation
+	$id = $data->id;
+	$del = $dal->delLocation($id);
+	break;
 
 	case 'delAlias': //delete Alias
 $AliasID = $data->AliasID;

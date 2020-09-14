@@ -14,7 +14,7 @@ var myApp = angular.module('myApp',['ngRoute'])
 		.when("/categories",{controller:'categories as cat', templateUrl:'/templates/categories/categoryHome.php'})
 		//products
 		.when("/lowStockReport",{controller:'lowStock as ls',templateUrl:"/templates/products/lowStockReport.php"})
-		.when("/searchProduct",{controller:'products as pr',templateUrl: "/templates/products/searchProducts.php"})
+		.when("/searchProduct",{controller:'products as pro',templateUrl: "/templates/products/searchProducts.php"})
 		.when("/searchByCategory",{controller: 'categories as ca',templateUrl : "/templates/products/searchByCategories.php"})
 		.when("/productDetails",{controller: 'productDetails as pr',templateUrl : "/templates/products/productDetails.php"})
 		.when("/addProduct",{templateUrl : "/templates/products/addProduct.php", controller: 'products as pr'})
@@ -189,6 +189,17 @@ myApp.controller('lowStock', function($scope,$http, $location){
 	this.Sku = $location.search();
 	SkuID = this.SkuID;
 	Sku = this.Sku;
+	$scope.delLocation =(x)=>{
+		$http({
+			method: 'POST',
+			url:'./jsonData/productsAction.php',
+			data:{action: 'delLocation',
+			id: x.location_id}
+		}).then((response)=>{
+			location.reload();
+		});
+
+	}
 	$http({
 		method:'POST',
 		url: './jsonData/productsGet.php',
@@ -301,16 +312,12 @@ myApp.controller('lowStock', function($scope,$http, $location){
 	$scope.addLocation=(location_id)=>{
 		$http({
 			method: 'POST',
-			url: './jsonData/productsGet.php',
+			url: './jsonData/productsAction.php',
 			data: {action: 'updateLocation',
 			SkuID: SkuID,
 			locationID: location_id}			
-		})
-			$http({
-			method: 'POST',
-			url:'./jsonData/UpdateStock.json.php'
 		}).then((response)=>{
-			//window.location.replace("/productDetails?SkuID="+$scope.pr.getProduct[0].SkuID+"&Sku="+$scope.pr.getProduct[0].Sku);
+			location.reload();
 	})
 	}
 	$scope.addAlias=()=>{

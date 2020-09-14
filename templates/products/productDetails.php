@@ -1,14 +1,16 @@
 
 <div product-details>
-  <div  style="padding: 10px; border: 1px solid rgba(0,0,255,0.2); background-color: rgba(0,0,255,0.1); border-radius: 5px" >
- 
+ <!--  <div  style="padding: 10px; border: 1px solid rgba(0,0,255,0.2); background-color: rgba(0,0,255,0.1); border-radius: 5px" >
+
     <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addProductModal">Add Product</button>
     <button type="button" class="btn btn-primary btn-sm" ng-disabled="!pr.getProduct" data-toggle="modal" data-target="#aliasModal">Add Alias</button>
     <button type="button" class="btn btn-success btn-sm" ng-disabled="!pr.getProduct || pr.getProduct[0].Discontinued==1" data-toggle="modal" data-target="#skuOrderRequestModal">New PO</button>
     <button type="button" class="btn btn-warning btn-sm" ng-disabled="!pr.getProduct" data-toggle="modal" data-target="#soModal">Adjustment</button>
     <button type="button" class="btn btn-warning btn-sm" ng-disabled="!pr.getProduct" data-toggle="modal" data-target="#addLocation">Add Location</button>
- 
-</div>
+</div> 
+-->
+ <?php include('../menuItems/productsMenu.html')?>
+
 
 
 <div id="container" style="box-shadow: 4px 11px 13px 10px #d4d4d4; border-radius: 5px; padding: 15px; margin-top: 5px">
@@ -17,12 +19,13 @@
 
 	<p>Product Name: <input type="text" ng-model="pr.getProduct[0].Sku" ng-change="editProduct(pr.getProduct[0])"style="border:0"></p>
 	<p>Product Description: <input type="text" ng-model="pr.getProduct[0].description"ng-change="editProduct(pr.getProduct[0])"style="border:0"></p>
+	<p>Last Ordered: <input type="text" ng-model="pr.getProduct[0].last_order_date"style="border:0"></p>
 	<p>Current Category: {{pr.getProduct[0].CategoryName}}</p>
   <p>Change Category: <select ng-model="editCategory" ng-options="x.CategoryName for x in getCategories" ng-change="editProduct(pr.getProduct[0])"></select></p>
 	<!--<p>Sku Alias's: <select ng-model="selectedSkuAliasList" ng-options="x.Alias for x in getSkuAlias"> </select></p>-->
 	<p>Sku Alias: <select ng-model="selectedAlias" ng-options="x.Alias for x in pr.getProduct">{{x.Alias }} <button type="button" class="btn btn-danger btn-sm" ng-show="x.Alias" ng-click="delAlias(x.AliasID)">Del</button></select><br/>
 	</p>
-	<p>Location: <span ng-repeat="x in pr.getProduct" style="padding-left: 1em">{{x.Location}}</span></p>
+	<p>Location: <span ng-repeat="x in pr.getProduct" style="padding-left: 1em">{{x.Location}} <button type="button" ng-show="x.Location" class="btn btn-danger btn-sm" ng-click="delLocation(x)"> Delete </button></span></p>
 	<p>Quantity Per Unit: <input type="text" ng-model="pr.getProduct[0].QuantityPerUnit" ng-change="editProduct(pr.getProduct[0])"style="border:0"> </p>
 	<p>Unit Price: <input type="text" ng-model="pr.getProduct[0].UnitPrice" ng-change="editProduct(pr.getProduct[0])"style="border:0"></p>
 	<p>Units In Stock: {{pr.getProduct[0].StockQty}}</p>

@@ -7,12 +7,7 @@ $data = json_decode(file_get_contents("php://input"));
 $action = $data->action;
 
 switch ($action) {
-	case 'updateLocation':
-	$locationID = $data->locationID;
-	$SkuID = $data->SkuID->SkuID;
-	$addLocation = $dal->updateLocation($locationID,$SkuID);
-	break;
-
+	
 	case 'getLocations':
 	$location = $data->location;
 	$fetch = $dal->getLocations($location);

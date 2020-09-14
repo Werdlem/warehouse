@@ -2,6 +2,20 @@
 require_once('settings.php');
 
 class products{
+  #del skuID from location
+  public function delLocation($id){
+  $pdo = Database::DB();
+    $stmt = $pdo->prepare('update
+      locations
+      set SkuID = NULL
+    where
+    location_id = :id    
+      ');
+    $stmt->bindValue(':id', $id);
+    //$stmt->bindValue(':locationID', $locationID);
+   $stmt->execute();
+   
+}
   #add product to locaiton
   public function updateLocation($SkuID,$locationID){
   $pdo = Database::DB();
@@ -18,13 +32,13 @@ class products{
   #get Low Sstock report
  public function getLowStock(){
   $pdo = Database::DB();
-    $stmt = $pdo->prepare('Select p.SkuID,p.Sku, p.StockQty, p.ReorderLevel,p.last_ordered, gi.DeliveryDate as delDate
+    $stmt = $pdo->prepare('Select p.SkuID,p.Sku, p.StockQty, p.ReorderLevel,p.last_order_date, gi.DeliveryDate as delDate
       from products p
       left join _gi_delivery_date gi on
       p.Sku = gi.Sku
       where StockQty < ReorderLevel
             and
-          gi.DeliveryDate > p.last_ordered    
+          gi.DeliveryDate > p.last_order_date   
         
     group by SkuID
       order by StockQty desc      
@@ -278,7 +292,7 @@ $stmt->execute();
   $pdo = Database::DB();
     $stmt = $pdo->prepare('update
      products 
-      set last_ordered = now()
+      set last_order_date = now()
       where SkuID = :SkuID
       ');
    
