@@ -152,7 +152,8 @@ case 'orderReq':
 	$execute = $dal->orderReq($SkuID, $Sku, $qty, $delivery, $po, $notes, $initials);
 	//$execute = $dal->updateProductDate($SkuID);
 	$execute = $dal->updateSkuOrderDate($SkuID);
-			$result = 'Success';
+	$result = 'Success';
+	echo $result
 			
             }
             else{
