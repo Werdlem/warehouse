@@ -2,6 +2,19 @@
 require_once('settings.php');
 
 class products{
+  #add product to locaiton
+  public function updateLocation($SkuID,$locationID){
+  $pdo = Database::DB();
+    $stmt = $pdo->prepare('update locations
+    set SkuID = :SkuID
+    where location_id = :locationID    
+      ');
+    $stmt->bindValue(':SkuID', $SkuID);
+    $stmt->bindValue(':locationID', $locationID);
+   $stmt->execute();
+   
+}
+
   #get Low Sstock report
  public function getLowStock(){
   $pdo = Database::DB();

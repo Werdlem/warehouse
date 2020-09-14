@@ -302,7 +302,7 @@ myApp.controller('lowStock', function($scope,$http, $location){
 		$http({
 			method: 'POST',
 			url: './jsonData/productsGet.php',
-			data: {action: 'addLocation',
+			data: {action: 'updateLocation',
 			SkuID: SkuID,
 			locationID: location_id}			
 		})
