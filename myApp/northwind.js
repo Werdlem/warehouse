@@ -279,7 +279,8 @@ myApp.controller('lowStock', function($scope,$http, $location){
 	}
 	else if (response.data == 'Success')
 	{
-		alert('Your order has been sent!');
+		//alert('Your order has been sent!');
+		location.reload();
 	}
 
 	})
