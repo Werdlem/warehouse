@@ -56,7 +56,9 @@ class products{
       p.Sku = gi.Sku
       where StockQty < ReorderLevel
             and
-          gi.DeliveryDate > p.last_order_date   
+          gi.DeliveryDate > p.last_order_date 
+          and
+          p.Discontinued = 0
         
     group by SkuID
       order by StockQty desc      
@@ -135,7 +137,7 @@ $pdo = Database::DB();
   JOIN (
       SELECT
         p.SkuID,      
-        SUM(go.QtyDelivered) as QtyDelivered
+        coalesce(SUM(go.QtyDelivered),0) as QtyDelivered
     FROM products p
     
     JOIN goods_out go 
@@ -221,7 +223,7 @@ $stmt->execute();
   #product search
   public function searchProduct($Sku){
   $pdo = Database::DB();
-    $stmt = $pdo->prepare('Select *,p.SkuID 
+    $stmt = $pdo->prepare('Select *,p.SkuID,group_concat(l.location) as location, group_concat(a.Alias) as Alias
       from
     products p
     left join alias a on
@@ -229,11 +231,12 @@ $stmt->execute();
       left JOIN locations l on
       p.SkuID = l.SkuID
       where
-      p.Sku = :stmt
+      p.Sku like :stmt
       or
-      a.Alias = :stmt      
+      a.Alias like :stmt 
+      group by p.sku     
       ');
-    $stmt->bindValue(':stmt', $Sku);
+    $stmt->bindValue(':stmt', $Sku.'%');
      $stmt->execute();
    if($stmt->rowCount()==null){
 
