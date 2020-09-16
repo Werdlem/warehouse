@@ -59,7 +59,7 @@ class products{
           gi.DeliveryDate > p.last_order_date 
           and
           p.Discontinued = 0
-          and allocation_id not in (0, 29,31,9,41,48)
+          and CategoryId not in (0, 29,31,9,41,48,53)
         
     group by SkuID
       order by StockQty desc      
