@@ -47,7 +47,7 @@ class products{
    
 }
 
-  #get Low Sstock report
+  #get Low Sstock report ignoring JWM (9), 0201 + board(23&31), bubble (41),  loadpoint(48)
  public function getLowStock(){
   $pdo = Database::DB();
     $stmt = $pdo->prepare('Select p.SkuID,p.Sku, p.StockQty, p.ReorderLevel,p.last_order_date, gi.DeliveryDate as delDate
@@ -59,6 +59,7 @@ class products{
           gi.DeliveryDate > p.last_order_date 
           and
           p.Discontinued = 0
+          and and allocation_id not in (0, 29,31,9,41,48)
         
     group by SkuID
       order by StockQty desc      
