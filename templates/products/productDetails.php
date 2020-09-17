@@ -34,37 +34,7 @@
 
 	<p>Discontinued:  <input type="checkBox" ng-checked="pr.getProduct[0].Discontinued==1" ng-model="pr.getProduct[0].Discontinued" ng-change="editProduct()"></p>
 
-	
-<!-- Modals -->
 
-<!--Add sku to location-->
-<div class="modal fade" id="addLocation" tabindex="-1" role="dialog" aria-hidden="true">
-  <?php include('../partials/addLocation.php'); ?>
-</div>
-
-  <!--Sku Order Request Modal-->
-  <div class="modal fade" id="skuOrderRequestModal" tabindex="-1" role="dialog" aria-hidden="true">
-  <?php include('../partials/skuOrderRequestModal.php'); ?>
-</div>
-  <!--Alias Modal-->
-	<div class="modal fade" id="aliasModal" tabindex="-1" role="dialog" aria-hidden="true">
-  <?php include('../partials/aliasModal.php'); ?>
-</div>
-	<!--Adjustment Modal-->
-<div class="modal fade" id="soModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <?php include('../partials/productAdjustModal.php') ?>
-</div>
-<!--Adjustment Modal-->
-<div class="modal fade" id="addProductModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <?php include('../partials/productAdjustModal.php') ?>
-</div>
-<!--Add Product-->
-<div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-hidden="true">
-  <?php include('../partials/addProductModal.php'); ?>
-</div>
-
-
-<!-- end modals-->
 
 <div ng-show="pr.getProduct[0]">
 <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -98,7 +68,7 @@
 		<td>{{x.OrderID}}</td>
 		<td>{{x.sku}} - {{x.desc1sku}}</td>
 		<td>{{x.DueDate | date: 'dd/MM/yyyy'}}</td>
-		<td>{{x.despatch | date: 'dd-MM-YYYY'}}</td>
+		<td>{{x.DispatchDate | date: 'dd-MM-YYYY'}}</td>
 		<td>{{x.QtyDelivered}}</td>
 		</div>
 	</tr>

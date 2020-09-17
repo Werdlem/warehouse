@@ -4,30 +4,30 @@
 
 <div class="modal-body">
  <h3>Add Product</h3>
-<form ng-submit="pr.addProduct(newP)">
-<p>Select Category:  <select class="form-control" ng-model="pr.newP.selectCategory" ng-options="x.CategoryName for x in getCategories"></select></p>
-<p>Product Name:  <input class="form-control" type="text" ng-model="pr.newP.ProductName"></p>
-<p>Description: <input class="form-control" type="text" ng-model="pr.newP.Description"></p></p>
-<p>Quantity Per Unit: <input class="form-control" type="text" ng-model="pr.newP.QuantityPerUnit"></p>
-<p>Cost Price: <div class="input-group mb-2">
-        <div class="input-group-prepend">
+<form ng-submit="pro.addprooduct(newP)">
+<p>Select Category:  <select class="form-control" ng-model="pro.newP.selectCategory" ng-options="x.CategoryName for x in getCategories"></select></p>
+<p>prooduct Name:  <input class="form-control" type="text" ng-model="pro.newP.prooductName"></p>
+<p>Description: <input class="form-control" type="text" ng-model="pro.newP.Description"></p></p>
+<p>Quantity Per Unit: <input class="form-control" type="number" ng-model="pro.newP.QuantityPerUnit"></p>
+<p>Cost proice: <div class="input-group mb-2">
+        <div class="input-group-proepend">
           <div class="input-group-text">£
           </div>
         </div> 
-        <input class="form-control" type="" ng-model="pr.newP.CostPrice">
+        <input class="form-control" type="" ng-model="pro.newP.Costproice">
     </div>
   </p>
-<p>Unit Price:  <div class="input-group mb-2">
-        <div class="input-group-prepend">
+<p>Unit proice:  <div class="input-group mb-2">
+        <div class="input-group-proepend">
           <div class="input-group-text">£
           </div>
         </div>
-        <input class="form-control"  ng-model="pr.newP.UnitPrice">
+        <input class="form-control"  ng-model="pro.newP.Unitproice">
     </div>
   </p>
-<p>Units in Stock:  <input class="form-control" type="" ng-model="pr.newP.UnitsInStock"></p>
-<p>Units On Order:  <input class="form-control" type="" ng-model="pr.newP.UnitsOnOrder"></p>
-<p>Reorder Level:  <input class="form-control" type="" ng-model="pr.newP.ReorderLevel"></p>
+<p>Units in Stock:  <input class="form-control" type="" ng-model="pro.newP.UnitsInStock"></p>
+<p>Units On Order:  <input class="form-control" type="" ng-model="pro.newP.UnitsOnOrder"></p>
+<p>Reorder Level:  <input class="form-control" type="" ng-model="pro.newP.ReorderLevel"></p>
 
 <button class="btn btn-primary" type="Submit" id="submit" value="Submit" >Submit</button>
 </form>

@@ -561,7 +561,7 @@ p.sku=go.sku
 where
 p.SkuID = :pId and QtyDelivered > 0
 ORDER BY 
-go.DueDate desc
+go.DispatchDate desc
 ');
     $stmt->bindValue(':pId', $pId);
     $stmt->execute();

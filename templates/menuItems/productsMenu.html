@@ -1,5 +1,6 @@
 <div  style="padding: 10px; border: 1px solid rgba(0,0,255,0.2); background-color: rgba(0,0,255,0.1); border-radius: 5px" >
-<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addProductModal" >Add Product</button>
+<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addProductModal" ng-show="pro.getProduct" >Add Product</button>
+<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addProductModalMain" ng-hide="pr.getProduct" >Add Product</button>
     <button type="button" class="btn btn-secondary btn-sm" ng-disabled="!pr.getProduct" data-toggle="modal" data-target="#aliasModal">Add Alias</button>
     <button type="button" class="btn btn-success btn-sm" ng-disabled="(!pr.getProduct || pr.getProduct[0].Discontinued==1)? true:false" data-toggle="modal" data-target="#skuOrderRequestModal">New PO</button>
     <button type="button" class="btn btn-warning btn-sm" ng-disabled="!pr.getProduct" data-toggle="modal" data-target="#soModal">Adjustment</button>
@@ -25,5 +26,46 @@
 <!--Add Product-->
 <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-hidden="true">
   <?php include('../partials/addProductModal.php'); ?>
+</div>
+
+<div class="modal fade" id="addProductModalMain" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+
+<div class="modal-body">
+ <h3>Add Product main</h3>
+<form ng-submit="pro.addProduct(newP)">
+<p>Select Category:  <select class="form-control" ng-model="pro.newP.selectCategory" ng-options="x.CategoryName for x in getCategories"></select></p>
+<p>Product Name:  <input class="form-control" type="text" ng-model="pro.newP.ProductName"></p>
+<p>Description: <input class="form-control" type="text" ng-model="pro.newP.Description"></p></p>
+<p>Quantity Per Unit: <input class="form-control" type="number" ng-model="pro.newP.QuantityPerUnit"></p>
+<p>Cost Price: <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text">£
+          </div>
+        </div> 
+        <input class="form-control" type="" ng-model="pro.newP.CostPrice">
+    </div>
+  </p>
+<p>Unit Price:  <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text">£
+          </div>
+        </div>
+        <input class="form-control"  ng-model="pro.newP.UnitPrice">
+    </div>
+  </p>
+<p>Units in Stock:  <input class="form-control" type="" ng-model="pro.newP.UnitsInStock"></p>
+<p>Units On Order:  <input class="form-control" type="" ng-model="pro.newP.UnitsOnOrder"></p>
+<p>Reorder Level:  <input class="form-control" type="" ng-model="pro.newP.ReorderLevel"></p>
+
+<button class="btn btn-primary" type="Submit" id="submit" value="Submit" >Submit</button>
+</form>
+
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>

@@ -438,6 +438,23 @@ $scope.AdjOut = ()=>{
 
 myApp.controller('products', function($scope, $http, $location, $route){
 
+	this.newP={};
+	this.addProduct = ()=>{
+		$http({
+			method: 'POST',
+			url: './jsonData/productsAction.php',
+			data: {newP:this.newP,
+				action: 'addProduct'}				
+		});
+	}
+
+	$http({
+		method: 'GET',
+		url: './jsonData/getCategories.json.php'
+	}).then(function(response){
+		$scope.getCategories = response.data;
+	});
+
 		$scope.searchProduct=(pr)=>{
 			$http({
 				method:'POST',
