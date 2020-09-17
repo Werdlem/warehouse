@@ -472,23 +472,22 @@ public function getStockQuantity($id){
     $stmt->execute();
     }
 
-  public function addProduct($ProductName, $categoryId, $QuantityPerUnit,$CostPrice,$UnitPrice,$UnitsInStock,$ReorderLevel){
+  public function addProduct($ProductName, $categoryId, $QuantityPerUnit,$CostPrice,$UnitPrice,$UnitsInStock,$Description,$ReorderLevel){
   $pdo = Database::DB();
     $stmt = $pdo->prepare('insert into 
       products
-      (Sku,categoryId,QuantityPerUnit,CostPrice,UnitPrice,StockQty, ReorderLevel)
+      (Sku,categoryId,QuantityPerUnit,CostPrice,UnitPrice,StockQty,Description,ReorderLevel)
       values
-      (?,?,?,?,?,?,?)
+      (?,?,?,?,?,?,?,?)
       ');
     $stmt->bindValue(1, $ProductName);
-    //$stmt->bindValue(2, $SupplierID);
     $stmt->bindValue(2, $categoryId);
     $stmt->bindValue(3, $QuantityPerUnit);
     $stmt->bindValue(4, $CostPrice);
     $stmt->bindValue(5, $UnitPrice);
     $stmt->bindValue(6,$UnitsInStock);
-    //$stmt->bindValue(7, $UnitsOnOrder);
-    $stmt->bindValue(7, $ReorderLevel);
+    $stmt->bindValue(7, $Description);
+    $stmt->bindValue(8, $ReorderLevel);
     $stmt->execute();
     }
 

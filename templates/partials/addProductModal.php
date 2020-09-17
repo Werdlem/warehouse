@@ -7,7 +7,8 @@
 <form ng-submit="pr.addProduct(newP)">
 <p>Select Category:  <select class="form-control" ng-model="pr.newP.selectCategory" ng-options="x.CategoryName for x in getCategories"></select></p>
 <p>Product Name:  <input class="form-control" type="text" ng-model="pr.newP.ProductName"></p>
-<p>Quantity Per Unit:  <input class="form-control" type="text" ng-model="pr.newP.QuantityPerUnit"></p>
+<p>Description: <input class="form-control" type="text" ng-model="pr.newP.Description"></p></p>
+<p>Quantity Per Unit: <input class="form-control" type="text" ng-model="pr.newP.QuantityPerUnit"></p>
 <p>Cost Price: <div class="input-group mb-2">
         <div class="input-group-prepend">
           <div class="input-group-text">£

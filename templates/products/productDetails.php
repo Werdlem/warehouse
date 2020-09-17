@@ -18,7 +18,7 @@
 <h1>Product Details</h1>
 
 	<p>Product Name: <input type="text" ng-model="pr.getProduct[0].Sku" ng-change="editProduct(pr.getProduct[0])"style="border:0"></p>
-	<p>Product Description: <input type="text" ng-model="pr.getProduct[0].description"ng-change="editProduct(pr.getProduct[0])"style="border:0"></p>
+	<p>Product Description: <input type="text" ng-model="pr.getProduct[0].Description"ng-change="editProduct(pr.getProduct[0])"style="border:0;width: 70%"></p>
 	<p>Last Ordered: <input type="text" ng-model="pr.getProduct[0].last_order_date"style="border:0"></p>
 	<p>Current Category: {{pr.getProduct[0].CategoryName}}</p>
   <p>Change Category: <select ng-model="editCategory" ng-options="x.CategoryName for x in getCategories" ng-change="editProduct(pr.getProduct[0])"></select></p>

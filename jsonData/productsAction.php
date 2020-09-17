@@ -55,27 +55,29 @@ break;
 		break;
 
 	case 'addProduct': //add product to DB
-		$ProductName = $data->newP->ProductName;
+		$ProductName = strtoupper($data->newP->ProductName);
 		$CategoryId = $data->newP->selectCategory->CategoryId;
 		$QuantityPerUnit = $data->newP->QuantityPerUnit;
 		$CostPrice = $data->newP->CostPrice;
 		$UnitPrice =$data->newP->UnitPrice;
 		$UnitsInStock =$data->newP->UnitsInStock;
-		$UnitsOnOrder = $data->newP->UnitsOnOrder;
+		$Description = strtoupper($data->newP->Description);
 		$ReorderLevel = $data->newP->ReorderLevel;
 
-$fetch = $dal->addProduct($ProductName, $CategoryId, $QuantityPerUnit,$CostPrice,$UnitPrice,$UnitsInStock,$UnitsOnOrder,$ReorderLevel);
+$fetch = $dal->addProduct($ProductName, $CategoryId, $QuantityPerUnit,$CostPrice,$UnitPrice,$UnitsInStock,$Description,$ReorderLevel);
+echo $Description;
 echo json_encode($fetch);
 		break;
 
 	#edit selected product
 	case 'editProduct':
-		$Sku = $data->details->Sku;
-		$Desc = $data->details->description;
+		$Sku = strtoupper($data->details->Sku);
+		$Desc = strtoupper($data->details->description);
 		$Qpu = $data->details->QuantityPerUnit;
 		$UnitPrice = $data->details->UnitPrice;
 		$ReorderLevel = $data->details->ReorderLevel;
-		$Notes = $data->details->Notes;
+		$Notes = strtoupper($data->details->Notes);
+		$description = strtoupper($data->description);
 
 		if(isset($data->category->CategoryId)){
 			$CategoryId = $data->category->CategoryId;
