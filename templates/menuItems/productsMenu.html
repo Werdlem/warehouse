@@ -1,5 +1,5 @@
 <div  style="padding: 10px; border: 1px solid rgba(0,0,255,0.2); background-color: rgba(0,0,255,0.1); border-radius: 5px" >
-<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addProductModal" ng-show="pro.getProduct" >Add Product</button>
+<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addProductModal" ng-show="pr.getProduct" >Add Product</button>
 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addProductModalMain" ng-hide="pr.getProduct" >Add Product</button>
     <button type="button" class="btn btn-secondary btn-sm" ng-disabled="!pr.getProduct" data-toggle="modal" data-target="#aliasModal">Add Alias</button>
     <button type="button" class="btn btn-success btn-sm" ng-disabled="(!pr.getProduct || pr.getProduct[0].Discontinued==1)? true:false" data-toggle="modal" data-target="#skuOrderRequestModal">New PO</button>

@@ -237,7 +237,7 @@ $stmt->execute();
       a.Alias like :stmt 
       group by p.sku     
       ');
-    $stmt->bindValue(':stmt', $Sku.'%');
+    $stmt->bindValue(':stmt', '%'.$Sku.'%');
      $stmt->execute();
    if($stmt->rowCount()==null){
 
