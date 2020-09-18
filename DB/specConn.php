@@ -106,7 +106,8 @@ $pdo = Database::DB();
       gi.TotalReceived as TotalReceived
     FROM _goods_in gi
     JOIN products p ON p.Sku = gi.Sku   
-    WHERE gi.Sku = :Sku
+    WHERE  gi.DeliveryDate > p.LastUpdated
+    and gi.Sku = :Sku
   ) pgi ON pgi.SkuID = su.SkuID
   SET su.TotalReceived = pgi.TotalReceived');
    $stmt->bindValue('Sku', $Sku);
@@ -125,7 +126,7 @@ $pdo = Database::DB();
     ON 
     a.Alias = go.sku or
     a.Alias = go.desc1sku       
-     where
+     where  go.DispatchDate > p.LastUpdated and
      p.SkuID = :SkuID
   ) pgo ON pgo.SkuId = su.SkuId
   SET su.TotalDelivered = pgo.QtyDelivered');
@@ -145,7 +146,7 @@ $pdo = Database::DB();
     ON p.Sku = go.sku or
     p.Sku = go.desc1sku 
             
-  where p.SkuID = :SkuID
+  where   go.DispatchDate > p.LastUpdated  and p.SkuID = :SkuID
   ) pgo ON pgo.SkuId = su.SkuId
   SET su.TotalDeliveredSku = pgo.QtyDelivered');
      $stmt->bindValue(':Sku', $Sku);
@@ -161,7 +162,7 @@ p.SkuID,
 coalesce(sum(adj.AdjustIN),0) - coalesce(sum(adj.AdjustOut),0) as TotalAdjusted
 FROM Adjustments adj
 JOIN products p ON p.SkuId = adj.SkuID
-where p.SkuID = :SkuID
+where  adj.Date > p.LastUpdated and p.SkuID = :SkuID
 ) psat ON psat.SkuId = su.SkuID
 SET su.TotalAdjusted = psat.TotalAdjusted');
  $stmt->bindValue(':Sku', $Sku);
@@ -181,9 +182,9 @@ $stmt->execute();
   $stmt->bindValue(':Sku', $Sku);
  $stmt->execute();
 
-$stmt=$pdo->prepare('drop table `:Sku`');
-$stmt->bindValue(':Sku', $Sku);
-$stmt->execute();
+//$stmt=$pdo->prepare('drop table `:Sku`');
+//$stmt->bindValue(':Sku', $Sku);
+//$stmt->execute();
 }
 
 #delete alias
