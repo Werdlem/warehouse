@@ -73,6 +73,13 @@ myApp.filter('unique', function () {
 });
 
 myApp.controller('lowStock', function($scope,$http, $location){
+
+	$http({
+		method: 'GET',
+		url: './jsonData/getCategories.json.php'
+	}).then(function(response){
+		$scope.getCategories = response.data;
+	})
 	$http({
 		method: 'POST',
 		url: './jsonData/productsGet.php',

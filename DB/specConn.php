@@ -99,6 +99,17 @@ $pdo = Database::DB();
     $stmt->bindValue(':SkuID', $SkuID);
      $stmt->execute();
 
+    $stmt = $pdo->prepare('UPDATE `:Sku` su
+    JOIN (
+        select p.SkuID, p.StockQty as StockQty
+        from products p
+        where p.SkuID = :SkuID    
+      )pud on pud.SkuID = su.SkuID
+      SET su.StockQty = pud.StockQty') ;
+    $stmt->bindValue(':SkuID', $SkuID);
+    $stmt->bindValue(':Sku', $Sku);
+     $stmt->execute();
+
       $stmt = $pdo->prepare('UPDATE `:Sku` su
   JOIN (
     SELECT
@@ -171,7 +182,7 @@ $stmt->execute();
 
   # calc stock qty
  $stmt=$pdo->prepare('UPDATE `:Sku`
-  SET StockQty = TotalReceived - TotalDelivered - TotalDeliveredSku + TotalAdjusted');
+  SET StockQty = TotalReceived - TotalDelivered - TotalDeliveredSku + TotalAdjusted+StockQty');
   $stmt->bindValue(':Sku', $Sku);
  $stmt->execute();
 
@@ -182,9 +193,9 @@ $stmt->execute();
   $stmt->bindValue(':Sku', $Sku);
  $stmt->execute();
 
-//$stmt=$pdo->prepare('drop table `:Sku`');
-//$stmt->bindValue(':Sku', $Sku);
-//$stmt->execute();
+$stmt=$pdo->prepare('drop table `:Sku`');
+$stmt->bindValue(':Sku', $Sku);
+$stmt->execute();
 }
 
 #delete alias
@@ -360,7 +371,7 @@ $stmt->execute();
 
   public function StockUpdate(){
       $pdo = Database::DB();
-      $stmt = $pdo->prepare('call UpdateStock()
+      $stmt = $pdo->prepare('call StockUpdateCurrent()
       ');
       $stmt->execute();     
     

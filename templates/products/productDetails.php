@@ -45,10 +45,10 @@
     <a class="nav-link" id="orders-tab" data-toggle="tab" href="#orders" role="tab" aria-controls="orders" target="_self" aria-selected="false" ng-click="getProductHistory()">Goods In</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="adjustments-tab" data-toggle="tab" href="#adjustments" role="tab" aria-controls="adjustments" target="_self" aria-selected="false" ng-click="StockUpdate()">Adjustments</a>
+    <a class="nav-link" id="adjustments-tab" data-toggle="tab" href="#adjustments" role="tab" aria-controls="adjustments" target="_self" aria-selected="false" >Adjustments</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="orderReq-tab" data-toggle="tab" href="#orderReq" role="tab" aria-controls="orderReq" target="_self" aria-selected="false" ng-click="StockUpdate()">Sku OrderRequests</a>
+    <a class="nav-link" id="orderReq-tab" data-toggle="tab" href="#orderReq" role="tab" aria-controls="orderReq" target="_self" aria-selected="false" >Sku OrderRequests</a>
   </li>
 </ul>
 <div class="tab-content" id="myTabContent">

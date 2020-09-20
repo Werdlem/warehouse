@@ -1,5 +1,8 @@
  <?php include '../menuItems/productsMenu.html'; ?>
+ <br/>
 
+ <p>Filter Category: <select ng-model="selectCatagory" ng-options=" x.CategoryName for x in getCategories"></select></p>
+ 
  <table class="table">
  	<tr>
  		<th>Sku</th>
