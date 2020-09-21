@@ -342,11 +342,8 @@ myApp.controller('lowStock', function($scope,$http, $location){
 			url: './jsonData/addAlias.json.php',
 			data: {Alias:this.a,
 			SkuID: SkuID,}			
-		})
-			$http({
-			method: 'POST',
-			url:'./jsonData/UpdateStock.json.php'
 		}).then((response)=>{
+			location.reload();
 			//window.location.replace("/productDetails?SkuID="+$scope.pr.getProduct[0].SkuID+"&Sku="+$scope.pr.getProduct[0].Sku);
 	})
 	}
@@ -356,10 +353,6 @@ myApp.controller('lowStock', function($scope,$http, $location){
 			url: './jsonData/productsAction.php',
 			data: {action: 'delAlias',
 			AliasID}			
-		})
-			$http({
-			method: 'POST',
-			url:'./jsonData/UpdateStock.json.php'
 		}).then((response)=>{
 			window.location.replace("/productDetails?SkuID="+$scope.pr.getProduct[0].SkuID+"&Sku="+$scope.pr.getProduct[0].Sku);
 	})
@@ -374,11 +367,7 @@ this.Adj={};
 		data: {details:this.Adj, 
 		SkuID: $scope.pr.getProduct[0].SkuID,
 		action: 'AdjustIn'}
-	})
-		$http({
-			method: 'POST',
-			url:'./jsonData/UpdateStock.json.php'
-		}).then((response)=>{
+	}).then((response)=>{
 		window.location.replace("/productDetails?SkuID="+$scope.pr.getProduct[0].SkuID+"&Sku="+$scope.pr.getProduct[0].Sku);
 	})
 		
@@ -390,11 +379,7 @@ $scope.AdjOut = ()=>{
 		data: {details:this.Adj, 
 		SkuID: $scope.pr.getProduct[0].SkuID,
 		action: 'out'}
-	})
-		$http({
-			method: 'POST',
-			url:'./jsonData/UpdateStock.json.php'
-		}).then(function(response){
+	}).then(function(response){
 		 window.location.replace("/productDetails?SkuID="+$scope.pr.getProduct[0].SkuID+"&Sku="+$scope.pr.getProduct[0].Sku);
 	})
 };

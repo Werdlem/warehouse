@@ -28,7 +28,7 @@ switch ($action) {
 	case 'getProductViaUrl':
 	$SkuID = $data->SkuID->SkuID;
 	$Sku =  $data->SkuID->Sku;
-	$update = $dal->updateSku($SkuID, $Sku);
+	$update = $dal->updateAllSku($SkuID, $Sku);
 	//echo json_encode($update);
 
 	$skuID = $data->SkuID->SkuID;

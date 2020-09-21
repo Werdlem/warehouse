@@ -73,6 +73,14 @@ class products{
 
   #update the Sku on Demand
 
+public function updateAllSku(){
+      $pdo = Database::DB();
+      $stmt = $pdo->prepare('call StockUpdateCurrent()
+      ');
+      $stmt->execute();     
+    
+    }
+
    public function updateSku($SkuID, $Sku){
 $pdo = Database::DB();
  $stmt=$pdo->prepare('DROP TABLE IF EXISTS `:Sku`');
