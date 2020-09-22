@@ -9,6 +9,12 @@ $action = $data->action;
 
 switch ($action) {
 
+	case 'addLocation':
+	$location = strtoupper($data->location);
+	$dal = new products();
+	$addLocation = $dal->addLocation($location);
+	break;
+
 	case 'updateLocation':
 	$locationID = $data->locationID;
 	$SkuID = $data->SkuID->SkuID;

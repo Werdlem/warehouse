@@ -4,7 +4,8 @@
     <button type="button" class="btn btn-secondary btn-sm" ng-disabled="!pr.getProduct" data-toggle="modal" data-target="#aliasModal">Add Alias</button>
     <button type="button" class="btn btn-success btn-sm" ng-disabled="(!pr.getProduct || pr.getProduct[0].Discontinued==1)? true:false" data-toggle="modal" data-target="#skuOrderRequestModal">New PO</button>
     <button type="button" class="btn btn-warning btn-sm" ng-disabled="!pr.getProduct" data-toggle="modal" data-target="#soModal">Adjustment</button>
-    <button type="button" class="btn btn-info btn-sm" ng-disabled="!pr.getProduct" data-toggle="modal" data-target="#addLocation">Add Location</button>
+    <button type="button" class="btn btn-info btn-sm" ng-disabled="!pr.getProduct" data-toggle="modal" data-target="#addLocation">Update Location</button>
+    <button type="button" class="btn btn-light btn-sm" ng-disabled="!pr.getProduct" data-toggle="modal" data-target="#addNewLocation">Add New Location</button>
  </div>
 
   <!--Sku Order Request Modal-->
@@ -26,6 +27,10 @@
 <!--Add Product-->
 <div class="modal fade" id="addLocation" tabindex="-1" role="dialog" aria-hidden="true">
   <?php include('../partials/addLocation.php'); ?>
+</div>
+
+<div class="modal fade" id="addNewLocation" tabindex="-1" role="dialog" aria-hidden="true">
+  <?php include('../partials/addNewLocation.php'); ?>
 </div>
 
 <div class="modal fade" id="addProductModalMain" tabindex="-1" role="dialog" aria-hidden="true">

@@ -2,6 +2,19 @@
 require_once('settings.php');
 
 class products{
+   public function addLocation($location){
+  $pdo = Database::DB();
+    $stmt = $pdo->prepare('insert into 
+     locations
+      (location)
+      values
+      (?)');
+   
+    $stmt->bindValue(1, $location);   
+    $stmt->execute();
+    }
+
+
 
   public function getProductLocations($SkuID){
   $pdo = Database::DB();
