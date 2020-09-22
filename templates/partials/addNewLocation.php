@@ -12,7 +12,7 @@
       </div>
       <div class="modal-body">
        
-        <p><label>Location:</label> <input type="text" ng-model="location"></p>
+        <p><label>Location:</label> <input type="text" ng-model="newLocation"></p>
         </div>
         
       <div class="modal-footer">        

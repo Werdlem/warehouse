@@ -342,7 +342,7 @@ myApp.controller('lowStock', function($scope,$http, $location){
 			method: 'POST',
 			url: './jsonData/productsAction.php',
 			data: {action: 'addLocation',
-			location: $scope.location}			
+			location: $scope.newLocation}			
 		})//.then((response)=>{
 		//location.reload();
 	}
