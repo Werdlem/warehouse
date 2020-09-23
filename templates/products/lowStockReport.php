@@ -10,11 +10,11 @@
  		<th>Reorder Level</th>
  	</tr>
  	<tr ng-repeat="x in getLowStock">
- 		<td><a href="/productDetails?SkuID={{x.SkuID}}&Sku={{x.Sku}}">{{x.Sku}}</a></td>
+ 		<td><a href="/productDetails?SkuID={{x.SkuID}}&Sku={{x.Sku}}">{{x.Sku}}</a> {{x.SkuID}}</td>
  		<td>{{x.StockQty}}</td>
  		<td>{{x.ReorderLevel}}</td>
- 		<td> <button type="button" class="btn btn-success btn-sm" ng-disabled="pr.getProduct[0].Discontinued==1" data-toggle="modal" data-target="#skuOrderRequestModall">New PO</button></td>
- <td><div class="modal fade" id="skuOrderRequestModall" tabindex="-1" role="dialog" aria-hidden="true">
+ 		<td> <button type="button" disabled="" class="btn btn-success btn-sm" data-toggle="modal" data-target="#lowStockOrderRequestModal">New PO</button>
+      <div class="modal fade" id="lowStockOrderRequestModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -37,12 +37,7 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary" ng-click="skuOrderRequest(order,x)" ng-show="order.Initials">Send</button>
-        </div>
-  </div>
-  </div>
-  </div>
-  </div>
-</td>
- 		
+       
+</td>		
  	</tr>
  </table>

@@ -113,10 +113,13 @@ case 'orderReq':
 	if(isset($data->details->delivery)){
 		$delivery = 'YES';
 		$po = $data->details->po;
+
+	
 	}
 	else {
 		$delivery = 'NO';
 		$po = 'NA';
+		
 	}
 	if(isset($data->details->notes)){
 		$notes = strtoupper($data->details->notes);
