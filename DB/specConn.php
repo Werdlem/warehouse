@@ -63,16 +63,18 @@ class products{
   #get Low Sstock report ignoring JWM (9), 0201 + board(23&31), bubble (41),  loadpoint(48)
  public function getLowStock(){
   $pdo = Database::DB();
-    $stmt = $pdo->prepare('Select p.SkuID,p.Sku, p.StockQty, p.ReorderLevel,p.last_order_date, gi.DeliveryDate as delDate
+    $stmt = $pdo->prepare('Select p.SkuID,p.Sku, p.StockQty, p.ReorderLevel,p.last_order_date, gi.DeliveryDate as delDate, p.CategoryId as cId, pc.CategoryName as Category
       from products p
       left join _gi_delivery_date gi on
       p.Sku = gi.Sku
+      left join product_categories pc on
+      p.CategoryId = pc.CategoryId
       where StockQty < ReorderLevel
             and
           gi.DeliveryDate > p.last_order_date 
           and
           p.Discontinued = 0
-          and CategoryId not in (0, 29,31,9,41,48,53)
+          and p.CategoryId not in (0, 29,31,9,41,53)
         
     group by SkuID
       order by StockQty desc      
@@ -594,7 +596,7 @@ p.sku=go.sku
 where
 p.SkuID = :pId and QtyDelivered > 0
 ORDER BY 
-go.DispatchDate desc
+go.DueDate desc
 ');
     $stmt->bindValue(':pId', $pId);
     $stmt->execute();

@@ -1,16 +1,17 @@
  <?php include '../menuItems/productsMenu.html'; ?>
  <br/>
 
- <p>Filter Category: <select ng-model="selectCatagory" ng-options=" x.CategoryName for x in getCategories"></select></p>
- 
+ <p>Filter Category: <select ng-model="selectCategory"> <option ng-repeat="cat in getCategories" value="{{cat.CategoryName}}">{{cat.CategoryName}}</option></select></p>
+
+
  <table class="table">
  	<tr>
  		<th>Sku</th>
  		<th>Qty</th>
  		<th>Reorder Level</th>
  	</tr>
- 	<tr ng-repeat="x in getLowStock">
- 		<td><a href="/productDetails?SkuID={{x.SkuID}}&Sku={{x.Sku}}">{{x.Sku}}</a> {{x.SkuID}}</td>
+ 	<tr ng-repeat="x in getLowStock | filter:{Category:selectCategory}">
+ 		<td><a href="/productDetails?SkuID={{x.SkuID}}&Sku={{x.Sku}}">{{x.Sku}}</a></td>
  		<td>{{x.StockQty}}</td>
  		<td>{{x.ReorderLevel}}</td>
  		<td> <button type="button" disabled="" class="btn btn-success btn-sm" data-toggle="modal" data-target="#lowStockOrderRequestModal">New PO</button>

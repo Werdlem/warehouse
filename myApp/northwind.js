@@ -72,8 +72,23 @@ myApp.filter('unique', function () {
   };
 });
 
+
+myApp.controller('addProduct', function($scope,$http){
+
+this.newP={};
+	this.addProduct = ()=>{
+		$http({
+			method: 'POST',
+			url: './jsonData/productsAction.php',
+			data: {newP:this.newP,
+				action: 'addProduct'}				
+		});
+	}
+})
+
 myApp.controller('lowStock', function($scope,$http, $location){
 
+	
 	$http({
 		method: 'GET',
 		url: './jsonData/getCategories.json.php'
@@ -354,7 +369,7 @@ myApp.controller('lowStock', function($scope,$http, $location){
 			data: {Alias:this.a,
 			SkuID: SkuID,}			
 		}).then((response)=>{
-			location.reload();
+			//location.reload();
 			//window.location.replace("/productDetails?SkuID="+$scope.pr.getProduct[0].SkuID+"&Sku="+$scope.pr.getProduct[0].Sku);
 	})
 	}
@@ -394,16 +409,6 @@ $scope.AdjOut = ()=>{
 		 window.location.replace("/productDetails?SkuID="+$scope.pr.getProduct[0].SkuID+"&Sku="+$scope.pr.getProduct[0].Sku);
 	})
 };
-
-	this.newP={};
-	this.addProduct = ()=>{
-		$http({
-			method: 'POST',
-			url: './jsonData/productsAction.php',
-			data: {newP:this.newP,
-				action: 'addProduct'}				
-		});
-	}
 
 
 	$http({

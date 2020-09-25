@@ -1,10 +1,10 @@
-	<div class="modal-dialog">
+	<div class="modal-dialog" ng-controller="addProduct as pro">
     <div class="modal-content">
       <div class="modal-header">
 
 <div class="modal-body">
  <h3>Add Product</h3>
-<form ng-submit="pro.addprooduct(newP)">
+<form ng-submit="pro.addproduct(newP)">
 <p>Select Category:  <select class="form-control" ng-model="pro.newP.selectCategory" ng-options="x.CategoryName for x in getCategories"></select></p>
 <p>prooduct Name:  <input class="form-control" type="text" ng-model="pro.newP.prooductName"></p>
 <p>Description: <input class="form-control" type="text" ng-model="pro.newP.Description"></p></p>
