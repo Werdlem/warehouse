@@ -15,9 +15,10 @@
  <div ng-repeat="x in pro.getProducts" style="border-bottom: 2px dashed #6c757d">
 
 
-	<p>Sku: <a href="/productDetails?SkuID={{x.SkuID}}&Sku={{x.Sku}}">{{x.Sku}}</a> {{x.SkuID}}</p>
+	<p>Sku: <a href="/productDetails?SkuID={{x.SkuID}}&Sku={{x.Sku}}">{{x.Sku}}</a></p>
 	<p>Location: <strong>{{x.location}}</strong></p>
 	<p>Qty: {{x.StockQty}}</p>
+	<p>Live Stock Qty: {{x.LiveStockQty}} * EXPERIMENTAL - Please seek advise when relying on this figure </p>
 	<p>Alias: <strong>{{x.Alias}}</strong><br/></p>
 </div>
 
