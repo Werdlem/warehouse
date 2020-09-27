@@ -18,7 +18,8 @@
 	<p>Sku: <a href="/productDetails?SkuID={{x.SkuID}}&Sku={{x.Sku}}">{{x.Sku}}</a></p>
 	<p>Location: <strong>{{x.location}}</strong></p>
 	<p>Qty: {{x.StockQty}}</p>
-	<p>Live Stock Qty: {{x.LiveStockQty}} * EXPERIMENTAL - Please seek advise when relying on this figure </p>
+	<p>Live Stock Qty: {{x.LiveStockQty}} - *EXPERIMENTAL* </p>
+	<p>*This figure takes into account stock on orders that have not yet been dispatched. Physical stock may vary from figure shown. Please use with caution. Consult warehouse before commitment.</p>
 	<p>Alias: <strong>{{x.Alias}}</strong><br/></p>
 </div>
 

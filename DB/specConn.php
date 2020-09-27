@@ -91,7 +91,7 @@ class products{
 public function updateAllSku(){
       $pdo = Database::DB();
       $stmt = $pdo->prepare('call StockUpdateCurrent()');
-      $stmt = $pdo->prepare('call live_StockQty()');
+      //$stmt = $pdo->prepare('call live_StockQty()');
       $stmt->execute();     
     
     }
@@ -138,7 +138,7 @@ $pdo = Database::DB();
     SELECT
       p.SkuID,
       gi.TotalReceived as TotalReceived
-    FROM _goods_in gi
+    FROM goods_in gi
     JOIN products p ON p.Sku = gi.Sku   
     WHERE  gi.DeliveryDate > p.LastUpdated
     and gi.Sku = :Sku
