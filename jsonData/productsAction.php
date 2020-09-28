@@ -195,6 +195,8 @@ case 'orderReq':
 		break;
 
 	case 'searchProduct';
+	$updateStock = $dal->updateAllSku();
+	$liveStock = $dal->getLiveStockFigures();
 	$Sku  =$data->Sku;
 	$fetch = $dal->searchProduct($Sku);
 	print (json_encode($fetch));

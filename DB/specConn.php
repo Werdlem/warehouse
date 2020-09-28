@@ -61,15 +61,22 @@ class products{
 }
 
   #get Low Sstock report ignoring JWM (9), 0201 + board(23&31), bubble (41),  loadpoint(48)
+
+public function getLiveStockFigures(){
+      $pdo = Database::DB();
+      $stmt = $pdo->prepare('call Live_StockQty_2()');
+      $stmt->execute();     
+    
+    }
  public function getLowStock(){
   $pdo = Database::DB();
-    $stmt = $pdo->prepare('Select p.SkuID,p.Sku, p.StockQty, p.ReorderLevel,p.last_order_date, gi.DeliveryDate as delDate, p.CategoryId as cId, pc.CategoryName as Category
+    $stmt = $pdo->prepare('Select p.SkuID,p.Sku, p.StockQty, p.ReorderLevel,p.last_order_date, gi.DeliveryDate as delDate, p.CategoryId as cId, pc.CategoryName as Category, p.liveStockQty as liveStock
       from products p
       left join _gi_delivery_date gi on
       p.Sku = gi.Sku
       left join product_categories pc on
       p.CategoryId = pc.CategoryId
-      where StockQty < ReorderLevel
+      where p.LiveStockQty < ReorderLevel
             and
           gi.DeliveryDate > p.last_order_date 
           and

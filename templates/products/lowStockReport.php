@@ -8,11 +8,13 @@
  	<tr>
  		<th>Sku</th>
  		<th>Qty</th>
+    <th>Live Qty</th>
  		<th>Reorder Level</th>
  	</tr>
  	<tr ng-repeat="x in getLowStock | filter:{Category:selectCategory}">
  		<td><a href="/productDetails?SkuID={{x.SkuID}}&Sku={{x.Sku}}">{{x.Sku}}</a></td>
  		<td>{{x.StockQty}}</td>
+    <td>{{x.liveStock}}</td>
  		<td>{{x.ReorderLevel}}</td>
  		<td> <button type="button" disabled="" class="btn btn-success btn-sm" data-toggle="modal" data-target="#lowStockOrderRequestModal">New PO</button>
       <div class="modal fade" id="lowStockOrderRequestModal" tabindex="-1" role="dialog" aria-hidden="true">

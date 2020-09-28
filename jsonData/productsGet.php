@@ -15,8 +15,10 @@ switch ($action) {
 	break; 
 
 	case 'getLowStock':
+	$liveStock = $dal->getLiveStockFigures();
 	$fetch = $dal->getLowStock();
 	echo json_encode($fetch);
+
 	break;
 
 	case 'getProductLocationsViaUrl';
@@ -30,7 +32,6 @@ switch ($action) {
 	$Sku =  $data->SkuID->Sku;
 	$update = $dal->updateAllSku($SkuID, $Sku);
 	//echo json_encode($update);
-
 	$skuID = $data->SkuID->SkuID;
 
 	
