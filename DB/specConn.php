@@ -98,7 +98,6 @@ public function getLiveStockFigures(){
 public function updateAllSku(){
       $pdo = Database::DB();
       $stmt = $pdo->prepare('call StockUpdateCurrent()');
-      //$stmt = $pdo->prepare('call live_StockQty()');
       $stmt->execute();     
     
     }
