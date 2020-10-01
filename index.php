@@ -12,7 +12,7 @@
 
 
 
-<title>Postpack</title> v20.10
+<title>Postpack</title> v20.12
  <base href="/">
 </head>
 <div ng-app="myApp">
@@ -21,6 +21,7 @@
 	<div id="index" class="container-fluid">
 	<H1> <a href="/" style="">Postpack</a></H1>
 	<!-- VERTICAL MAIN MENU----->
+  <div id="content">
 	<div id="vertical-menu" >
 	<ul class="nav flex-column">
   <li class="nav-item"><strong>Customers</strong>
@@ -45,6 +46,7 @@
   </div> 
 </div>
 
+</div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>

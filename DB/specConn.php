@@ -442,8 +442,8 @@ $stmt->execute();
 
   public function SkuStockUpdate(){
       $pdo = Database::DB();
-      $stmt = $pdo->prepare('call UpdateStock()
-      ');
+     # $stmt = $pdo->prepare('call UpdateStock()
+      #');
       $stmt->execute();     
     
     }
@@ -593,12 +593,13 @@ alias a on
 p.SkuID=a.SkuID
 JOIN
 goods_out go on
-
 a.Alias = go.sku
 or
 a.Alias = go.desc1sku
 or
 p.sku=go.sku
+or
+p.sku = go.desc1sku
 where
 p.SkuID = :pId and QtyDelivered > 0
 ORDER BY 
