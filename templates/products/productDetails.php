@@ -23,7 +23,7 @@
 	<p>Current Category: {{pr.getProduct[0].CategoryName}}</p>
   <p>Change Category: <select ng-model="editCategory" ng-options="x.CategoryName for x in getCategories" ng-change="editProduct(pr.getProduct[0])"></select></p>
 	<!--<p>Sku Alias's: <select ng-model="selectedSkuAliasList" ng-options="x.Alias for x in getSkuAlias"> </select></p>-->
-	<p>Sku Alias: <select ng-model="selectedAlias" ng-options="x.Alias for x in pr.getProduct">{{x.Alias }} <button type="button" class="btn btn-danger btn-sm" ng-show="x.Alias" ng-click="delAlias(x.AliasID)">Del</button></select><br/>
+	<p>Sku Alias: <select ng-model="selectedAlias" ng-options="x.Alias for x in pr.getProduct | unique:'Alias'">{{x.Alias}} <button type="button" class="btn btn-danger btn-sm" ng-show="x.Alias" ng-click="delAlias(x.AliasID)">Del</button></select><br/>
 	</p>
 	<p>Location: <span ng-repeat="x in pr.getLocations" style="padding-left: 1em">{{x.Location}} <button type="button" ng-show="x.Location" class="btn btn-danger btn-sm" ng-click="delLocation(x)"> Delete </button></span></p>
 	<p>Quantity Per Unit: <input type="text" ng-model="pr.getProduct[0].QuantityPerUnit" ng-change="editProduct(pr.getProduct[0])"style="border:0"> </p>
