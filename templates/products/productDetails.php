@@ -29,7 +29,7 @@
 	<p>Quantity Per Unit: <input type="text" ng-model="pr.getProduct[0].QuantityPerUnit" ng-change="editProduct(pr.getProduct[0])"style="border:0"> </p>
 	<p>Unit Price: <input type="text" ng-model="pr.getProduct[0].UnitPrice" ng-change="editProduct(pr.getProduct[0])"style="border:0"></p>
 	<p>Units In Stock: {{pr.getProduct[0].StockQty * pr.getProduct[0].QuantityPerUnit}}</p>
-	<p> <strong>Live Stock Qty: {{pr.getProduct[0].LiveStockQty * pr.getProduct[0].QuantityPerUnit}} - *EXPERIMENTAL* </p>
+	<p> <strong>Live Stock Qty: {{pr.getProduct[0].LiveStockQty}} - *EXPERIMENTAL* </p>
 	<p>*This figure takes into account stock on orders that have not yet been dispatched. Physical stock may vary from figure shown. Please use with caution. Consult warehouse before commitment.</p></strong>
 	<p>Reorder Level: <input type="text" ng-model="pr.getProduct[0].ReorderLevel" ng-change="editProduct(pr.getProduct[0])"style="border:0"></p>
   <p>Notes: <input type="text" ng-model="pr.getProduct[0].Notes" ng-change="editProduct(pr.getProduct[0])"style="border:0; width: 100%"></p>
