@@ -78,12 +78,12 @@ echo json_encode($fetch);
 	#edit selected product
 	case 'editProduct':
 		$Sku = strtoupper($data->details->Sku);
-		$Desc = strtoupper($data->details->description);
+		$Desc = strtoupper($data->details->Description);
 		$Qpu = $data->details->QuantityPerUnit;
 		$UnitPrice = $data->details->UnitPrice;
 		$ReorderLevel = $data->details->ReorderLevel;
 		$Notes = strtoupper($data->details->Notes);
-		$description = strtoupper($data->description);
+		$description = strtoupper($data->details->Description);
 
 		if(isset($data->category->CategoryId)){
 			$CategoryId = $data->category->CategoryId;
