@@ -9,7 +9,7 @@
 <br>
 <h1>Product Details</h1>
 
-	<p>Product Name: <input type="text" ng-model="pr.getProduct[0].Sku" ng-change="editProduct(pr.getProduct[0])"style="border:0"></p>
+	<p>Product Name: <input type="text" ng-model="pr.getProduct[0].Sku" ng-change="editProduct(pr.getProduct[0])"style="border:0; width: auto;"></p>
 	<p>Product Description: <input type="text" ng-model="pr.getProduct[0].Description"ng-change="editProduct(pr.getProduct[0])"style="border:0;width: 70%"></p>
 	<p>Last Ordered: <input type="text" ng-model="pr.getProduct[0].last_order_date"style="border:0"></p>
 	<p>Current Category: {{pr.getProduct[0].CategoryName}}</p>
@@ -24,7 +24,7 @@
 	<p> <strong>Live Stock Qty: {{pr.getProduct[0].LiveStockQty}}</strong></p>
 	<p>Reorder Level: <input type="text" ng-model="pr.getProduct[0].ReorderLevel" ng-change="editProduct(pr.getProduct[0])"style="border:0"></p>
   <p>Notes: <input type="text" ng-model="pr.getProduct[0].Notes" ng-change="editProduct(pr.getProduct[0])"style="border:0; width: 100%"></p>
-<p>Discontinued:  <input type="checkBox" ng-checked="pr.getProduct[0].Discontinued==1" ng-model="pr.getProduct[0].Discontinued" ng-change="editProduct()"></p>
+<p>Discontinued:  <input type="checkBox" ng-checked="pr.getProduct[0].Discontinued==1" ng-model="pr.getProduct[0].Discontinued" ng-change="editProduct()"> Display Low Stock? <input type="checkBox" ng-checked="pr.getProduct[0].LowStock==true" ng-model="LowStock" ng-click="editProduct()">{{LowStock}}</p>
 
 
 

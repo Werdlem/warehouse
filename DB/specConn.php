@@ -82,6 +82,7 @@ public function getLiveStockFigures(){
           and
           p.Discontinued = 0
           and p.CategoryId not in (0, 29,31,9,41,53)
+          and p.LowStock = 0
         
     group by SkuID
       order by StockQty desc      
@@ -364,10 +365,10 @@ $stmt->execute();
     }
 
   #edit product
-  public function updateProduct($Sku, $Desc,$Qpu,$UnitPrice, $ReorderLevel,$Notes, $Discontinued, $CategoryId, $SkuID){
+  public function updateProduct($Sku, $Desc,$Qpu,$UnitPrice, $ReorderLevel,$Notes, $Discontinued, $CategoryId,$lowStock, $SkuID){
     $pdo = Database::DB();
     $stmt = $pdo->prepare('update products
-      set Sku = :sku, Description = :desc, QuantityPerUnit = :Qpu, UnitPrice = :UnitPrice, ReorderLevel = :ReorderLevel, Notes = :notes, Discontinued = :disc, CategoryId = :CategoryId
+      set Sku = :sku, Description = :desc, QuantityPerUnit = :Qpu, UnitPrice = :UnitPrice, ReorderLevel = :ReorderLevel, Notes = :notes, Discontinued = :disc, CategoryId = :CategoryId, LowStock = :lowStock
       where
       SkuID = :SkuID
       ');
@@ -379,6 +380,7 @@ $stmt->execute();
     $stmt->bindValue(':notes',$Notes);
     $stmt->bindValue(':disc', $Discontinued);
     $stmt->bindValue(':CategoryId', $CategoryId);
+    $stmt->bindValue(':lowStock',$lowStock);
     $stmt->bindValue('SkuID', $SkuID);
     $stmt->execute();
   }

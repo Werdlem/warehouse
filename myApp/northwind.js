@@ -313,6 +313,7 @@ myApp.controller('lowStock', function($scope,$http, $location){
 			url:'/jsonData/productsAction.php',
 			data: {action: 'editProduct',
 			details: $scope.pr.getProduct[0],
+			LowStock: $scope.LowStock,
 			category: $scope.editCategory,
 			SkuID
 		}

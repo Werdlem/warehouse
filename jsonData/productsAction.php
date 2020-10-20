@@ -105,8 +105,15 @@ echo json_encode($fetch);
 		else{
 			$Discontinued = $data->details->Discontinued;
 		}
+		if ($data->LowStock ==''){
+			$lowStock = 0;
+		}
+
+		else{
+			$lowStock = $data->LowStock;
+		}
 		
-		$fetch = $dal->updateProduct($Sku, $Desc,$Qpu,$UnitPrice, $ReorderLevel,$Notes, $Discontinued, $CategoryId, $SkuID);
+		$fetch = $dal->updateProduct($Sku, $Desc,$Qpu,$UnitPrice, $ReorderLevel,$Notes, $Discontinued, $CategoryId, $lowStock, $SkuID);
 		break;
 
 
@@ -199,9 +206,9 @@ case 'orderReq':
 		break;
 
 	case 'searchProduct';
+	$updateStock = $dal->updateAllSku();
+	$liveStock = $dal->getLiveStockFigures();
 	$Sku  =$data->Sku;
 	$fetch = $dal->searchProduct($Sku);
 	print (json_encode($fetch));
-	$updateStock = $dal->updateAllSku();
-	$liveStock = $dal->getLiveStockFigures();
 }
