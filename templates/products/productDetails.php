@@ -1,14 +1,6 @@
 
 <div product-details>
- <!--  <div  style="padding: 10px; border: 1px solid rgba(0,0,255,0.2); background-color: rgba(0,0,255,0.1); border-radius: 5px" >
 
-    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addProductModal">Add Product</button>
-    <button type="button" class="btn btn-primary btn-sm" ng-disabled="!pr.getProduct" data-toggle="modal" data-target="#aliasModal">Add Alias</button>
-    <button type="button" class="btn btn-success btn-sm" ng-disabled="!pr.getProduct || pr.getProduct[0].Discontinued==1" data-toggle="modal" data-target="#skuOrderRequestModal">New PO</button>
-    <button type="button" class="btn btn-warning btn-sm" ng-disabled="!pr.getProduct" data-toggle="modal" data-target="#soModal">Adjustment</button>
-    <button type="button" class="btn btn-warning btn-sm" ng-disabled="!pr.getProduct" data-toggle="modal" data-target="#addLocation">Add Location</button>
-</div> 
--->
  <?php include('../menuItems/productsMenu.html')?>
 
 
@@ -28,13 +20,11 @@
 	<p>Location: <span ng-repeat="x in pr.getLocations" style="padding-left: 1em">{{x.Location}} <button type="button" ng-show="x.Location" class="btn btn-danger btn-sm" ng-click="delLocation(x)"> Delete </button></span></p>
 	<p>Quantity Per Unit: <input type="text" ng-model="pr.getProduct[0].QuantityPerUnit" ng-change="editProduct(pr.getProduct[0])"style="border:0"> </p>
 	<p>Unit Price: <input type="text" ng-model="pr.getProduct[0].UnitPrice" ng-change="editProduct(pr.getProduct[0])"style="border:0"></p>
-	<p>Units In Stock: {{pr.getProduct[0].StockQty * pr.getProduct[0].QuantityPerUnit}}</p>
-	<p> <strong>Live Stock Qty: {{pr.getProduct[0].LiveStockQty}} - *EXPERIMENTAL* </p>
-	<p>*This figure takes into account stock on orders that have not yet been dispatched. Physical stock may vary from figure shown. Please use with caution. Consult warehouse before commitment.</p></strong>
+	<p>Units In Stock: {{pr.getProduct[0].StockQty}}</p>
+	<p> <strong>Live Stock Qty: {{pr.getProduct[0].LiveStockQty}}</strong></p>
 	<p>Reorder Level: <input type="text" ng-model="pr.getProduct[0].ReorderLevel" ng-change="editProduct(pr.getProduct[0])"style="border:0"></p>
   <p>Notes: <input type="text" ng-model="pr.getProduct[0].Notes" ng-change="editProduct(pr.getProduct[0])"style="border:0; width: 100%"></p>
-
-	<p>Discontinued:  <input type="checkBox" ng-checked="pr.getProduct[0].Discontinued==1" ng-model="pr.getProduct[0].Discontinued" ng-change="editProduct()"></p>
+<p>Discontinued:  <input type="checkBox" ng-checked="pr.getProduct[0].Discontinued==1" ng-model="pr.getProduct[0].Discontinued" ng-change="editProduct()"></p>
 
 
 

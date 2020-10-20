@@ -48,6 +48,8 @@ break;
 		$reason = strtoupper($data->details->reason);
 	//echo $field;
 	$fetch = $dal->adjIn($skuID, $qty, $initials,$reason);
+	$update = $dal->updateAllSku();
+	$liveStock = $dal->getLiveStockFigures();
 		break;
 
 	case 'out': // adjust stock out
@@ -58,6 +60,8 @@ break;
 	$field = 'AdjustOut';
 	//echo $field;
 	$fetch = $dal->adjOut($skuID, $qty, $initials,$reason);
+	$update = $dal->updateAllSku();
+	$liveStock = $dal->getLiveStockFigures();
 		break;
 
 	case 'addProduct': //add product to DB
@@ -195,10 +199,9 @@ case 'orderReq':
 		break;
 
 	case 'searchProduct';
-	$updateStock = $dal->updateAllSku();
-	$liveStock = $dal->getLiveStockFigures();
 	$Sku  =$data->Sku;
 	$fetch = $dal->searchProduct($Sku);
 	print (json_encode($fetch));
-
+	$updateStock = $dal->updateAllSku();
+	$liveStock = $dal->getLiveStockFigures();
 }
