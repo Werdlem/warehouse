@@ -148,8 +148,8 @@ case 'orderReq':
 			$transport = Swift_MailTransport::newInstance(SMTP_HOST, SMTP_PORT);
 			//$transport = Swift_MailTransport::newInstance('smtp.gmail.com', 465);
 			$mailer = Swift_Mailer::newInstance($transport);			
-			$message = Swift_Message::newInstance('Please Order')
-			->setSubject('Product Order: ' .$Sku)
+			$message = Swift_Message::newInstance('<strong>PLEASE ORDER</strong>')
+			->setSubject('<strong>Product Order: ' .$Sku.'</strong>')
 			->setFrom($EMAIL_ORDERS_FROM)
 			->setCc($EMAIL_ORDERS_PU)
 			->setTo($EMAIL_ORDERS_TO)

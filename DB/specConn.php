@@ -569,7 +569,8 @@ public function getStockQuantity($id){
   $pdo = Database::DB();
     $stmt = $pdo->prepare('select *
       from 
-      product_categories');
+      product_categories
+      order by CategoryName asc');
     $stmt->execute();
     return$stmt->fetchAll(PDO::FETCH_ASSOC);
   }
