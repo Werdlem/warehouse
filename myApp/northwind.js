@@ -471,8 +471,13 @@ myApp.controller('products', function($scope, $http, $location, $route){
 				data: {action: 'searchProduct',
 				Sku: $scope.selectedProduct}
 			}).then((response)=>{
+
+				if (response.data == 'null'){
+		alert('Product not found. Please try again.');
+	}else{
 				this.getProducts = response.data;		
-			});
+			}
+		});
 				
 
 		}

@@ -283,7 +283,7 @@ $stmt->execute();
      $stmt->execute();
    if($stmt->rowCount()==null){
 
-   die;
+   echo '';
     
   }
   else{
