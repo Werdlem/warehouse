@@ -28,11 +28,10 @@ switch ($action) {
 		break;
 
 	case 'getProductViaUrl':
+	$updateStock = $dal->updateAllSku();
+	$liveStock = $dal->getLiveStockFigures();
 	$SkuID = $data->SkuID->SkuID;
 	$Sku =  $data->SkuID->Sku;
-	//$update = $dal->updateAllSku();
-	//$liveStock = $dal->getLiveStockFigures();
-	//echo json_encode($update);
 	$skuID = $data->SkuID->SkuID;
 
 	
