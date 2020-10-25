@@ -20,7 +20,10 @@ var myApp = angular.module('myApp',['ngRoute'])
 		.when("/addProduct",{templateUrl : "/templates/products/addProduct.php", controller: 'products as pr'})
 		.when("/addAlias",{templateUrl : "/templates/products/addProduct.php", controller: 'products as pr'})
 		.when("/salesOrder",{controller: "salesOrder as so",templateUrl : "/templates/products/salesOrder.php"})
-		.when("/purchaseOrder",{controller: "purchaseOrder as po",templateUrl : "/templates/products/purchaseOrder.php"});
+		.when("/purchaseOrder",{controller: "purchaseOrder as po",templateUrl : "/templates/products/purchaseOrder.php"})
+		//Calculators
+		.when("/tooling",{controller: "products as pro",templateUrl : "/templates/calculator/tooling.php"})
+		.when("/toolCalculator",{controller: "calculator as cal",templateUrl : "/templates/calculator/toolCalculator.php"});
 		 $locationProvider
   .html5Mode(true)
   .hashPrefix('!');
@@ -481,6 +484,16 @@ myApp.controller('products', function($scope, $http, $location, $route){
 				
 
 		}
+		$scope.searchTools=()=>{
+			$http({
+				method:'POST',
+				url: '/jsonData/calculatorAction.php',
+				data: {action: 'searchTools',
+				ToolRef: $scope.searchTool}
+			}).then((response)=>{
+				this.getTools = response.data;		
+			});
+		}
 
 	$scope.getProductHistory =(SkuID, Sku)=>{
 		$http({
@@ -531,3 +544,81 @@ myApp.controller('products', function($scope, $http, $location, $route){
 	}
 	
 })
+
+myApp.controller('calculator', function($scope, $http, $location, $route){
+
+	this.toolID = $location.search();
+	this.tool = $location.search();
+	toolID = this.toolID;
+	tool = this.tool;
+
+		$http({
+		method:'POST',
+		url: './jsonData/calculatorAction.php',
+		data: {action: 'getToolViaUrl',
+		toolID: toolID}
+	}).then((response)=>{
+		this.getTool = response.data;
+	});
+
+	$http({
+		method: 'POST',
+		url:'./jsonData/calculatorAction.php',
+		data: {action: 'getSheetboard'}
+	}).then((response)=>{
+		this.getSheetboard = response.data;
+	})
+
+	 $scope.calcToolSqm = ()=>{
+      var res = ((($scope.cal.getTool.ktok_length * $scope.cal.getTool.ktok_width)*$scope.qty)/$scope.cal.getTool.config)/1000000;
+       if (isNaN(res)){
+        return null;
+       }
+       return res;
+     };
+     $scope.calcSheetSqm = function(){
+      var res = ((($scope.selectedSheetboard.Deckle * $scope.selectedSheetboard.Chop)*$scope.qty)/$scope.cal.getTool.config)/1000000;
+       if (isNaN(res)){
+        return null;
+       }
+       return res;
+     };
+
+      $scope.calcWaste = function(){
+      var res = $scope.calcSheetSqm()-$scope.calcToolSqm();
+       if (isNaN(res)){
+        return null;
+       }
+       return res;
+     };
+     $scope.calcCost =()=>{
+     	var cost = (($scope.cost / 1000)*$scope.calcWaste());
+     	if(isNaN(cost)){
+     		return null;
+     	}
+     	return cost
+     };
+
+     //filter for board that will fit the tool based on the dimensions
+$scope.filterRangeLength = function(fieldName, minValue, maxValue){
+
+ if (minValue === undefined) minValue = Number.MIN_VALUE;
+ maxValue = (($scope.cal.getTool.ktok_length) + ($scope.cal.getTool.ktok_length*1));
+
+ return function predicateFunc(item) {
+  return minValue <= item[fieldName] && item[fieldName] <= maxValue;
+};
+
+};
+
+$scope.filterRangeWidth = function(fieldName, minValue, maxValue){
+
+ if (minValue === undefined) minValue = Number.MIN_VALUE;
+ maxValue = (($scope.cal.getTool.ktok_width) + ($scope.cal.getTool.ktok_width* 1));
+
+ return function predicateFunc(item) {
+  return minValue <= item[fieldName] && item[fieldName] <= maxValue;
+};
+
+};
+});

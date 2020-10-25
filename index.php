@@ -35,8 +35,8 @@
     <a class="nav-link" href="/searchByCategory">Search By Category</a>
     <a class="nav-link" href="/lowStockReport">Low Stock Report</a>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#" tabindex="-1" aria-disabled="true"></a>
+  <li class="nav-item"><strong>Calculators</strong>
+    <a class="nav-link" href="/tooling" tabindex="-1" aria-disabled="true">Tooling</a>
   </li>
 </ul>
 </div>
