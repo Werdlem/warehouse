@@ -584,8 +584,13 @@ myApp.controller('calculator', function($scope, $http, $location, $route){
        return res;
      };
 
+     $scope.runsPerSheet = ()=>{
+     	var res = ($scope.calcToolSqm() * $scope.runs);
+     	return res;
+     }
+
       $scope.calcWaste = function(){
-      var res = $scope.calcSheetSqm()-$scope.calcToolSqm();
+      var res = ($scope.calcSheetSqm()-$scope.runsPerSheet());
        if (isNaN(res)){
         return null;
        }
@@ -617,4 +622,6 @@ $scope.filterRangeDeckle = function(sht){
 	return (sht.Chop > $scope.ktokLength());
 
  }
+
+ $scope.runs = 1;
 });

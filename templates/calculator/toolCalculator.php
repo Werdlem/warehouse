@@ -10,13 +10,15 @@
 <p>Dims: {{cal.getTool.length}} x {{cal.getTool.width}} x {{cal.getTool.height}}</p>
 <p>KTOK: {{cal.getTool.ktok_width}} x {{cal.getTool.ktok_length}}</p>
 <p>Sqm: {{((cal.getTool.ktok_length * cal.getTool.ktok_width)/cal.getTool.config)/1000000}}sqm</p>
-<p>Qty: <input type="number" ng-model="qty" ></p>
+<p>Qty: <input type="number" ng-model="qty"  data-placement="right"  data-toggle="tooltip" title="Amount of boxes required"></p>
 <p>Total SQM: {{calcToolSqm()}}</p>
 
 
 <p>Select Sheetboard: <select ng-model="selectedSheetboard" ng-options="sht.Ref for sht in cal.getSheetboard | filter:filterRangeDeckle| filter:filterRangeChop"></select> </p>
-<p>£ per K-Sqm: <input type="number" ng-model="cost"></p>
 <p>Size: {{selectedSheetboard.Deckle}} x {{selectedSheetboard.Chop}}</p>
 <p>Sqm: {{calcSheetSqm()}}</p>
+<P>Runs per sheet: <input type="number" ng-model="runs"></P>
+<p>£ per K-Sqm: <input type="number" ng-model="cost"></p>
+
 <p>Waste: {{calcWaste()| number: 4}}</p>
 <p>Waste Cost: {{calcCost() |currency: '£'}}</p>
