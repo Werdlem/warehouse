@@ -14,7 +14,7 @@
 <p>Total SQM: {{calcToolSqm()}}</p>
 
 
-<p>Select Sheetboard: <select ng-model="selectedSheetboard" ng-options="x.Ref for x in cal.getSheetboard"></select> </p>
+<p>Select Sheetboard: <select ng-model="selectedSheetboard" ng-options="sht.Ref for sht in cal.getSheetboard | filter:filterRangeDeckle| filter:filterRangeChop"></select> </p>
 <p>£ per K-Sqm: <input type="number" ng-model="cost"></p>
 <p>Size: {{selectedSheetboard.Deckle}} x {{selectedSheetboard.Chop}}</p>
 <p>Sqm: {{calcSheetSqm()}}</p>

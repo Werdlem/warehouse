@@ -597,28 +597,24 @@ myApp.controller('calculator', function($scope, $http, $location, $route){
      		return null;
      	}
      	return cost
-     };
+     }; 
 
      //filter for board that will fit the tool based on the dimensions
-$scope.filterRangeLength = function(fieldName, minValue, maxValue){
+    $scope.ktokWidth=()=>{
+    	var x = $scope.cal.getTool.ktok_width*1;
+    	return x
+    }
+    $scope.ktokLength=()=>{
+    	var x = $scope.cal.getTool.ktok_length*1;
+    	return x
+    }
 
- if (minValue === undefined) minValue = Number.MIN_VALUE;
- maxValue = (($scope.cal.getTool.ktok_length) + ($scope.cal.getTool.ktok_length*1));
+$scope.filterRangeDeckle = function(sht){
+	return (sht.Deckle > $scope.ktokWidth());
 
- return function predicateFunc(item) {
-  return minValue <= item[fieldName] && item[fieldName] <= maxValue;
-};
+ }
+ $scope.filterRangeChop = function(sht){
+	return (sht.Chop > $scope.ktokLength());
 
-};
-
-$scope.filterRangeWidth = function(fieldName, minValue, maxValue){
-
- if (minValue === undefined) minValue = Number.MIN_VALUE;
- maxValue = (($scope.cal.getTool.ktok_width) + ($scope.cal.getTool.ktok_width* 1));
-
- return function predicateFunc(item) {
-  return minValue <= item[fieldName] && item[fieldName] <= maxValue;
-};
-
-};
+ }
 });
