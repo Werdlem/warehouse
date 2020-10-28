@@ -1,4 +1,4 @@
-	<div class="modal-dialog" ng-controller="addProduct as pro">
+	<div class="modal-dialog" ng-controller="products as pro">
     <div class="modal-content">
       <div class="modal-header">
 

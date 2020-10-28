@@ -54,6 +54,14 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
 </body>
 
-<script type="text/javascript" src = "./myApp/northwind.js"></script>	
+<script type="text/javascript" src = "./myApp/northwindNew.js"></script>
+<script type="text/javascript" src = "./myApp/components/products.js"></script>
+<script type="text/javascript" src = "./myApp/components/products.js"></script>
+<script type="text/javascript" src = "./myApp/components/lowStock.js"></script>
+<script type="text/javascript" src = "./myApp/components/categories.js"></script>
+<script type="text/javascript" src = "./myApp/components/productDetails.js"></script>
+<script type="text/javascript" src = "./myApp/components/suppliers.js"></script>
+<script type="text/javascript" src = "./myApp/components/customers.js"></script>
+
 </div>
 </html>

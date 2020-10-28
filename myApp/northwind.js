@@ -8,7 +8,7 @@ var myApp = angular.module('myApp',['ngRoute'])
 		.when("/customers",{controller : 'customers as cu',templateUrl :"/templates/customers.php"})
 		.when("/customerDetails",{controller: 'customers as cu',templateUrl : "/templates/customerDetails.php"})
 		//suppliers
-		.when("/suppliers",{controller: 'suppliers as s',templateUrl :"/templates/suppliers.php"})
+		//.when("/suppliers",{controller: 'suppliers as s',templateUrl :"/templates/suppliers.php"})
 		.when("/supplierDetails",{controller: 'suppliers as s',	templateUrl: '/templates/supplierDetails'})
 		//categories
 		.when("/categories",{controller:'categories as cat', templateUrl:'/templates/categories/categoryHome.php'})

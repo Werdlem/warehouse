@@ -17,7 +17,7 @@
 <p>Select Sheetboard: <select ng-model="selectedSheetboard" ng-options="sht.Ref for sht in cal.getSheetboard | filter:filterRangeDeckle| filter:filterRangeChop"></select> </p>
 <p>Size: {{selectedSheetboard.Deckle}} x {{selectedSheetboard.Chop}}</p>
 <p>Sqm: {{calcSheetSqm()}}</p>
-<P>Runs per sheet: <input type="number" ng-model="runs"></P>
+<P>Runs per sheet: <input type="number" ng-model="runs"  data-placement="right" title="Number of runs "></P>
 <p>£ per K-Sqm: <input type="number" ng-model="cost"></p>
 
 <p>Waste: {{calcWaste()| number: 4}}</p>
