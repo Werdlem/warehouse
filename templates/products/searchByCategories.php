@@ -17,12 +17,14 @@
 		<th>Stock Qty</th>
 		<th>Live Stock</th>
 		<th>Reorder Level</th>
+		<TH>Recomended R.O</TH>
 	</tr>
 	<tr ng-repeat="x in getProducts">
 		<td><a href="/productDetails?SkuID={{x.SkuID}}&Sku={{x.Sku}}">{{x.Sku}}</a></td>
 		<td>{{x.StockQty}}</td>
 		<td>{{x.LiveStockQty}}</td>
 		<td>{{x.ReorderLevel}}</td>
+		<td>{{x.MaterialID}}</td>
 	</tr>
 </table>
 </div>
