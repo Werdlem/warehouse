@@ -7,6 +7,7 @@ var myApp = angular.module('myApp',['ngRoute'])
 		.when("/page2",{templateUrl : "/templates/page2.php"})
 		.when("/customers",{controller : 'customers as cu',templateUrl :"/templates/customers.php"})
 		.when("/customerDetails",{controller: 'customers as cu',templateUrl : "/templates/customerDetails.php"})
+      .when("/ncr",{controller: 'NonConformance as n',templateUrl : "/templates/ncr/ncr.php"})
 		//suppliers
 		.when("/suppliers",{controller: 'suppliers as s',templateUrl :"/templates/suppliers/suppliers.php"})
 		.when("/supplierDetails",{controller: 'suppliers as s',	templateUrl: '/templates/suppliers/supplierDetails.php'})

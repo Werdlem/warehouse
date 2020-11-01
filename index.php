@@ -26,6 +26,7 @@
 	<ul class="nav flex-column">
   <li class="nav-item"><strong>Customers</strong>
     <a class="nav-link active" href="/customers">Search</a>
+     <a class="nav-link active" href="/ncr">NCR</a>
   </li>
   <li class="nav-item"><strong>Suppliers</strong>
     <a class="nav-link" href="/suppliers">Search</a>
@@ -62,6 +63,7 @@
 <script type="text/javascript" src = "./myApp/components/productDetails.js"></script>
 <script type="text/javascript" src = "./myApp/components/suppliers.js"></script>
 <script type="text/javascript" src = "./myApp/components/customers.js"></script>
+<script type="text/javascript" src = "./myApp/components/ncr.js"></script>
 
 </div>
 </html>
