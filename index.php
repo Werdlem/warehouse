@@ -57,7 +57,7 @@
 
 <script type="text/javascript" src = "./myApp/northwindNew.js"></script>
 <script type="text/javascript" src = "./myApp/components/products.js"></script>
-<script type="text/javascript" src = "./myApp/components/products.js"></script>
+<script type="text/javascript" src = "./myApp/components/calculator.js"></script>
 <script type="text/javascript" src = "./myApp/components/lowStock.js"></script>
 <script type="text/javascript" src = "./myApp/components/categories.js"></script>
 <script type="text/javascript" src = "./myApp/components/productDetails.js"></script>
