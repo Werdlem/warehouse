@@ -12,9 +12,11 @@
 <p>Customer: <span>{{n.getOrder[0].customer}}</span></p>
 <p>Order Number: <span>{{n.getOrder[0].order_id}}</span></p>
 <p>Order Date: <span>{{n.getOrder[0].order_date}}</span></p>
+	
 <div ng-show="findOrder">
-Entire Order: <input type="checkbox" id="a" ng-model="entireOrder">
-<table class="table" ng-hide="entireOrder">
+	<p ng-hide="selectProducts">Entire Order: <input type="checkbox" ng-model="entireOrder"></p>
+	<p ng-hide="entireOrder" >Select Products: <input type="checkbox"ng-model="selectProducts"></p>
+<table class="table" ng-show="selectProducts">
 	<tr>
 	<th></th>	
 	<th>SKU</th>
@@ -23,8 +25,9 @@ Entire Order: <input type="checkbox" id="a" ng-model="entireOrder">
 	<th>Despatched</th>
 	<th>Quantity</th>
     </tr>
+
 	<tr ng-repeat="x in n.getOrder">
-		<th><input type="checkbox" id="a" ng-model="x.nc" ng-change=""></th>
+		<th><input type="checkbox" name="a"  ng-model="x.nc" ng-change=""></th>
 		<td ng-model="x.sku">{{x.sku}}</td>
 		<td ng-model="x.desc1">{{x.desc1}}</td>
 		<td ng-model="x.qty">{{x.qty}}</td>
@@ -32,14 +35,22 @@ Entire Order: <input type="checkbox" id="a" ng-model="entireOrder">
 
 			<td width="500px" style="position: right;">
 				<div ng-show="x.nc">
-					<input type="number" ng-model="qty">
-				</div>					
-</td>
+					<select ng-model="reason" ng-options="x.reason for x in options" > 
+		</select> 
+		<img src="/Css/images/tick.png" style="width: 5%; {{ncr.saved}}" ng-style="myStyle">
+	
+			<textarea ng-model="description"  placeholder="Please give short description of non-conformance" ></textarea>
+			<img src="/Css/images/tick.png" style="width: 5%;" ng-style="myStyle">
+			<p ng-hide="replacement"><input type="checkbox" ng-model="refund" name="corrective" > refund</p>
+			<p ng-hide="refund"><input type="checkbox" ng-model="replacement" name="corrective" > replacement</p>
+			<p><input type="" ng-model="details" ng-hide="refund"></p>
+		</div>
    		
 	</tr>
 </div>
 	</table>
-	<p>Reason: <select ng-model="reason" ng-options="x.reason for x in options" ng-show="entireOrder||x.nc" ></select></p>
+	<p ng-show="entireOrder">Reason: <select ng-model="reason" ng-options="x.reason for x in options"  ></select></p>
+
 	<p ng-show="reason.reason=='DX'||reason.reason=='DPD'||reason.reason=='Yodel'">Issue: <input type="test" ng-show="reason.reason=='DX'||reason.reason=='DPD'||reason.reason=='Yodel'"></p>
 	<p ng-show="entireOrder"> Description of Non conformance: <input type="text area"></p>
 	<p><input type="textarea" ng-show="x.Damaged" name="">
