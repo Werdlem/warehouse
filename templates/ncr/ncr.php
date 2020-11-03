@@ -12,10 +12,10 @@
 <p>Customer: <span>{{n.getOrder[0].customer}}</span></p>
 <p>Order Number: <span>{{n.getOrder[0].order_id}}</span></p>
 <p>Order Date: <span>{{n.getOrder[0].order_date}}</span></p>
-	
+	<p ng-hide="selectProducts">Entire Order: <input type="checkbox" ng-model="entireOrder" ng-click="raiseNCR()"></p>
+	<p ng-hide="entireOrder" >Select Line: <input type="checkbox"ng-model="selectProducts" ng-click="raiseNCR()"></p>
 <div ng-show="findOrder">
-	<p ng-hide="selectProducts">Entire Order: <input type="checkbox" ng-model="entireOrder"></p>
-	<p ng-hide="entireOrder" >Select Products: <input type="checkbox"ng-model="selectProducts"></p>
+	
 <table class="table" ng-show="selectProducts">
 	<tr>
 	<th></th>	
@@ -43,7 +43,7 @@
 			<img src="/Css/images/tick.png" style="width: 5%;" ng-style="myStyle">
 			<p ng-hide="replacement"><input type="checkbox" ng-model="refund" name="corrective" > refund</p>
 			<p ng-hide="refund"><input type="checkbox" ng-model="replacement" name="corrective" > replacement</p>
-			<p><input type="" ng-model="details" ng-hide="refund"></p>
+			<p><input type="" ng-model="details" ng-show="replacement"></p>
 		</div>
    		
 	</tr>

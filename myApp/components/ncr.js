@@ -137,11 +137,14 @@ this.search = $location.search();
      $scope.myStyle = {
     "display":"none"
   }
-  
+}
+this.x={};
+  $scope.raiseNCR=()=>{
     $http({
       method: 'POST',
-      url: './jsonData/ncrAdded.json.php',
-      data: {id: x.item_id,
+      url: './jsonData/ncrAction.php',
+      data: {action: 'openNcr',
+      id: x.item_id,
         po: x.order_id, 
         added: x.nc,
         sku: x.sku,
@@ -178,9 +181,5 @@ $scope.saved = ()=>{
       corrective: corrective,
       initials:initials}
   })
-  $scope.myStyle = {
-    "display":"inline"
-  }
-  }
-
+};
 })
