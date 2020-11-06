@@ -140,23 +140,7 @@ require_once('settings.php');
     $stmt->execute();
   }
 
-  public function openNcr($po,$sku,$desc1,$qty,$id, $customerName){
-    $pdo = Database::DB();
-    $stmt=$pdo->prepare('insert into
-      ncr
-      (po,sku,desc1,qty,id,customer_name)
-      values 
-      (?,?,?,?,?,?)
-      ');
-    $stmt->bindValue(1, $po);
-    $stmt->bindValue(2, $sku);
-    $stmt->bindValue(3, $desc1);
-    $stmt->bindValue(4, $qty);
-    $stmt->bindValue(5, $id);
-    $stmt->bindValue(6, $customerName);
-    $stmt->execute();
-  }
-
+ 
   public function searchOrder($order){
     $pdo = Database::DB();
     $stmt = $pdo->prepare('select *
@@ -166,6 +150,20 @@ require_once('settings.php');
     $stmt->bindValue(':order', $order);
     $stmt->execute();
     return$stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  public function openNcr($OrderID,$customer,$Despatch){
+    $pdo = Database::DB();
+    $stmt = $pdo->prepare('insert 
+      into ncr
+      (OrderID,Customer,Despatch)
+      values(?,?,?)');
+    $stmt->bindValue(1,$OrderID);
+    $stmt->bindValue(2,$customer);
+    $stmt->bindValue(3,$Despatch);
+    $stmt->execute();
+    return $pdo->lastInsertId();
+
   }
 
   }

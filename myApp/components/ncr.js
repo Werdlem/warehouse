@@ -144,13 +144,10 @@ this.x={};
       method: 'POST',
       url: './jsonData/ncrAction.php',
       data: {action: 'openNcr',
-      id: x.item_id,
-        po: x.order_id, 
-        added: x.nc,
-        sku: x.sku,
-        desc1: x.desc1,
-        qty: x.qty,
-        customerName: x.customer}
+      details: $scope.n.getOrder[0]
+      }
+    }).then((response)=>{
+      this.getResponse = response.data;
     });
   };
 

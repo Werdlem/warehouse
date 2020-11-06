@@ -9,23 +9,19 @@ $action = $data->action;
 
 switch ($action) {
 
+	case 'openNcr':
+	$OrderID = $data->details->OrderID;
+	$customer = $data->details->customer;
+	$Despatch = $data->details->despatch;
+	$add = $dal->openNcr($OrderID,$customer,$Despatch);
+	echo json_encode($add);
+	break;
+
+
 	case 'searchOrder':
 	$order = $data->order;
 	$fetch = $dal->searchOrder($order);
 	echo json_encode($fetch);
-	break;
-
-	case 'getSupplierDetails':
-	if(isset($data->ref)){
-		$id= $data->ref;
-		$fetch = $dal->getSupplierDetails($id);
-		echo json_encode($fetch);
-		break;
-	}
-	case 'updateLead':
-	$ref = $data->details->ACCOUNT_REF;
-	$lead = $data->lead;
-	$add = $dal->addSupplierLead($ref,$lead);
 	break;
 
 }
