@@ -15,7 +15,7 @@ switch ($action) {
 	break; 
 
 	case 'getLowStock':
-	$liveStock = $dal->getLiveStockFigures();
+	//$liveStock = $dal->getLiveStockFigures();
 	$fetch = $dal->getLowStock();
 	echo json_encode($fetch);
 

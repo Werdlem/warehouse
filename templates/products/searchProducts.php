@@ -18,6 +18,7 @@
 	<p>Sku: <a href="/productDetails?SkuID={{x.SkuID}}&Sku={{x.Sku}}">{{x.Sku}}</a></p>
 	<p>Location: <strong>{{x.location}}</strong></p>
 	<p>Qty: {{x.StockQty}}</p>
+	<p>Recomended Order Level: {{x.MaterialID}}</p>
 	<strong><p>Live Stock Qty: {{x.LiveStockQty}} </p></strong>
 	<p>Alias: {{x.Alias}}<br/></p>
 </div>
