@@ -1,5 +1,6 @@
  <?php include '../menuItems/productsMenu.html'; ?>
  <br/>
+ <p><input type="button" name="" value="Update Stock" class="btn btn-success btn-lg" ng-click="updateStock()"></p>
 
  <p>Filter Category: <select ng-model="selectCategory"> <option ng-repeat="cat in getCategories" value="{{cat.CategoryName}}">{{cat.CategoryName}}</option></select></p>
 

@@ -2,6 +2,16 @@
 
 myApp.controller('lowStock', function($scope,$http, $location){
 
+	$scope.updateStock=()=>{
+		$http({
+		method: 'POST',
+		url: './jsonData/productsGet.php',
+		data:{action: 'updateStock'}
+	}).then(function(response){
+		window.location.reload();
+	})
+	}
+
 	
 	$http({
 		method: 'GET',

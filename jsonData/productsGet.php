@@ -7,6 +7,9 @@ $data = json_decode(file_get_contents("php://input"));
 $action = $data->action;
 
 switch ($action) {
+	case 'updateStock':
+	$updateStock = $dal->updateAllSku();
+	break;
 	
 	case 'getLocations':
 	$location = $data->location;
@@ -28,7 +31,7 @@ switch ($action) {
 		break;
 
 	case 'getProductViaUrl':
-	$updateStock = $dal->updateAllSku();
+	//$updateStock = $dal->updateAllSku();
 	$liveStock = $dal->getLiveStockFigures();
 	$SkuID = $data->SkuID->SkuID;
 	$Sku =  $data->SkuID->Sku;
