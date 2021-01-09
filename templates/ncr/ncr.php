@@ -12,8 +12,15 @@
 <p>Customer: <span>{{n.getOrder[0].customer}}</span></p>
 <p>Order Number: <span>{{n.getOrder[0].order_id}}</span></p>
 <p>Order Date: <span>{{n.getOrder[0].order_date}}</span></p>
+
+<p>Select Issue: <select ng-model="NcrOptions" ng-options="x.reason for x in options"></select></p>
+	
+
 	<p ng-hide="selectProducts">Entire Order: <input type="checkbox" ng-model="entireOrder" ng-change="raiseNCR()"></p>
 	<p ng-hide="entireOrder" >Select Line: <input type="checkbox"ng-model="selectProducts" ng-click="raiseNCR()"></p>
+
+	<span ng-model="n.getId">{{n.getId}}</span>
+
 <div ng-show="findOrder">
 	
 <table class="table" ng-show="selectProducts">

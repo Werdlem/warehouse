@@ -131,6 +131,10 @@ this.search = $location.search();
   {
     id:10,
     reason: 'Courier Charge'
+  }, 
+  {
+    id:11,
+    reason: 'Other'
   }];
 
   $scope.nc = function(x){
@@ -144,10 +148,11 @@ this.x={};
       method: 'POST',
       url: './jsonData/ncrAction.php',
       data: {action: 'openNcr',
+     id: $scope.n.getId,
       details: $scope.n.getOrder[0]
       }
     }).then((response)=>{
-      this.getResponse = response.data;
+      this.getId = response.data;
     });
   };
 
