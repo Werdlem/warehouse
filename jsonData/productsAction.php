@@ -147,16 +147,13 @@ case 'orderReq':
  		require_once '../lib/swift_required.php';
 
  		//Create the transport
-<<<<<<< HEAD
-			$transport = Swift_MailTransport::newInstance(SMTP_HOST, SMTP_PORT)//;
-=======
-			$transport = Swift_MailTransport::newInstance(SMTP_HOST, SMTP_PORT)
->>>>>>> parent of b7ee4b1... Update productsAction.php
+
+			$transport = new Swift_SmtpTransport(SMTP_HOST, SMTP_PORT, 'tls')
 			->setUsername(Username)
 			->setPassword(Password);
 			//$transport = Swift_MailTransport::newInstance('smtp.gmail.com', 465);
-			$mailer = Swift_Mailer::newInstance($transport);			
-			$message = Swift_Message::newInstance('PLEASE ORDER')
+			$mailer = Swift_Mailer($transport);			
+			$message = (new Swift_Message('PLEASE ORDER'))
 			->setSubject('Product Order: ' .$Sku)
 			->setFrom($EMAIL_ORDERS_FROM)
 			->setCc($EMAIL_ORDERS_PU)
