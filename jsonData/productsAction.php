@@ -148,7 +148,7 @@ case 'orderReq':
 
  		//Create the transport
 
-			$transport = new Swift_SmtpTransport(SMTP_HOST, SMTP_PORT, 'tls')
+			$transport = (new Swift_SmtpTransport(SMTP_HOST, SMTP_PORT))
 			->setUsername(Username)
 			->setPassword(Password);
 			//$transport = Swift_MailTransport::newInstance('smtp.gmail.com', 465);
