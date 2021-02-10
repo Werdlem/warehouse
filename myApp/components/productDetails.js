@@ -96,7 +96,7 @@ myApp.controller('productDetails', function($scope, $http, $location, $route) {
 	else if (response.data == 'Success')
 	{
 		alert('Your order has been sent!');
-		//location.reload();
+		location.reload();
 	}
 
 	})
