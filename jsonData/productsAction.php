@@ -121,6 +121,8 @@ case 'orderReq':
 	$SkuID = $data->Sku->SkuID;
 	$Sku = strtoupper($data->Sku->Sku);
 	$qty = $data->details->qty;
+	$initials = $data->details->Initials;
+
 	if(isset($data->details->delivery)){
 		$delivery = 'YES';
 		$po = $data->details->po;
@@ -163,6 +165,7 @@ case 'orderReq':
                 Direct Delivery: '.$delivery.'<br/>
                 PO: '.$po.'<br/>
                 Additional Notes: '.$notes.'<br/>'.
+                'Initials:'.$initials.'<br>'.
                 '</body>' .
                 '</html>',
                 'text/html'
