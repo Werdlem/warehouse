@@ -87,6 +87,7 @@ myApp.controller('productDetails', function($scope, $http, $location, $route) {
 			details: order,
 			Sku: Sku,
 			SkuID: SkuID,
+			Op: order
 		}
 	}).then((response)=>{
 		if (response.data == 'Failure'){
@@ -94,8 +95,8 @@ myApp.controller('productDetails', function($scope, $http, $location, $route) {
 	}
 	else if (response.data == 'Success')
 	{
-		//alert('Your order has been sent!');
-		location.reload();
+		alert('Your order has been sent!');
+		//location.reload();
 	}
 
 	})
