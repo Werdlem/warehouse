@@ -152,7 +152,7 @@ case 'orderReq':
 			->setUsername(Username)
 			->setPassword(Password);
 			//$transport = Swift_MailTransport::newInstance('smtp.gmail.com', 465);
-			$mailer = Swift_Mailer($transport);			
+			$mailer = new Swift_Mailer($transport);			
 			$message = (new Swift_Message('PLEASE ORDER'))
 			->setSubject('Product Order: ' .$Sku)
 			->setFrom($EMAIL_ORDERS_FROM)
