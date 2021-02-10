@@ -145,7 +145,9 @@ case 'orderReq':
  		require_once '../lib/swift_required.php';
 
  		//Create the transport
-			$transport = Swift_MailTransport::newInstance(SMTP_HOST, SMTP_PORT);
+			$transport = Swift_MailTransport::newInstance(SMTP_HOST, SMTP_PORT)
+			->setUsername(Username)
+			->setPassword(Password);
 			//$transport = Swift_MailTransport::newInstance('smtp.gmail.com', 465);
 			$mailer = Swift_Mailer::newInstance($transport);			
 			$message = Swift_Message::newInstance('PLEASE ORDER')

@@ -9,6 +9,7 @@ $action = $data->action;
 switch ($action) {
 	case 'updateStock':
 	$updateStock = $dal->updateAllSku();
+	$liveStock = $dal->getLiveStockFigures()
 	break;
 	
 	case 'getLocations':
