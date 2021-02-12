@@ -25,7 +25,7 @@
 	<p>Reorder Level: <input type="text" ng-model="pr.getProduct[0].ReorderLevel" ng-change="editProduct(pr.getProduct[0])"style="border:0"></p>
 	<p>Recomended Reorder level: {{pr.getProduct[0].MaterialID}}</p>
   <p>Notes: <input type="text" ng-model="pr.getProduct[0].Notes" ng-change="editProduct(pr.getProduct[0])"style="border:0; width: 100%"></p>
-<p>Discontinued:  <input type="checkBox" ng-checked="pr.getProduct[0].Discontinued==1" ng-model="pr.getProduct[0].Discontinued" ng-change="editProduct()"> Display Low Stock? <input type="checkBox" ng-checked="pr.getProduct[0].LowStock==true" ng-model="LowStock" ng-click="editProduct()"></p>
+<p>Discontinued:  <input type="checkBox" ng-checked="pr.getProduct[0].Discontinued==1" ng-model="pr.getProduct[0].Discontinued" ng-change="editProduct()"> Hide from Low Stock? <input type="checkBox" ng-checked="pr.getProduct[0].LowStock==true" ng-model="LowStock" ng-click="editProduct()"></p>
 
 
 
